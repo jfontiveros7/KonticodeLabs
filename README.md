@@ -2,6 +2,15 @@
 
 A simple Flask web application with command-line tool, using clean project structure.
 
+## CI/CD
+
+This project uses GitHub Actions for continuous integration. The workflow (`.github/workflows/python-ci.yml`) automatically:
+- Installs Python dependencies
+- Runs code linting with flake8
+- Executes tests with pytest
+
+The CI runs on every push and pull request to the `main` branch.
+
 ## Project Structure
 
 - `main.py`: Entry point of the Flask application
