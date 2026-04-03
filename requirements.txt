@@ -1,0 +1,6 @@
+# Requirements for the Python application
+# Add any external dependencies here
+# For example:
+# requests==2.28.0
+
+flask==3.0.0
