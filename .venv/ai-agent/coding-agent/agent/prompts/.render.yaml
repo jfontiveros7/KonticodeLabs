@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: ai-agent
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn main:app"
-    plan: free
-    autoDeploy: true
-
