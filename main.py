@@ -31,6 +31,10 @@ def home():
                          app_name=CONFIG['app_name'],
                          version=CONFIG['version'])
 
+@app.route("/healthz")
+def health_check():
+    return "OK", 200
+
 @app.route('/health')
 def health():
     """Health check route."""
