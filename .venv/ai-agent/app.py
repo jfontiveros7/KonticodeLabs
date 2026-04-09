@@ -125,8 +125,9 @@ HTML_TEMPLATE = """
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20 animate-slide-up d300">
                 <a href="#agent"
                    class="btn-gradient text-white font-bold px-10 py-4 rounded-2xl text-lg
-                          inline-flex items-center gap-3 shadow-xl">
-                    <i class="fas fa-rocket"></i> Try it Free
+                          inline-flex items-center gap-3 shadow-xl cursor-pointer"
+                   onclick="document.getElementById('agent').scrollIntoView({behavior:'smooth'}); setTimeout(unlockAgent,600); return false;">
+                    <i class="fas fa-rocket"></i> Try it for $5
                 </a>
                 <a href="#pricing"
                    class="bg-white/10 backdrop-blur border border-white/20 text-white font-bold
@@ -206,8 +207,31 @@ HTML_TEMPLATE = """
                 <p class="text-gray-500 text-lg">Choose a task and let AI do the heavy lifting</p>
             </div>
 
-            <!-- Agent card -->
-            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <!-- Agent card (locked until payment) -->
+            <div class="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+                <!-- ── Paywall overlay ── -->
+                <div id="paywallOverlay"
+                     class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-6
+                            rounded-3xl backdrop-blur-sm"
+                     style="background:rgba(15,12,41,0.75);">
+                    <div class="flex flex-col items-center gap-4 text-center px-8">
+                        <div class="w-20 h-20 rounded-full bg-indigo-600/20 flex items-center justify-center
+                                    border-2 border-indigo-500/40">
+                            <i class="fas fa-lock text-indigo-300 text-3xl"></i>
+                        </div>
+                        <h3 class="text-white text-2xl font-black">Unlock the Agent</h3>
+                        <p class="text-gray-300 text-sm max-w-xs">
+                            Complete your $5 payment to access the full AI Coding Agent.
+                        </p>
+                        <button onclick="unlockAgent()"
+                                class="btn-gradient text-white font-bold px-10 py-4 rounded-2xl text-lg
+                                       inline-flex items-center gap-3 shadow-xl mt-2">
+                            <i class="fas fa-credit-card"></i> Pay $5 &amp; Unlock
+                        </button>
+                        <p class="text-gray-500 text-xs">Secure checkout &middot; Instant access &middot; Cancel anytime</p>
+                    </div>
+                </div>
 
                 <!-- Title bar -->
                 <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-5 flex items-center gap-4">
@@ -312,7 +336,7 @@ HTML_TEMPLATE = """
                     <h3 class="text-white text-xl font-bold mb-1">Starter</h3>
                     <p class="text-gray-400 text-sm mb-6">Perfect for hobbyists &amp; learners</p>
                     <div class="mb-8">
-                        <span class="text-5xl font-black text-white">$0</span>
+                        <span class="text-5xl font-black text-white">$5</span>
                         <span class="text-gray-400 ml-1 text-sm">/month</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm">
@@ -483,6 +507,14 @@ HTML_TEMPLATE = """
                 document.getElementById('submitBtn').click();
             }
         });
+
+        function unlockAgent() {
+            const overlay = document.getElementById('paywallOverlay');
+            if (!overlay) return;
+            overlay.style.transition = 'opacity 0.5s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 500);
+        }
     </script>
 </body>
 </html>
