@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <script>
-    // Load theme from localStorage
-    if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-        document.documentElement.classList.add('dark')
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
-
-    function toggleTheme() {
-        const html = document.documentElement
-        const isDark = html.classList.toggle('dark')
-        localStorage.theme = isDark ? 'dark' : 'light'
-    }
-        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Agent Console</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Dark Mode Logic -->
+    <script>
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement
+            const isDark = html.classList.toggle('dark')
+            localStorage.theme = isDark ? 'dark' : 'light'
+        }
+    </script>
 </head>
 
-<body class="bg-gray-100 h-screen flex">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 h-screen flex transition-all duration-300">
 
     <!-- SIDEBAR -->
-    <button onclick="toggleTheme()" 
-    class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
-    🌙 / ☀️
-</button>
-
-    <aside class="w-64 bg-white shadow-lg p-6">
+    <aside class="w-64 bg-white dark:bg-gray-800 shadow-lg p-6 transition-all duration-300">
         <h2 class="text-2xl font-bold text-indigo-600 mb-6">Agent Console</h2>
 
         <nav class="space-y-4">
-            <a href="/" class="block text-gray-700 hover:text-indigo-600">🏠 Home</a>
+            <a href="/" class="block text-gray-700 dark:text-gray-300 hover:text-indigo-600">🏠 Home</a>
             <a href="/agent" class="block text-indigo-600 font-semibold">🤖 Agent</a>
-            <a href="#" class="block text-gray-700 hover:text-indigo-600">⚙️ Settings</a>
+            <a href="/dashboard" class="block text-gray-700 dark:text-gray-300 hover:text-indigo-600">📊 Dashboard</a>
         </nav>
+
+        <button onclick="toggleTheme()" 
+            class="mt-6 px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
+            🌙 / ☀️
+        </button>
     </aside>
 
     <!-- MAIN PANEL -->
     <main class="flex-1 p-8 flex flex-col">
 
         <!-- CHAT WINDOW -->
-        <div id="chat-window" class="flex-1 bg-white rounded-lg shadow p-6 overflow-y-auto">
-            <p class="text-gray-500">Your AI agent is ready.</p>
+        <div id="chat-window" class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6 overflow-y-auto transition-all duration-300">
+            <p class="text-gray-500 dark:text-gray-300">Your AI agent is ready.</p>
         </div>
 
         <!-- INPUT BAR -->
@@ -56,7 +58,7 @@
                 id="user-input"
                 type="text"
                 placeholder="Type a command..."
-                class="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none"
+                class="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none"
             >
             <button 
                 class="px-6 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700"
