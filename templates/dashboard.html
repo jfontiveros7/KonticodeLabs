@@ -3,32 +3,217 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-
+    <title>Dashboard – NovaStack Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .stat-card { transition: transform .25s ease, box-shadow .25s ease; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+        .activity-item { animation: fadeIn .4s ease; }
+        @keyframes fadeIn { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:translateX(0)} }
+    </style>
 </head>
 
-<body class="bg-gray-900 text-white p-10">
-    <header class="flex justify-between items-center mb-10">
-        <h1 class="text-3xl font-bold">Dashboard</h1>
-        <a href="/" class="px-4 py-2 bg-gray-700 rounded">Home</a>
-    </header>
+<body class="bg-gray-950 text-white flex h-screen overflow-hidden">
 
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-gray-800 p-6 rounded shadow">
-            <h3 class="text-xl font-bold mb-2">Tasks Completed</h3>
-            <p class="text-4xl font-bold">128</p>
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col p-5 shrink-0">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+                <i class="fas fa-robot text-sm"></i>
+            </div>
+            <span class="font-bold text-lg">NovaStack</span>
+        </div>
+        <nav class="space-y-1">
+            <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+                <i class="fas fa-home w-4"></i> Home
+            </a>
+            <a href="/agent" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+                <i class="fas fa-comment-dots w-4"></i> Agent Chat
+            </a>
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-600/30">
+                <i class="fas fa-chart-bar w-4"></i> Dashboard
+            </a>
+        </nav>
+        <div class="mt-auto pt-4 border-t border-gray-800">
+            <div class="flex items-center gap-2 text-xs text-emerald-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Agent online
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 overflow-y-auto p-8">
+
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-black">Dashboard</h1>
+                <p class="text-gray-500 text-sm mt-1">Real-time agent activity</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="lastUpdated" class="text-xs text-gray-500"></span>
+                <button onclick="fetchStats()"
+                        class="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg text-sm transition-colors">
+                    <i class="fas fa-sync-alt mr-2"></i> Refresh
+                </button>
+                <a href="/agent"
+                   class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-semibold transition-colors">
+                    <i class="fas fa-comment-dots mr-2"></i> Open Agent
+                </a>
+            </div>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded shadow">
-            <h3 class="text-xl font-bold mb-2">Active Workflows</h3>
-            <p class="text-4xl font-bold">12</p>
+        <!-- Stat cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div class="stat-card bg-gray-900 border border-gray-800 rounded-2xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-400 text-sm">Messages</span>
+                    <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-comments text-indigo-400 text-sm"></i>
+                    </div>
+                </div>
+                <div id="stat-messages" class="text-4xl font-black text-white">—</div>
+                <div class="text-xs text-emerald-400 mt-1"><i class="fas fa-arrow-up"></i> Live</div>
+            </div>
+            <div class="stat-card bg-gray-900 border border-gray-800 rounded-2xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-400 text-sm">Tasks Done</span>
+                    <div class="w-8 h-8 bg-emerald-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-emerald-400 text-sm"></i>
+                    </div>
+                </div>
+                <div id="stat-tasks" class="text-4xl font-black text-white">—</div>
+                <div class="text-xs text-emerald-400 mt-1"><i class="fas fa-arrow-up"></i> Live</div>
+            </div>
+            <div class="stat-card bg-gray-900 border border-gray-800 rounded-2xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-400 text-sm">Workflows</span>
+                    <div class="w-8 h-8 bg-sky-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-project-diagram text-sky-400 text-sm"></i>
+                    </div>
+                </div>
+                <div id="stat-workflows" class="text-4xl font-black text-white">—</div>
+                <div class="text-xs text-gray-500 mt-1">Active</div>
+            </div>
+            <div class="stat-card bg-gray-900 border border-gray-800 rounded-2xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-gray-400 text-sm">Errors</span>
+                    <div class="w-8 h-8 bg-red-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-400 text-sm"></i>
+                    </div>
+                </div>
+                <div id="stat-errors" class="text-4xl font-black text-white">—</div>
+                <div class="text-xs text-gray-500 mt-1">This session</div>
+            </div>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded shadow">
-            <h3 class="text-xl font-bold mb-2">Errors</h3>
-            <p class="text-4xl font-bold text-red-400">0</p>
+        <!-- Activity + Quick actions -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Activity feed -->
+            <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="font-bold text-lg">Recent Activity</h2>
+                    <span class="text-xs text-gray-500">Auto-refreshes every 10s</span>
+                </div>
+                <div id="activityFeed" class="space-y-3 min-h-[200px]">
+                    <div class="text-gray-600 text-sm text-center py-8">No activity yet — start chatting with Nova!</div>
+                </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <h2 class="font-bold text-lg mb-5">Quick Actions</h2>
+                <div class="space-y-3">
+                    <a href="/agent?q=Generate+a+Python+REST+API"
+                       class="flex items-center gap-3 p-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 bg-indigo-600/20 rounded-lg flex items-center justify-center group-hover:bg-indigo-600/40 transition-colors">
+                            <i class="fas fa-code text-indigo-400 text-xs"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Generate Code</div>
+                            <div class="text-xs text-gray-500">Start a new task</div>
+                        </div>
+                    </a>
+                    <a href="/agent?q=Explain+this+code"
+                       class="flex items-center gap-3 p-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 bg-purple-600/20 rounded-lg flex items-center justify-center group-hover:bg-purple-600/40 transition-colors">
+                            <i class="fas fa-brain text-purple-400 text-xs"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Explain Code</div>
+                            <div class="text-xs text-gray-500">Understand any snippet</div>
+                        </div>
+                    </a>
+                    <a href="/agent?q=Refactor+this+code"
+                       class="flex items-center gap-3 p-3 bg-gray-800 hover:bg-gray-700 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 bg-fuchsia-600/20 rounded-lg flex items-center justify-center group-hover:bg-fuchsia-600/40 transition-colors">
+                            <i class="fas fa-magic text-fuchsia-400 text-xs"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Refactor Code</div>
+                            <div class="text-xs text-gray-500">Improve quality</div>
+                        </div>
+                    </a>
+                    <div class="pt-2 border-t border-gray-800">
+                        <div class="flex items-center gap-2 text-xs text-gray-500 mb-3">System Status</div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-emerald-400">Nova Agent</span>
+                            <span class="text-gray-600 ml-auto">Online</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm mt-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            <span class="text-emerald-400">OpenAI API</span>
+                            <span class="text-gray-600 ml-auto">Connected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </main>
+
+    <script>
+        async function fetchStats() {
+            try {
+                const res  = await fetch("/api/stats");
+                const data = await res.json();
+
+                document.getElementById("stat-messages").textContent  = data.messages;
+                document.getElementById("stat-tasks").textContent     = data.tasks;
+                document.getElementById("stat-workflows").textContent = data.workflows;
+                document.getElementById("stat-errors").textContent    = data.errors;
+                document.getElementById("lastUpdated").textContent    = "Updated " + new Date().toLocaleTimeString();
+
+                const feed = document.getElementById("activityFeed");
+                if (data.activity && data.activity.length > 0) {
+                    feed.innerHTML = data.activity.map(a =>
+                        `<div class="activity-item flex items-start gap-3 p-3 bg-gray-800 rounded-xl">
+                            <div class="w-7 h-7 bg-indigo-600/20 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fas fa-comment text-indigo-400 text-xs"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-200">${escapeHtml(a.text)}</div>
+                                <div class="text-xs text-gray-500 mt-0.5">${a.time}</div>
+                            </div>
+                        </div>`
+                    ).join("");
+                } else {
+                    feed.innerHTML = '<div class="text-gray-600 text-sm text-center py-8">No activity yet — start chatting with Nova!</div>';
+                }
+            } catch (e) {
+                console.error("Stats fetch failed:", e);
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        }
+
+        // Initial load + auto-refresh every 10s
+        fetchStats();
+        setInterval(fetchStats, 10000);
+    </script>
 </body>
 </html>
