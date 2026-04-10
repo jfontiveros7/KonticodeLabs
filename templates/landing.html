@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaStack Labs – AI Agent</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+        
+    </script><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    AOS.init();
+  });
+</script>
+    
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -18,7 +27,8 @@
     </nav>
 
     <!-- HERO -->
-    <section class="text-center py-24 px-6">
+    <section class="text-center py-24 px-6" data-aos="fade-up">
+
         <h2 class="text-5xl font-extrabold text-gray-900 mb-6">
             Your AI Agent, Supercharged.
         </h2>
@@ -33,7 +43,8 @@
     <!-- FEATURES -->
     <section class="py-20 bg-white">
         <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
-            <div class="p-6 bg-gray-100 rounded-lg shadow">
+            <div class="p-6 bg-gray-100 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="200">
+
                 <h3 class="text-xl font-semibold mb-2">Fast</h3>
                 <p class="text-gray-600">Lightning‑quick responses powered by optimized AI pipelines.</p>
             </div>
