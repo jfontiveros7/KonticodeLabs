@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <script>
-    // Load theme from localStorage
-    if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-        document.documentElement.classList.add('dark')
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
-
-    function toggleTheme() {
-        const html = document.documentElement
-        const isDark = html.classList.toggle('dark')
-        localStorage.theme = isDark ? 'dark' : 'light'
-    }
-        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaStack Labs – AI Agent</title>
-    <script src="https://cdn.tailwindcss.com">
-        
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    AOS.init();
-  });
-</script>
-    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Dark Mode Logic -->
+    <script>
+        if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement
+            const isDark = html.classList.toggle('dark')
+            localStorage.theme = isDark ? 'dark' : 'light'
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            AOS.init();
+        });
+    </script>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-all duration-300">
 
     <!-- NAVBAR -->
-    <button onclick="toggleTheme()" 
-    class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
-    🌙 / ☀️
-</button>
-
-    <nav class="flex justify-between items-center px-8 py-4 bg-white shadow">
+    <nav class="flex justify-between items-center px-8 py-4 bg-white dark:bg-gray-800 shadow">
         <h1 class="text-2xl font-bold text-indigo-600">NovaStack Labs</h1>
-        <a href="/agent" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-            Launch Agent
-        </a>
+
+        <div class="flex items-center gap-4">
+            <button onclick="toggleTheme()" 
+                class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
+                🌙 / ☀️
+            </button>
+
+            <a href="/agent" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                Launch Agent
+            </a>
+        </div>
     </nav>
 
     <!-- HERO -->
-    <section class="text-center py-24 px-6 bg-white dark:bg-gray-900 dark:text-gray-100 transition-all duration-300">
-
-
-        <h2 class="text-5xl font-extrabold text-gray-900 mb-6">
+    <section class="text-center py-24 px-6" data-aos="fade-up">
+        <h2 class="text-5xl font-extrabold mb-6">
             Your AI Agent, Supercharged.
         </h2>
-        <p class="text-xl text-gray-600 mb-8">
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
             Automate tasks, generate insights, and build smarter workflows with NovaStack AI.
         </p>
         <a href="/agent" class="px-6 py-3 bg-indigo-600 text-white rounded-lg text-lg hover:bg-indigo-700">
@@ -64,26 +66,29 @@
     </section>
 
     <!-- FEATURES -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-white dark:bg-gray-800 transition-all duration-300">
         <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
-            <div class="p-6 bg-gray-100 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="200">
 
+            <div class="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow" data-aos="zoom-in">
                 <h3 class="text-xl font-semibold mb-2">Fast</h3>
-                <p class="text-gray-600">Lightning‑quick responses powered by optimized AI pipelines.</p>
+                <p class="text-gray-600 dark:text-gray-300">Lightning‑quick responses powered by optimized AI pipelines.</p>
             </div>
-            <div class="p-6 bg-gray-100 rounded-lg shadow">
+
+            <div class="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="150">
                 <h3 class="text-xl font-semibold mb-2">Reliable</h3>
-                <p class="text-gray-600">Built with clean architecture and scalable infrastructure.</p>
+                <p class="text-gray-600 dark:text-gray-300">Built with clean architecture and scalable infrastructure.</p>
             </div>
-            <div class="p-6 bg-gray-100 rounded-lg shadow">
+
+            <div class="p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="300">
                 <h3 class="text-xl font-semibold mb-2">Customizable</h3>
-                <p class="text-gray-600">Easily extend the agent to fit your business workflows.</p>
+                <p class="text-gray-600 dark:text-gray-300">Easily extend the agent to fit your business workflows.</p>
             </div>
+
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center py-6 text-gray-500">
+    <footer class="text-center py-6 text-gray-500 dark:text-gray-400">
         © 2026 NovaStack Labs. All rights reserved.
     </footer>
 
