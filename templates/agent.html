@@ -1,73 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agent Console</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Console</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Dark Mode Logic -->
-    <script>
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement
-            const isDark = html.classList.toggle('dark')
-            localStorage.theme = isDark ? 'dark' : 'light'
-        }
-    </script>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 h-screen flex transition-all duration-300">
-
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white dark:bg-gray-800 shadow-lg p-6 transition-all duration-300">
-        <h2 class="text-2xl font-bold text-indigo-600 mb-6">Agent Console</h2>
-
+<body class="bg-gray-900 text-white flex">
+    <aside class="w-64 bg-gray-800 h-screen p-6">
+        <h2 class="text-xl font-bold mb-6">Agent Console</h2>
         <nav class="space-y-4">
-            <a href="/" class="block text-gray-700 dark:text-gray-300 hover:text-indigo-600">🏠 Home</a>
-            <a href="/agent" class="block text-indigo-600 font-semibold">🤖 Agent</a>
-            <a href="/dashboard" class="block text-gray-700 dark:text-gray-300 hover:text-indigo-600">📊 Dashboard</a>
+            <a href="/" class="block text-gray-300 hover:text-white">Home</a>
+            <a href="/dashboard" class="block text-gray-300 hover:text-white">Dashboard</a>
         </nav>
-
-        <button onclick="toggleTheme()" 
-            class="mt-6 px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded text-gray-800 dark:text-gray-200">
-            🌙 / ☀️
-        </button>
     </aside>
 
-    <!-- MAIN PANEL -->
-    <main class="flex-1 p-8 flex flex-col">
+    <main class="flex-1 p-10">
+        <h1 class="text-3xl font-bold mb-6">Chat with Your Agent</h1>
 
-        <!-- CHAT WINDOW -->
-        <div id="chat-window" class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6 overflow-y-auto transition-all duration-300">
-            <p class="text-gray-500 dark:text-gray-300">Your AI agent is ready.</p>
+        <div id="chatBox" class="bg-gray-800 p-6 rounded h-[60vh] overflow-y-auto mb-6"></div>
+
+        <div class="flex gap-4">
+            <input id="msg" class="flex-1 p-3 bg-gray-700 rounded" placeholder="Type a message..." />
+            <button id="send" class="px-6 py-3 bg-blue-600 rounded">Send</button>
         </div>
-
-        <!-- INPUT BAR -->
-        <form id="chat-form" class="mt-4 flex">
-            <input 
-                id="user-input"
-                type="text"
-                placeholder="Type a command..."
-                class="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none"
-            >
-            <button 
-                class="px-6 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700"
-            >
-                Send
-            </button>
-        </form>
-
     </main>
 
+    <script>
+        const chatBox = document.getElementById("chatBox");
+        const msg = document.getElementById("msg");
+        const send = document.getElementById("send");
+
+        send.onclick = () => {
+            if (!msg.value.trim()) return;
+            chatBox.innerHTML += `<div class='mb-3'><strong>You:</strong> ${msg.value}</div>`;
+            msg.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+    </script>
 </body>
 </html>
