@@ -1,3 +1,7 @@
+edge_all_open_tabs = [
+  {"pageTitle": "...", "pageUrl": "..."}
+]
+
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
