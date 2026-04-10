@@ -5,6 +5,15 @@ app = Flask(__name__)
 # ---------------------------
 # Home Route
 # ---------------------------
+
+@app.route("/")
+def landing():
+    return render_template("landing.html")
+
+@app.route("/agent")
+def agent():
+    return render_template("agent.html")
+
 @app.route("/")
 def home():
     return render_template(
