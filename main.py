@@ -2,6 +2,10 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
 @app.route("/")
 def landing():
     return render_template("landing.html")
