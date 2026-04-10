@@ -1,6 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
+    <script>
+    // Load theme from localStorage
+    if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement
+        const isDark = html.classList.toggle('dark')
+        localStorage.theme = isDark ? 'dark' : 'light'
+    }
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard – NovaStack Labs</title>
