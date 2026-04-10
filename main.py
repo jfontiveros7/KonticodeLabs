@@ -1,7 +1,3 @@
-edge_all_open_tabs = [
-  {"pageTitle": "...", "pageUrl": "..."}
-]
-
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
@@ -21,6 +17,3 @@ def agent():
 @app.route("/healthz")
 def healthz():
     return jsonify({"status": "ok"}), 200
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
