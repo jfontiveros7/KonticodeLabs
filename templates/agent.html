@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
+<body class="bg-gray-100 h-screen flex">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-white shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-indigo-600 mb-6">Agent Console</h2>
+
+        <nav class="space-y-4">
+            <a href="/" class="block text-gray-700 hover:text-indigo-600">🏠 Home</a>
+            <a href="/agent" class="block text-indigo-600 font-semibold">🤖 Agent</a>
+            <a href="#" class="block text-gray-700 hover:text-indigo-600">⚙️ Settings</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <main class="flex-1 p-8 flex flex-col">
+
+        <!-- CHAT WINDOW -->
+        <div id="chat-window" class="flex-1 bg-white rounded-lg shadow p-6 overflow-y-auto">
+            <p class="text-gray-500">Your AI agent is ready.</p>
+        </div>
+
+        <!-- INPUT BAR -->
+        <form id="chat-form" class="mt-4 flex">
+            <input 
+                id="user-input"
+                type="text"
+                placeholder="Type a command..."
+                class="flex-1 px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none"
+            >
+            <button 
+                class="px-6 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700"
+            >
+                Send
+            </button>
+        </form>
+
+    </main>
+
+</body>
+</html>
