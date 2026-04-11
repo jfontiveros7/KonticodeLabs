@@ -5,8 +5,8 @@ from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
-# Load API key from the ai-agent .env
-load_dotenv(os.path.join(os.path.dirname(__file__), ".venv", "ai-agent", ".env"))
+# Load .env locally; on Railway, env vars are set in the dashboard
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -83,4 +83,5 @@ def get_stats():
 
 if __name__ == "__main__":
     print("Starting NovaStack Labs on http://localhost:5000/")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    port = int(os.getenv("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)
