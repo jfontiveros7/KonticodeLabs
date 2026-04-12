@@ -1,12 +1,19 @@
 import os
 import json
+import base64
 import datetime
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-# Load .env locally; on Railway, env vars are set in the dashboard
-load_dotenv()
+# Always load env vars from this project folder, regardless of current shell cwd.
+# override=True prevents stale variables from previous runs from taking precedence.
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"), override=True)
 
 app = Flask(__name__)
 
@@ -38,9 +45,121 @@ def agent():
 def dashboard():
     return render_template("dashboard.html")
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/tech")
+def tech():
+    return render_template("tech.html")
+
 @app.route("/healthz")
 def healthz():
     return jsonify({"status": "ok"}), 200
+
+@app.route("/api/oauth-check")
+def oauth_check():
+    client_id = os.getenv("GOOGLE_CLIENT_ID")
+    client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
+    refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
+    mail_sender = os.getenv("MAIL_SENDER")
+
+    missing = []
+    if not client_id:
+        missing.append("GOOGLE_CLIENT_ID")
+    if not client_secret:
+        missing.append("GOOGLE_CLIENT_SECRET")
+    if not refresh_token:
+        missing.append("GOOGLE_REFRESH_TOKEN")
+    if not mail_sender:
+        missing.append("MAIL_SENDER")
+
+    if missing:
+        return jsonify({"ok": False, "missing": missing}), 400
+
+    try:
+        creds = Credentials(
+            token=None,
+            refresh_token=refresh_token,
+            client_id=client_id,
+            client_secret=client_secret,
+            token_uri="https://oauth2.googleapis.com/token",
+        )
+        service = build("gmail", "v1", credentials=creds)
+        profile = service.users().getProfile(userId="me").execute()
+        return jsonify({
+            "ok": True,
+            "message": "OAuth configuration is valid.",
+            "gmail_account": profile.get("emailAddress"),
+        }), 200
+    except HttpError as e:
+        return jsonify({"ok": False, "error": f"Gmail API error: {e.reason}"}), 500
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 500
+
+@app.route("/api/contact", methods=["POST"])
+def send_contact():
+    try:
+        data = request.get_json()
+        first_name   = data.get("first_name", "").strip()
+        last_name    = data.get("last_name", "").strip()
+        sender_email = data.get("email", "").strip()
+        subject      = data.get("subject", "general")
+        message      = data.get("message", "").strip()
+
+        if not first_name or not sender_email or not message:
+            return jsonify({"error": "Name, email, and message are required."}), 400
+
+        # ── Gmail API via OAuth2 ──
+        # Requires GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN,
+        # MAIL_SENDER, and MAIL_RECEIVER in your .env / Railway env vars.
+        client_id     = os.getenv("GOOGLE_CLIENT_ID")
+        client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
+        refresh_token = os.getenv("GOOGLE_REFRESH_TOKEN")
+        mail_sender   = os.getenv("MAIL_SENDER")
+        mail_receiver = os.getenv("MAIL_RECEIVER", mail_sender)
+
+        if client_id and client_secret and refresh_token and mail_sender:
+            full_name = f"{first_name} {last_name}".strip()
+            body = (
+                f"From: {full_name} <{sender_email}>\n"
+                f"Topic: {subject}\n"
+                f"{'─' * 40}\n\n"
+                f"{message}"
+            )
+            creds = Credentials(
+                token=None,
+                refresh_token=refresh_token,
+                client_id=client_id,
+                client_secret=client_secret,
+                token_uri="https://oauth2.googleapis.com/token",
+            )
+            service = build("gmail", "v1", credentials=creds)
+
+            msg = MIMEMultipart()
+            msg["From"]    = mail_sender
+            msg["To"]      = mail_receiver
+            msg["Subject"] = f"[Konticode Contact] {subject} – {full_name}"
+            msg["Reply-To"] = sender_email
+            msg.attach(MIMEText(body, "plain"))
+
+            raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
+            service.users().messages().send(userId="me", body={"raw": raw}).execute()
+
+        # Always log to activity feed
+        activity_log.insert(0, {
+            "time": datetime.datetime.now().strftime("%H:%M:%S"),
+            "text": f"Contact form: {first_name} <{sender_email}>"
+        })
+        if len(activity_log) > 20:
+            activity_log.pop()
+
+        return jsonify({"ok": True}), 200
+
+    except HttpError as e:
+        return jsonify({"error": f"Gmail API error: {e.reason}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"Could not send message: {str(e)}"}), 500
 
 @app.route("/api/chat", methods=["POST"])
 def chat():

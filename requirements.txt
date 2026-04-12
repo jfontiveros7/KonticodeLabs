@@ -7,4 +7,7 @@ flask==3.0.0
 gunicorn
 python-dotenv
 langchain-openai
+google-auth
+google-auth-oauthlib
+google-api-python-client
 
