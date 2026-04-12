@@ -134,3 +134,7 @@ app.log
 # Temporary files
 *.tmp
 *.temp
+# Environment and secrets
+templates/client_secret.json
+get_token.py
+.env
