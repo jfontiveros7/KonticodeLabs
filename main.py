@@ -168,32 +168,47 @@ def send_contact():
         mail_sender   = os.getenv("MAIL_SENDER")
         mail_receiver = os.getenv("MAIL_RECEIVER", mail_sender)
 
-        if client_id and client_secret and refresh_token and mail_sender:
-            full_name = f"{first_name} {last_name}".strip()
-            body = (
-                f"From: {full_name} <{sender_email}>\n"
-                f"Topic: {subject}\n"
-                f"{'─' * 40}\n\n"
-                f"{message}"
-            )
-            creds = Credentials(
-                token=None,
-                refresh_token=refresh_token,
-                client_id=client_id,
-                client_secret=client_secret,
-                token_uri="https://oauth2.googleapis.com/token",
-            )
-            service = build("gmail", "v1", credentials=creds)
+        missing_mail_env = []
+        if not client_id:
+            missing_mail_env.append("GOOGLE_CLIENT_ID")
+        if not client_secret:
+            missing_mail_env.append("GOOGLE_CLIENT_SECRET")
+        if not refresh_token:
+            missing_mail_env.append("GOOGLE_REFRESH_TOKEN")
+        if not mail_sender:
+            missing_mail_env.append("MAIL_SENDER")
 
-            msg = MIMEMultipart()
-            msg["From"]    = mail_sender
-            msg["To"]      = mail_receiver
-            msg["Subject"] = f"[Konticode Contact] {subject} – {full_name}"
-            msg["Reply-To"] = sender_email
-            msg.attach(MIMEText(body, "plain"))
+        if missing_mail_env:
+            return jsonify({
+                "error": "Email service is not configured.",
+                "missing": missing_mail_env,
+            }), 503
 
-            raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
-            service.users().messages().send(userId="me", body={"raw": raw}).execute()
+        full_name = f"{first_name} {last_name}".strip()
+        body = (
+            f"From: {full_name} <{sender_email}>\n"
+            f"Topic: {subject}\n"
+            f"{'─' * 40}\n\n"
+            f"{message}"
+        )
+        creds = Credentials(
+            token=None,
+            refresh_token=refresh_token,
+            client_id=client_id,
+            client_secret=client_secret,
+            token_uri="https://oauth2.googleapis.com/token",
+        )
+        service = build("gmail", "v1", credentials=creds)
+
+        msg = MIMEMultipart()
+        msg["From"]    = mail_sender
+        msg["To"]      = mail_receiver
+        msg["Subject"] = f"[Konticode Contact] {subject} – {full_name}"
+        msg["Reply-To"] = sender_email
+        msg.attach(MIMEText(body, "plain"))
+
+        raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
+        service.users().messages().send(userId="me", body={"raw": raw}).execute()
 
         # Always log to activity feed
         activity_log.insert(0, {
