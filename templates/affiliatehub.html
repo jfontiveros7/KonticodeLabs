@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Affiliate Tools - Konticode Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ["Space Grotesk", "ui-sans-serif", "system-ui"],
+                        body: ["Manrope", "ui-sans-serif", "system-ui"]
+                    },
+                    keyframes: {
+                        rise: {
+                            "0%": { opacity: "0", transform: "translateY(16px)" },
+                            "100%": { opacity: "1", transform: "translateY(0)" }
+                        }
+                    },
+                    animation: {
+                        rise: "rise 0.7s ease-out forwards"
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --hub-cyan: #22d3ee;
+            --hub-amber: #f59e0b;
+            --hub-rose: #fb7185;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(2, 132, 199, 0.2);
+        }
+        .delay-1 { animation-delay: 0.12s; opacity: 0; }
+        .delay-2 { animation-delay: 0.24s; opacity: 0; }
+        .delay-3 { animation-delay: 0.36s; opacity: 0; }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-HXPJGHXTBV');
+    </script>
+</head>
+
+<body class="font-body bg-slate-950 text-slate-100 overflow-x-hidden">
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute top-[-120px] left-[-100px] w-[420px] h-[420px] rounded-full blur-3xl" style="background:rgba(34,211,238,0.2)"></div>
+        <div class="absolute top-[20%] right-[-120px] w-[420px] h-[420px] rounded-full blur-3xl" style="background:rgba(245,158,11,0.18)"></div>
+        <div class="absolute bottom-[-120px] left-[20%] w-[400px] h-[400px] rounded-full blur-3xl" style="background:rgba(251,113,133,0.16)"></div>
+    </div>
+
+    <nav class="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/80 backdrop-blur px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 font-display text-lg font-bold">
+                <span class="w-8 h-8 rounded-lg bg-cyan-400/20 text-cyan-300 flex items-center justify-center">
+                    <i class="fas fa-coins text-sm"></i>
+                </span>
+                Affiliate Tools
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+                <a href="/" class="hover:text-white transition-colors">Home</a>
+                <a href="/tech" class="hover:text-white transition-colors">Tech</a>
+                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+                <a href="/agent" class="hover:text-white transition-colors">Agent</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="px-6 pt-14 pb-10">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide uppercase border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 animate-rise">
+                Monetization Layer
+            </span>
+            <h1 class="mt-6 font-display text-4xl md:text-6xl font-bold leading-tight animate-rise delay-1">
+                Referral Stack for <span class="text-cyan-300">Revenue</span>
+            </h1>
+            <p class="mt-5 max-w-3xl mx-auto text-slate-300 text-lg animate-rise delay-2">
+                This page centralizes referral links for hosting, domains, and AI tooling used by this website.
+                Use these links in content, onboarding docs, and client recommendations to generate recurring income.
+            </p>
+            <p class="mt-4 text-sm text-slate-400 animate-rise delay-3">
+                Affiliate disclosure: We may earn a commission when purchases are made through these links.
+            </p>
+        </div>
+    </header>
+
+    <main class="px-6 pb-20">
+        <section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-cyan-400/15 text-cyan-300 flex items-center justify-center mb-4">
+                    <i class="fas fa-train-subway text-lg"></i>
+                </div>
+                <h2 class="font-display text-2xl font-bold">Railway</h2>
+                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
+                    Deployment platform for the Flask app and background services. Ideal for fast ship cycles and managed environment variables.
+                </p>
+                <ul class="mt-4 text-sm text-slate-400 space-y-2">
+                    <li>Commission Focus: Hosting referrals</li>
+                    <li>Use Case: App deployment and scaling</li>
+                </ul>
+                <a href="https://railway.app?ref=YOUR_REFERRAL_CODE" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-cyan-400 text-slate-950 font-bold py-3 hover:bg-cyan-300 transition-colors">
+                    Open Railway Referral
+                </a>
+            </article>
+
+            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-amber-400/15 text-amber-300 flex items-center justify-center mb-4">
+                    <i class="fas fa-globe text-lg"></i>
+                </div>
+                <h2 class="font-display text-2xl font-bold">Namecheap</h2>
+                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
+                    Domain registrar and DNS management provider for brand assets, landing pages, and client domain setups.
+                </p>
+                <ul class="mt-4 text-sm text-slate-400 space-y-2">
+                    <li>Commission Focus: Domain and hosting products</li>
+                    <li>Use Case: New brand + domain launches</li>
+                </ul>
+                <a href="https://www.namecheap.com/?aff=YOUR_AFFILIATE_ID" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-amber-400 text-slate-950 font-bold py-3 hover:bg-amber-300 transition-colors">
+                    Open Namecheap Referral
+                </a>
+            </article>
+
+            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
+                <div class="w-12 h-12 rounded-xl bg-rose-400/15 text-rose-300 flex items-center justify-center mb-4">
+                    <i class="fas fa-brain text-lg"></i>
+                </div>
+                <h2 class="font-display text-2xl font-bold">AI Tools</h2>
+                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
+                    Tools used in this project stack including LLM APIs, coding copilots, and analytics tooling.
+                </p>
+                <ul class="mt-4 text-sm text-slate-400 space-y-2">
+                    <li>OpenAI: https://openai.com/</li>
+                    <li>GitHub Copilot: https://github.com/features/copilot</li>
+                    <li>Google Analytics: https://analytics.google.com/</li>
+                </ul>
+                <a href="https://openai.com/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-rose-400 text-slate-950 font-bold py-3 hover:bg-rose-300 transition-colors">
+                    Open AI Tools
+                </a>
+            </article>
+        </section>
+
+        <section class="max-w-6xl mx-auto mt-10 glass rounded-2xl p-6 md:p-8">
+            <h3 class="font-display text-2xl font-bold">Referral Operations Checklist</h3>
+            <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="rounded-xl border border-slate-700/70 bg-slate-900/60 p-4">
+                    <p class="font-semibold text-cyan-300">1. Replace Placeholder Links</p>
+                    <p class="mt-2 text-slate-300">Update each button URL with your official affiliate link and tracking parameters.</p>
+                </div>
+                <div class="rounded-xl border border-slate-700/70 bg-slate-900/60 p-4">
+                    <p class="font-semibold text-cyan-300">2. Add UTM Parameters</p>
+                    <p class="mt-2 text-slate-300">Use campaign tags so GA4 can attribute traffic and conversions by channel.</p>
+                </div>
+                <div class="rounded-xl border border-slate-700/70 bg-slate-900/60 p-4">
+                    <p class="font-semibold text-cyan-300">3. Place Links Across Site</p>
+                    <p class="mt-2 text-slate-300">Promote in blog posts, dashboard widgets, email follow-ups, and onboarding docs.</p>
+                </div>
+                <div class="rounded-xl border border-slate-700/70 bg-slate-900/60 p-4">
+                    <p class="font-semibold text-cyan-300">4. Track Monthly Revenue</p>
+                    <p class="mt-2 text-slate-300">Review conversion reports and optimize CTA placement based on highest EPC channels.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

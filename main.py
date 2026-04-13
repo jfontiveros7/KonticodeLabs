@@ -57,6 +57,14 @@ def contact():
 def tech():
     return render_template("tech.html")
 
+@app.route("/affiliate-tools")
+def affiliate_tools():
+    return render_template("affiliatehub.html")
+
+@app.route("/affiliatehub")
+def affiliate_hub_legacy():
+    return redirect(url_for("affiliate_tools"))
+
 
 def _is_admin_authenticated():
     return session.get("is_admin") is True
