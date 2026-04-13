@@ -69,8 +69,16 @@ def admin_login():
     username = request.form.get("username", "").strip()
     password = request.form.get("password", "")
 
-    expected_username = os.getenv("ADMIN_USERNAME", "admin")
-    expected_password = os.getenv("ADMIN_PASSWORD", "change-me-now")
+    expected_username = (
+        os.getenv("ADMIN_USERNAME")
+        or os.getenv("ADMIN_USER")
+        or "admin"
+    ).strip()
+    expected_password = (
+        os.getenv("ADMIN_PASSWORD")
+        or os.getenv("ADMIN_PASS")
+        or "change-me-now"
+    ).strip()
 
     if username == expected_username and password == expected_password:
         session["is_admin"] = True
