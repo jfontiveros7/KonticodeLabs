@@ -65,6 +65,10 @@ def affiliate_tools():
 def affiliate_hub_legacy():
     return redirect(url_for("affiliate_tools"))
 
+@app.route("/affiliatehub.html")
+def affiliate_hub_html_legacy():
+    return redirect(url_for("affiliate_tools"))
+
 
 def _is_admin_authenticated():
     return session.get("is_admin") is True
