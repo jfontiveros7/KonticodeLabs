@@ -72,23 +72,23 @@
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
                     <p class="text-xs text-gray-500 uppercase tracking-wide">Visitors Today</p>
-                    <p class="text-3xl font-black mt-2">2,184</p>
-                    <p class="text-emerald-400 text-sm mt-1"><i class="fas fa-arrow-up"></i> 12.4%</p>
+                    <p id="kpiVisitors" class="text-3xl font-black mt-2">-</p>
+                    <p class="text-gray-400 text-sm mt-1">Total users (today)</p>
                 </article>
                 <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Contact Leads</p>
-                    <p class="text-3xl font-black mt-2">143</p>
-                    <p class="text-emerald-400 text-sm mt-1"><i class="fas fa-arrow-up"></i> 8.1%</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Events Today</p>
+                    <p id="kpiLeads" class="text-3xl font-black mt-2">-</p>
+                    <p class="text-gray-400 text-sm mt-1">GA4 event count</p>
                 </article>
                 <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Agent Sessions</p>
-                    <p class="text-3xl font-black mt-2">981</p>
-                    <p class="text-red-400 text-sm mt-1"><i class="fas fa-arrow-down"></i> 2.7%</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Sessions Today</p>
+                    <p id="kpiSessions" class="text-3xl font-black mt-2">-</p>
+                    <p class="text-gray-400 text-sm mt-1">All-site sessions</p>
                 </article>
                 <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Avg Response</p>
-                    <p class="text-3xl font-black mt-2">1.9s</p>
-                    <p class="text-emerald-400 text-sm mt-1"><i class="fas fa-arrow-down"></i> 0.3s</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Engagement Rate</p>
+                    <p id="kpiEngagement" class="text-3xl font-black mt-2">-</p>
+                    <p class="text-gray-400 text-sm mt-1">Today</p>
                 </article>
             </section>
 
@@ -96,26 +96,17 @@
                 <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xl font-bold">Traffic Trend (7 Days)</h2>
-                        <span class="text-xs text-gray-500">Mock Data</span>
+                        <span id="trendSource" class="text-xs text-gray-500">Loading...</span>
                     </div>
-                    <div class="h-64 w-full rounded-xl bg-gray-950 border border-gray-800 p-4 flex items-end gap-2">
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 42%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 55%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 49%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 72%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 83%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 68%"></div>
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height: 88%"></div>
+                    <div id="trendBars" class="h-64 w-full rounded-xl bg-gray-950 border border-gray-800 p-4 flex items-end gap-2">
+                        <p class="text-sm text-gray-500">No trend data yet.</p>
                     </div>
                 </div>
 
                 <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                     <h2 class="text-xl font-bold mb-4">Top Sources</h2>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex justify-between"><span class="text-gray-400">Direct</span><span>41%</span></li>
-                        <li class="flex justify-between"><span class="text-gray-400">Search</span><span>33%</span></li>
-                        <li class="flex justify-between"><span class="text-gray-400">Social</span><span>16%</span></li>
-                        <li class="flex justify-between"><span class="text-gray-400">Referral</span><span>10%</span></li>
+                    <ul id="sourceList" class="space-y-3 text-sm">
+                        <li class="flex justify-between"><span class="text-gray-400">Loading...</span><span>-</span></li>
                     </ul>
                     <hr class="my-5 border-gray-800" />
                     <h3 class="font-semibold mb-3">System Health</h3>
@@ -141,30 +132,12 @@
                             <th class="py-3 pr-4">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-300">
-                        <tr class="border-b border-gray-800/60">
-                            <td class="py-3 pr-4">10:41 AM</td>
-                            <td class="py-3 pr-4">Contact form submitted</td>
-                            <td class="py-3 pr-4">john@example.com</td>
-                            <td class="py-3 pr-4 text-emerald-400">Success</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/60">
-                            <td class="py-3 pr-4">10:35 AM</td>
-                            <td class="py-3 pr-4">Agent request completed</td>
-                            <td class="py-3 pr-4">Session #A912</td>
-                            <td class="py-3 pr-4 text-emerald-400">Success</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/60">
-                            <td class="py-3 pr-4">10:30 AM</td>
-                            <td class="py-3 pr-4">OAuth token refresh</td>
-                            <td class="py-3 pr-4">System</td>
-                            <td class="py-3 pr-4 text-emerald-400">Success</td>
-                        </tr>
+                    <tbody id="eventsBody" class="text-gray-300">
                         <tr>
-                            <td class="py-3 pr-4">10:24 AM</td>
-                            <td class="py-3 pr-4">Database query spike</td>
+                            <td class="py-3 pr-4">-</td>
+                            <td class="py-3 pr-4">No activity yet</td>
                             <td class="py-3 pr-4">System</td>
-                            <td class="py-3 pr-4 text-yellow-400">Warning</td>
+                            <td class="py-3 pr-4 text-gray-400">Info</td>
                         </tr>
                     </tbody>
                 </table>
@@ -174,7 +147,96 @@
 
     <script>
         const updated = document.getElementById('updatedAt');
-        updated.textContent = 'Last updated: ' + new Date().toLocaleString();
+        const kpiVisitors = document.getElementById('kpiVisitors');
+        const kpiLeads = document.getElementById('kpiLeads');
+        const kpiSessions = document.getElementById('kpiSessions');
+        const kpiEngagement = document.getElementById('kpiEngagement');
+        const trendBars = document.getElementById('trendBars');
+        const trendSource = document.getElementById('trendSource');
+        const sourceList = document.getElementById('sourceList');
+        const eventsBody = document.getElementById('eventsBody');
+
+        function formatNumber(n) {
+            return Number(n || 0).toLocaleString();
+        }
+
+        function renderTrend(trend) {
+            if (!Array.isArray(trend) || trend.length === 0) {
+                trendBars.innerHTML = '<p class="text-sm text-gray-500">No trend data yet.</p>';
+                return;
+            }
+
+            const maxValue = Math.max(...trend.map(item => item.value || 0), 1);
+            trendBars.innerHTML = trend.map(item => {
+                const height = Math.max(8, Math.round(((item.value || 0) / maxValue) * 100));
+                return `
+                    <div class="w-full flex flex-col items-center justify-end gap-2">
+                        <div class="bg-indigo-500/80 w-full rounded-t" style="height:${height}%"></div>
+                        <span class="text-[10px] text-gray-500">${item.label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSources(sources) {
+            if (!Array.isArray(sources) || sources.length === 0) {
+                sourceList.innerHTML = '<li class="flex justify-between"><span class="text-gray-400">No source data</span><span>0</span></li>';
+                return;
+            }
+            sourceList.innerHTML = sources.map(src => `
+                <li class="flex justify-between"><span class="text-gray-400">${src.name}</span><span>${formatNumber(src.value)}</span></li>
+            `).join('');
+        }
+
+        function renderEvents(events) {
+            if (!Array.isArray(events) || events.length === 0) {
+                eventsBody.innerHTML = `
+                    <tr>
+                        <td class="py-3 pr-4">-</td>
+                        <td class="py-3 pr-4">No recent events</td>
+                        <td class="py-3 pr-4">System</td>
+                        <td class="py-3 pr-4 text-gray-400">Info</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            eventsBody.innerHTML = events.slice(0, 10).map(ev => `
+                <tr class="border-b border-gray-800/60">
+                    <td class="py-3 pr-4">${ev.time || '-'}</td>
+                    <td class="py-3 pr-4">${ev.text || 'Event'}</td>
+                    <td class="py-3 pr-4">System</td>
+                    <td class="py-3 pr-4 text-emerald-400">Success</td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch('/api/admin/analytics');
+                if (!res.ok) throw new Error('Failed to fetch analytics');
+
+                const data = await res.json();
+                const kpis = data.kpis || {};
+
+                kpiVisitors.textContent = formatNumber(kpis.visitors_today);
+                kpiLeads.textContent = formatNumber(kpis.contact_leads);
+                kpiSessions.textContent = formatNumber(kpis.sessions);
+                kpiEngagement.textContent = `${Number(kpis.engagement_rate || 0).toFixed(1)}%`;
+
+                trendSource.textContent = data.source === 'ga4' ? 'Live GA4' : 'Fallback Data';
+
+                renderTrend(data.trend || []);
+                renderSources(data.top_sources || []);
+                renderEvents(data.recent_events || []);
+            } catch (err) {
+                trendSource.textContent = 'Analytics unavailable';
+            } finally {
+                updated.textContent = 'Last updated: ' + new Date().toLocaleString();
+            }
+        }
+
+        loadAnalytics();
     </script>
 </body>
 </html>

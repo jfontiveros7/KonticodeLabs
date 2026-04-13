@@ -8,8 +8,11 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for, s
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from google.analytics.data_v1beta import BetaAnalyticsDataClient
+from google.analytics.data_v1beta.types import DateRange, Dimension, Metric, RunReportRequest
 
 # Always load env vars from this project folder, regardless of current shell cwd.
 # override=True prevents stale variables from previous runs from taking precedence.
@@ -245,6 +248,128 @@ def chat():
 @app.route("/api/stats")
 def get_stats():
     return jsonify({**stats, "activity": activity_log[:10]})
+
+
+def _build_ga4_client_and_property():
+    property_id = (os.getenv("GA4_PROPERTY_ID") or "").strip()
+    if not property_id:
+        return None, None
+
+    scopes = ["https://www.googleapis.com/auth/analytics.readonly"]
+    creds = None
+
+    service_account_json = (os.getenv("GA4_SERVICE_ACCOUNT_JSON") or "").strip()
+    service_account_file = (os.getenv("GA4_SERVICE_ACCOUNT_FILE") or "").strip()
+
+    if service_account_json:
+        info = json.loads(service_account_json)
+        creds = service_account.Credentials.from_service_account_info(info, scopes=scopes)
+    elif service_account_file and os.path.exists(service_account_file):
+        creds = service_account.Credentials.from_service_account_file(service_account_file, scopes=scopes)
+    else:
+        return None, None
+
+    client = BetaAnalyticsDataClient(credentials=creds)
+    return client, f"properties/{property_id}"
+
+
+@app.route("/api/admin/analytics")
+def admin_analytics():
+    if not _is_admin_authenticated():
+        return jsonify({"error": "Unauthorized"}), 401
+
+    # Fallback payload keeps UI functional when GA4 API is not configured.
+    fallback_payload = {
+        "source": "fallback",
+        "kpis": {
+            "visitors_today": 0,
+            "contact_leads": 0,
+            "sessions": 0,
+            "engagement_rate": 0.0,
+        },
+        "trend": [],
+        "top_sources": [],
+        "recent_events": activity_log[:10],
+    }
+
+    try:
+        client, property_name = _build_ga4_client_and_property()
+        if not client:
+            return jsonify(fallback_payload), 200
+
+        today_report = client.run_report(
+            RunReportRequest(
+                property=property_name,
+                date_ranges=[DateRange(start_date="today", end_date="today")],
+                metrics=[
+                    Metric(name="totalUsers"),
+                    Metric(name="eventCount"),
+                    Metric(name="sessions"),
+                    Metric(name="engagementRate"),
+                ],
+            )
+        )
+
+        visitors_today = 0
+        total_events = 0
+        sessions_count = 0
+        engagement_rate = 0.0
+        if today_report.rows:
+            metric_values = today_report.rows[0].metric_values
+            visitors_today = int(float(metric_values[0].value or 0))
+            total_events = int(float(metric_values[1].value or 0))
+            sessions_count = int(float(metric_values[2].value or 0))
+            engagement_rate = float(metric_values[3].value or 0) * 100
+
+        trend_report = client.run_report(
+            RunReportRequest(
+                property=property_name,
+                date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
+                dimensions=[Dimension(name="date")],
+                metrics=[Metric(name="sessions")],
+                order_bys=[{"dimension": {"dimension_name": "date"}}],
+            )
+        )
+        trend = []
+        for row in trend_report.rows:
+            raw_date = row.dimension_values[0].value
+            label = f"{raw_date[4:6]}/{raw_date[6:8]}"
+            value = int(float(row.metric_values[0].value or 0))
+            trend.append({"label": label, "value": value})
+
+        source_report = client.run_report(
+            RunReportRequest(
+                property=property_name,
+                date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
+                dimensions=[Dimension(name="sessionDefaultChannelGroup")],
+                metrics=[Metric(name="sessions")],
+                limit=4,
+            )
+        )
+        top_sources = []
+        for row in source_report.rows:
+            top_sources.append({
+                "name": row.dimension_values[0].value,
+                "value": int(float(row.metric_values[0].value or 0)),
+            })
+
+        payload = {
+            "source": "ga4",
+            "kpis": {
+                "visitors_today": visitors_today,
+                # If custom conversion event isn't configured, this acts as activity volume.
+                "contact_leads": total_events,
+                "sessions": sessions_count,
+                "engagement_rate": round(engagement_rate, 2),
+            },
+            "trend": trend,
+            "top_sources": top_sources,
+            "recent_events": activity_log[:10],
+        }
+        return jsonify(payload), 200
+    except Exception as e:
+        fallback_payload["error"] = str(e)
+        return jsonify(fallback_payload), 200
 
 if __name__ == "__main__":
     print("Starting NovaStack Labs on http://localhost:5000/")
