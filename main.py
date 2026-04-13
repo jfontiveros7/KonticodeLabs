@@ -4,7 +4,7 @@ import base64
 import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from google.oauth2.credentials import Credentials
@@ -16,6 +16,7 @@ from googleapiclient.errors import HttpError
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"), override=True)
 
 app = Flask(__name__)
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "change-this-secret-in-env")
 
 llm = ChatOpenAI(
     temperature=0.7,
@@ -52,6 +53,43 @@ def contact():
 @app.route("/tech")
 def tech():
     return render_template("tech.html")
+
+
+def _is_admin_authenticated():
+    return session.get("is_admin") is True
+
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "GET":
+        if _is_admin_authenticated():
+            return redirect(url_for("admin"))
+        return render_template("admin_login.html", error=None)
+
+    username = request.form.get("username", "").strip()
+    password = request.form.get("password", "")
+
+    expected_username = os.getenv("ADMIN_USERNAME", "admin")
+    expected_password = os.getenv("ADMIN_PASSWORD", "change-me-now")
+
+    if username == expected_username and password == expected_password:
+        session["is_admin"] = True
+        return redirect(url_for("admin"))
+
+    return render_template("admin_login.html", error="Invalid admin credentials.")
+
+
+@app.route("/admin/logout", methods=["POST"])
+def admin_logout():
+    session.pop("is_admin", None)
+    return redirect(url_for("admin_login"))
+
+
+@app.route("/admin")
+def admin():
+    if not _is_admin_authenticated():
+        return redirect(url_for("admin_login"))
+    return render_template("admin.html")
 
 @app.route("/healthz")
 def healthz():
