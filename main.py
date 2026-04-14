@@ -7,12 +7,20 @@ from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from openai import APIConnectionError, AuthenticationError, RateLimitError
 from google.oauth2.credentials import Credentials
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from google.analytics.data_v1beta import BetaAnalyticsDataClient
-from google.analytics.data_v1beta.types import DateRange, Dimension, Metric, RunReportRequest
+try:
+    from google.analytics.data_v1beta import BetaAnalyticsDataClient
+    from google.analytics.data_v1beta.types import DateRange, Dimension, Metric, RunReportRequest
+except ModuleNotFoundError:
+    BetaAnalyticsDataClient = None
+    DateRange = None
+    Dimension = None
+    Metric = None
+    RunReportRequest = None
 
 # Always load env vars from this project folder, regardless of current shell cwd.
 # override=True prevents stale variables from previous runs from taking precedence.
@@ -21,11 +29,19 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"), overrid
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "change-this-secret-in-env")
 
-llm = ChatOpenAI(
-    temperature=0.7,
-    api_key=os.getenv("OPENAI_API_KEY"),
-    model="gpt-4o-mini"
-)
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+
+
+def _get_llm():
+    api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY is missing in .env")
+
+    return ChatOpenAI(
+        temperature=0.7,
+        api_key=api_key,
+        model=OPENAI_MODEL,
+    )
 
 SYSTEM_PROMPT = (
     "You are Nova, a friendly and highly capable AI assistant built by NovaStack Labs. "
@@ -252,6 +268,7 @@ def chat():
             messages.append({"role": h["role"], "content": h["content"]})
         messages.append({"role": "user", "content": user_msg})
 
+        llm = _get_llm()
         response = llm.invoke(messages)
         reply = response.content
 
@@ -265,6 +282,15 @@ def chat():
             activity_log.pop()
 
         return jsonify({"reply": reply})
+    except AuthenticationError:
+        stats["errors"] += 1
+        return jsonify({"error": "OpenAI authentication failed. Check OPENAI_API_KEY in .env."}), 500
+    except APIConnectionError:
+        stats["errors"] += 1
+        return jsonify({"error": "Could not reach OpenAI. Check your internet connection or firewall in VS Code."}), 500
+    except RateLimitError:
+        stats["errors"] += 1
+        return jsonify({"error": "OpenAI rate limit reached. Try again in a moment."}), 429
     except ValueError as e:
         stats["errors"] += 1
         return jsonify({"error": str(e)}), 400
@@ -272,12 +298,70 @@ def chat():
         stats["errors"] += 1
         return jsonify({"error": f"Agent error: {str(e)}"}), 500
 
+
+@app.route("/api/chat-test")
+def chat_test():
+    api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+
+    if not api_key:
+        return jsonify({
+            "ok": False,
+            "stage": "config",
+            "error": "OPENAI_API_KEY is missing in .env",
+        }), 400
+
+    try:
+        llm = _get_llm()
+        response = llm.invoke([
+            {"role": "system", "content": "Reply with the single word OK."},
+            {"role": "user", "content": "ping"},
+        ])
+        return jsonify({
+            "ok": True,
+            "stage": "openai",
+            "model": OPENAI_MODEL,
+            "reply": str(response.content).strip(),
+        }), 200
+    except AuthenticationError:
+        return jsonify({
+            "ok": False,
+            "stage": "auth",
+            "model": OPENAI_MODEL,
+            "error": "OpenAI authentication failed. Check OPENAI_API_KEY.",
+        }), 401
+    except APIConnectionError as e:
+        return jsonify({
+            "ok": False,
+            "stage": "network",
+            "model": OPENAI_MODEL,
+            "error": "Could not reach OpenAI from this environment.",
+            "details": str(e),
+        }), 503
+    except RateLimitError:
+        return jsonify({
+            "ok": False,
+            "stage": "rate_limit",
+            "model": OPENAI_MODEL,
+            "error": "OpenAI rate limit reached.",
+        }), 429
+    except Exception as e:
+        return jsonify({
+            "ok": False,
+            "stage": "unknown",
+            "model": OPENAI_MODEL,
+            "error": str(e),
+            "error_type": type(e).__name__,
+        }), 500
+
 @app.route("/api/stats")
 def get_stats():
     return jsonify({**stats, "activity": activity_log[:10]})
 
 
 def _build_ga4_client_and_property():
+    if BetaAnalyticsDataClient is None:
+        return None, None
+
     property_id = (os.getenv("GA4_PROPERTY_ID") or "").strip()
     if not property_id:
         return None, None

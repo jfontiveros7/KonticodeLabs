@@ -136,6 +136,7 @@
 
         <!-- Input bar -->
         <div class="border-t border-gray-800 px-6 py-4 bg-gray-900/50">
+            <div id="chatStatus" class="hidden max-w-4xl mx-auto mb-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100"></div>
             <div class="flex gap-3 items-end max-w-4xl mx-auto">
                 <textarea id="msgInput" rows="1"
                     class="flex-1 bg-gray-800 border border-gray-700 rounded-2xl px-4 py-3 text-sm
@@ -156,9 +157,15 @@
         const chatBox    = document.getElementById("chatBox");
         const msgInput   = document.getElementById("msgInput");
         const sendBtn    = document.getElementById("sendBtn");
+        const chatStatus = document.getElementById("chatStatus");
         const typingInd  = document.getElementById("typingIndicator");
         let history      = [];
         let isProcessing = false;
+
+        function setStatus(message, visible = true) {
+            chatStatus.innerHTML = message;
+            chatStatus.classList.toggle("hidden", !visible);
+        }
 
         // Auto-resize textarea
         msgInput.addEventListener("input", () => {
@@ -224,6 +231,7 @@
             const text = msgInput.value.trim();
             if (!text || isProcessing) return;
 
+            setStatus("", false);
             isProcessing = true;
             sendBtn.disabled = true;
             msgInput.value = "";
@@ -244,16 +252,23 @@
                 const data = await res.json();
 
                 typingInd.classList.add("hidden");
+                const errorMessage = data.error || "Unknown error";
 
                 if (data.reply) {
                     appendMessage("assistant", data.reply);
                     history.push({ role: "assistant", content: data.reply });
                 } else {
                     appendMessage("assistant", `⚠️ Error: ${data.error || "Unknown error"}`);
+                    if (errorMessage.includes("Could not reach OpenAI")) {
+                        setStatus('OpenAI could not be reached from this environment. Open <a href="/api/chat-test" target="_blank" class="underline font-semibold">/api/chat-test</a> for a quick diagnostic.');
+                    } else {
+                        setStatus(`Chat error: ${errorMessage}`);
+                    }
                 }
             } catch (err) {
                 typingInd.classList.add("hidden");
                 appendMessage("assistant", `⚠️ Network error: ${err.message}`);
+                setStatus('The browser could not reach the chat API. Make sure the Flask server is running, then open <a href="/api/chat-test" target="_blank" class="underline font-semibold">/api/chat-test</a>.');
             } finally {
                 isProcessing = false;
                 sendBtn.disabled = false;
