@@ -46,13 +46,23 @@
 
 <body class="bg-gray-950 text-white flex h-screen overflow-hidden">
 
+    <!-- Mobile Menu Toggle -->
+    <button id="mobileMenuToggle" class="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 border border-gray-700 rounded-lg p-3 text-gray-400 hover:text-white hover:bg-gray-700 transition-colors">
+        <i class="fas fa-bars text-lg"></i>
+    </button>
+
     <!-- ── Sidebar ── -->
-    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col p-5 shrink-0">
-        <div class="flex items-center gap-3 mb-8">
-            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-                <i class="fas fa-robot text-sm"></i>
+    <aside id="sidebar" class="fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out z-40 w-64 h-full bg-gray-900 border-r border-gray-800 flex flex-col p-5 shrink-0">
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-robot text-sm"></i>
+                </div>
+                <span class="font-bold text-lg">Konticode</span>
             </div>
-            <span class="font-bold text-lg">Konticode</span>
+            <button id="closeMobileMenu" class="lg:hidden text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-lg"></i>
+            </button>
         </div>
         <nav class="space-y-1 flex-1">
             <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
@@ -83,20 +93,24 @@
         </div>
     </aside>
 
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="lg:hidden fixed inset-0 bg-black/50 z-30 hidden"></div>
+
     <!-- ── Main chat area ── -->
-    <main class="flex-1 flex flex-col overflow-hidden">
+    <main class="flex-1 flex flex-col overflow-hidden lg:ml-0">
 
         <!-- Header -->
-        <header class="border-b border-gray-800 px-6 py-4 flex items-center justify-between bg-gray-900/50 backdrop-blur">
+        <header class="border-b border-gray-800 px-4 sm:px-6 py-4 flex items-center justify-between bg-gray-900/50 backdrop-blur">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <i class="fas fa-robot text-sm"></i>
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-robot text-xs sm:text-sm"></i>
                 </div>
                 <div>
-                    <div class="font-semibold">Konti AI</div>
+                    <div class="font-semibold text-sm sm:text-base">Konti AI</div>
                     <div class="flex items-center gap-1.5 text-xs text-emerald-400">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        Online · GPT-4o-mini
+                        <span class="hidden sm:inline">Online · GPT-4o-mini</span>
+                        <span class="sm:hidden">Online</span>
                     </div>
                 </div>
             </div>
@@ -281,6 +295,31 @@
             chatBox.innerHTML = "";
             appendMessage("assistant", "Chat cleared! How can I help you?");
         }
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const closeMobileMenu = document.getElementById("closeMobileMenu");
+        const sidebar = document.getElementById("sidebar");
+        const mobileOverlay = document.getElementById("mobileOverlay");
+
+        function openMobileMenu() {
+            sidebar.classList.remove("-translate-x-full");
+            mobileOverlay.classList.remove("hidden");
+        }
+
+        function closeMobileMenuFunc() {
+            sidebar.classList.add("-translate-x-full");
+            mobileOverlay.classList.add("hidden");
+        }
+
+        mobileMenuToggle.addEventListener("click", openMobileMenu);
+        closeMobileMenu.addEventListener("click", closeMobileMenuFunc);
+        mobileOverlay.addEventListener("click", closeMobileMenuFunc);
+
+        // Close mobile menu when clicking on navigation links
+        document.querySelectorAll("#sidebar nav a").forEach(link => {
+            link.addEventListener("click", closeMobileMenuFunc);
+        });
     </script>
 </body>
 </html>
