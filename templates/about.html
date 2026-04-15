@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Konticode Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {
+                animation: {
+                    'fade-up': 'fadeUp 0.7s ease-out forwards',
+                    'float': 'float 5s ease-in-out infinite',
+                },
+                keyframes: {
+                    fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                    float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-16px)' } },
+                }
+            }}
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .gradient-text { background: linear-gradient(135deg,#818cf8,#a78bfa,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .card-glow:hover { box-shadow: 0 0 30px rgba(99,102,241,0.25); }
+        .d1{animation-delay:.1s;opacity:0} .d2{animation-delay:.25s;opacity:0} .d3{animation-delay:.4s;opacity:0} .d4{animation-delay:.55s;opacity:0}
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HXPJGHXTBV');
+    </script>
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800/50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 font-bold text-lg">
+                <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-robot text-xs"></i>
+                </div>
+                Konticode Labs
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
+                <a href="/" class="hover:text-white transition-colors">Home</a>
+                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+                <a href="/tech" class="hover:text-white transition-colors">Tech</a>
+            </div>
+            <a href="/agent" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                Launch Agent
+            </a>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+             style="background:radial-gradient(ellipse at 50% 0%, #1e1b4b 0%, #030712 60%);">
+
+        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-700/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-700/15 rounded-full blur-3xl animate-float" style="animation-delay:2s"></div>
+        <div class="absolute inset-0 opacity-[0.03]"
+             style="background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:50px 50px;"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-indigo-600/15 border border-indigo-500/30 rounded-full px-4 py-2 mb-8 animate-fade-up d1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-sm text-indigo-300 font-medium">About Konticode Labs</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6 animate-fade-up d2">
+                Professional Web Development &amp; Technical Consulting
+            </h1>
+
+            <p class="text-xl text-gray-300 max-w-4xl mx-auto mb-6 leading-relaxed animate-fade-up d3">
+                Custom websites, web applications, and backend solutions built with clean, scalable code.
+            </p>
+
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-up d3">
+                Konticode Labs helps businesses and founders turn ideas into real, production-ready products.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-up d4">
+                <a href="/contact"
+                   class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-2xl text-lg inline-flex items-center gap-3 shadow-xl shadow-indigo-900/50 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+                <a href="/agent"
+                   class="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold px-8 py-4 rounded-2xl text-lg inline-flex items-center gap-3 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fas fa-comment-dots"></i> Chat with Konti
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 py-10 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 font-bold">
+                <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center"><i class="fas fa-robot text-xs"></i></div>
+                Konticode Labs
+            </div>
+            <p class="text-gray-500 text-sm">&copy; 2026 Konticode Labs - All rights reserved</p>
+            <div class="flex gap-5 text-gray-500 text-sm">
+                <a href="/about" class="hover:text-white transition-colors">About</a>
+                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+                <a href="/affiliate-tools" class="hover:text-white transition-colors">Tools I use</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

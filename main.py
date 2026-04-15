@@ -73,6 +73,18 @@ def contact():
 def tech():
     return render_template("tech.html")
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/features")
+def features():
+    return render_template("features.html")
+
+@app.route("/demo")
+def demo():
+    return render_template("demo.html")
+
 @app.route("/affiliate-tools")
 def affiliate_tools():
     return render_template("affiliatehub.html")
