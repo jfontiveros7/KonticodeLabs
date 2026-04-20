@@ -52,6 +52,16 @@
         .d2 { animation-delay: .16s; }
         .d3 { animation-delay: .24s; }
         @keyframes fade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+        .touch-target {
+            min-height: 44px;
+        }
+
+        @media (max-width: 360px) {
+            .touch-target {
+                min-height: 46px;
+            }
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
@@ -68,7 +78,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
             <a href="/" class="flex items-center gap-3"><span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center mono text-[#7fff9e]">K</span><span class="mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span></a>
             <nav class="hidden md:flex items-center gap-6 text-sm mono uppercase tracking-[0.12em] text-[#9ca9a2]"><a href="/" class="hover:text-[#7fff9e]">Home</a><a href="/features" class="hover:text-[#7fff9e]">Features</a><a href="/about" class="hover:text-[#7fff9e]">About</a></nav>
-            <a href="/agent" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold" data-cta="try_live_agent" data-cta-location="contact_header">Launch Agent</a>
+            <a href="/agent" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold touch-target inline-flex items-center" data-cta="try_live_agent" data-cta-location="contact_header">Launch Agent</a>
         </div>
     </header>
 
@@ -87,7 +97,7 @@
                 <div class="lg:col-span-5 space-y-4 fade d2">
                     <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Email</p><p class="text-lg mt-2">contact@konticodelabs.com</p><p class="text-sm text-[#9ca9a2] mt-2">Typical response under 24 hours.</p></article>
                     <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Support Window</p><p class="text-lg mt-2">Mon - Fri, 9:00am to 6:00pm CST</p><p class="text-sm text-[#9ca9a2] mt-2">Agent support is available 24/7.</p></article>
-                    <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Quick Start</p><p class="text-sm text-[#9ca9a2] mt-2 mb-4">Need immediate help? Start with the AI agent and continue in email for project scoping.</p><a href="/agent" class="inline-flex items-center gap-2 border border-[#233027] px-4 py-2 text-xs mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="try_live_agent" data-cta-location="contact_sidebar">Open Agent <i class="fas fa-arrow-right text-xs"></i></a></article>
+                    <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Quick Start</p><p class="text-sm text-[#9ca9a2] mt-2 mb-4">Need immediate help? Start with the AI agent and continue in email for project scoping.</p><a href="/agent" class="inline-flex items-center gap-2 border border-[#233027] px-4 py-2 text-xs mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors touch-target" data-cta="try_live_agent" data-cta-location="contact_sidebar">Open Agent <i class="fas fa-arrow-right text-xs"></i></a></article>
                 </div>
 
                 <div class="lg:col-span-7 border border-[#233027] bg-[#121614] p-6 md:p-8 fade d3" data-testid="contact-form-panel">
@@ -132,7 +142,7 @@
                             <div class="flex justify-end mt-2"><span id="charCount" class="text-xs text-[#6f7b74]">0 / 1000</span></div>
                         </div>
 
-                        <button type="submit" id="submitBtn" class="w-full bg-[#7fff9e] hover:bg-[#5ce683] disabled:opacity-60 disabled:cursor-not-allowed text-[#0b0d0c] font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm mono uppercase tracking-[0.14em]" data-testid="contact-submit-btn" data-cta="contact_submit" data-cta-location="contact_form">
+                        <button type="submit" id="submitBtn" class="w-full bg-[#7fff9e] hover:bg-[#5ce683] disabled:opacity-60 disabled:cursor-not-allowed text-[#0b0d0c] font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm mono uppercase tracking-[0.14em] touch-target" data-testid="contact-submit-btn" data-cta="contact_submit" data-cta-location="contact_form">
                             <i class="fas fa-paper-plane"></i>
                             <span id="btnText">Send Message</span>
                         </button>

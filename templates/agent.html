@@ -115,6 +115,16 @@
             text-transform: uppercase;
             color: #7fff9e;
         }
+
+        .touch-target {
+            min-height: 44px;
+        }
+
+        @media (max-width: 360px) {
+            .touch-target {
+                min-height: 46px;
+            }
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
@@ -139,7 +149,7 @@
                 <a href="/demo" class="hover:text-[#7fff9e]">Demo</a>
                 <a href="/contact" class="hover:text-[#7fff9e]">Contact</a>
             </nav>
-            <a href="/dashboard" class="kc-btn-primary mono uppercase tracking-[0.14em]" data-testid="agent-nav-dashboard">Open Dashboard</a>
+            <a href="/dashboard" class="kc-btn-primary mono uppercase tracking-[0.14em] touch-target" data-testid="agent-nav-dashboard">Open Dashboard</a>
         </div>
     </header>
 
@@ -155,13 +165,13 @@
                 <aside class="lg:col-span-4 kc-panel-main h-fit" data-testid="agent-sidebar">
                     <p class="mono text-[10px] uppercase tracking-[0.2em] text-[#4f5d56] mb-4">Quick prompts</p>
                     <div class="space-y-2">
-                        <button onclick="quickPrompt('Generate a Python REST API with Flask')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors" data-testid="agent-quick-prompt-flask">
+                        <button onclick="quickPrompt('Generate a Python REST API with Flask')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors touch-target" data-testid="agent-quick-prompt-flask">
                             <i class="fas fa-plus-circle text-[#7fff9e] mr-1"></i> Flask REST API
                         </button>
-                        <button onclick="quickPrompt('Explain async/await in Python')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors" data-testid="agent-quick-prompt-async">
+                        <button onclick="quickPrompt('Explain async/await in Python')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors touch-target" data-testid="agent-quick-prompt-async">
                             <i class="fas fa-plus-circle text-[#7fff9e] mr-1"></i> Async/Await
                         </button>
-                        <button onclick="quickPrompt('Write a SQL query to find top 5 customers by revenue')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors" data-testid="agent-quick-prompt-sql">
+                        <button onclick="quickPrompt('Write a SQL query to find top 5 customers by revenue')" class="w-full text-left text-xs text-[#95a39b] hover:text-[#f2f5f3] px-3 py-2 rounded-lg border border-[#233027] hover:border-[#7fff9e] transition-colors touch-target" data-testid="agent-quick-prompt-sql">
                             <i class="fas fa-plus-circle text-[#7fff9e] mr-1"></i> SQL query
                         </button>
                     </div>
@@ -186,7 +196,7 @@
                                 <div class="text-xs text-[#9ca9a2] mono uppercase tracking-[0.12em]">Live assistant session</div>
                             </div>
                         </div>
-                        <button onclick="clearChat()" class="kc-btn-secondary" data-testid="agent-clear-chat-btn">
+                        <button onclick="clearChat()" class="kc-btn-secondary touch-target" data-testid="agent-clear-chat-btn">
                             <i class="fas fa-trash-alt mr-1"></i> Clear
                         </button>
                     </div>

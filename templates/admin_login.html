@@ -75,6 +75,16 @@
         .kc-btn-primary:hover {
             background: #5ce683;
         }
+
+        .touch-target {
+            min-height: 44px;
+        }
+
+        @media (max-width: 360px) {
+            .touch-target {
+                min-height: 46px;
+            }
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
@@ -106,13 +116,13 @@
         <form method="post" action="/admin/login" class="space-y-4" data-testid="admin-login-form">
             <div>
                 <label for="username" class="block text-sm text-[#95a39b] mb-1.5">Username</label>
-                <input id="username" name="username" type="text" required class="kc-field" />
+                <input id="username" name="username" type="text" required class="kc-field touch-target" />
             </div>
             <div>
                 <label for="password" class="block text-sm text-[#95a39b] mb-1.5">Password</label>
-                <input id="password" name="password" type="password" required class="kc-field" />
+                <input id="password" name="password" type="password" required class="kc-field touch-target" />
             </div>
-            <button type="submit" class="kc-btn-primary kc-mono uppercase tracking-[0.14em]" data-testid="admin-login-submit-btn">
+            <button type="submit" class="kc-btn-primary kc-mono uppercase tracking-[0.14em] touch-target" data-testid="admin-login-submit-btn">
                 Sign In
             </button>
         </form>

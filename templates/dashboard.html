@@ -96,6 +96,16 @@
             color: #7fff9e;
         }
 
+        .touch-target {
+            min-height: 44px;
+        }
+
+        @media (max-width: 360px) {
+            .touch-target {
+                min-height: 46px;
+            }
+        }
+
         .activity-item {
             animation: fadeIn 0.4s ease;
         }
@@ -125,16 +135,16 @@
 
         <p class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#4f5d56] mb-4">Navigation</p>
         <nav class="space-y-2">
-            <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors">
+            <a href="/" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors touch-target">
                 <i class="fas fa-home w-4 text-xs"></i> Home
             </a>
-            <a href="/agent" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors">
+            <a href="/agent" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors touch-target">
                 <i class="fas fa-comment-dots w-4 text-xs"></i> Agent Chat
             </a>
-            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#152119] text-[#7fff9e] border border-[#2d4735]">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#152119] text-[#7fff9e] border border-[#2d4735] touch-target">
                 <i class="fas fa-chart-bar w-4 text-xs"></i> Dashboard
             </a>
-            <a href="/contact" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors">
+            <a href="/contact" class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#95a39b] hover:bg-[#121614] hover:text-[#f2f5f3] transition-colors touch-target">
                 <i class="fas fa-envelope w-4 text-xs"></i> Contact
             </a>
         </nav>
@@ -164,10 +174,10 @@
                 </div>
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                     <span id="lastUpdated" class="kc-mono text-xs text-[#5e6c65] text-center sm:text-left"></span>
-                    <button onclick="fetchStats()" class="kc-btn-secondary" data-testid="dashboard-refresh-btn">
+                    <button onclick="fetchStats()" class="kc-btn-secondary touch-target" data-testid="dashboard-refresh-btn">
                         <i class="fas fa-sync-alt mr-1 sm:mr-2"></i><span class="hidden sm:inline">Refresh</span>
                     </button>
-                    <a href="/agent" class="kc-btn-primary text-center" data-testid="dashboard-open-agent-btn">
+                    <a href="/agent" class="kc-btn-primary text-center touch-target" data-testid="dashboard-open-agent-btn">
                         <i class="fas fa-comment-dots mr-1 sm:mr-2"></i><span class="hidden sm:inline">Open </span>Agent
                     </a>
                 </div>
