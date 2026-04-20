@@ -1,175 +1,180 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name='impact-site-verification' value='b281efaa-3a98-4d3e-b041-ba567875b8cc'>
-    <title>Affiliate Tools - Konticode Labs</title>
+    <meta name="impact-site-verification" value="b281efaa-3a98-4d3e-b041-ba567875b8cc" />
+    <title>Affiliate Tools | Konticode Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    fontFamily: {
-                        display: ["Space Grotesk", "ui-sans-serif", "system-ui"],
-                        body: ["Manrope", "ui-sans-serif", "system-ui"]
-                    },
-                    keyframes: {
-                        rise: {
-                            "0%": { opacity: "0", transform: "translateY(16px)" },
-                            "100%": { opacity: "1", transform: "translateY(0)" }
-                        }
-                    },
-                    animation: {
-                        rise: "rise 0.7s ease-out forwards"
-                    }
-                }
-            }
-        };
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
         :root {
-            --hub-cyan: #22d3ee;
-            --hub-amber: #f59e0b;
-            --hub-rose: #fb7185;
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #9ca9a2;
+            --kc-accent: #7fff9e;
+            --kc-cyan: #6ee7f9;
+            --kc-amber: #ffcf73;
+            --kc-rose: #ff9ca8;
         }
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            backdrop-filter: blur(10px);
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 18% -10%, #1f3028 0%, #090c0b 44%), var(--kc-bg);
+            color: var(--kc-text);
         }
-        .card-hover:hover {
+
+        .mono {
+            font-family: "IBM Plex Mono", monospace;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(127, 255, 158, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127, 255, 158, 0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 88%);
+        }
+
+        .tile {
+            border: 1px solid var(--kc-border);
+            background: var(--kc-panel-soft);
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .tile:hover {
+            border-color: var(--kc-accent);
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(2, 132, 199, 0.2);
         }
-        .delay-1 { animation-delay: 0.12s; opacity: 0; }
-        .delay-2 { animation-delay: 0.24s; opacity: 0; }
-        .delay-3 { animation-delay: 0.36s; opacity: 0; }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fade 0.8s ease forwards;
+        }
+
+        .d1 { animation-delay: 0.08s; }
+        .d2 { animation-delay: 0.16s; }
+        .d3 { animation-delay: 0.24s; }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-HXPJGHXTBV');
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-HXPJGHXTBV");
     </script>
 </head>
+<body class="overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 grid-bg opacity-45"></div></div>
 
-<body class="font-body bg-slate-950 text-slate-100 overflow-x-hidden">
-    <div class="fixed inset-0 -z-10">
-        <div class="absolute top-[-120px] left-[-100px] w-[420px] h-[420px] rounded-full blur-3xl" style="background:rgba(34,211,238,0.2)"></div>
-        <div class="absolute top-[20%] right-[-120px] w-[420px] h-[420px] rounded-full blur-3xl" style="background:rgba(245,158,11,0.18)"></div>
-        <div class="absolute bottom-[-120px] left-[20%] w-[400px] h-[400px] rounded-full blur-3xl" style="background:rgba(251,113,133,0.16)"></div>
-    </div>
-
-    <nav class="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/80 backdrop-blur px-6 py-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 font-display text-lg font-bold">
-                <span class="w-8 h-8 rounded-lg bg-cyan-400/20 text-cyan-300 flex items-center justify-center">
-                    <i class="fas fa-coins text-sm"></i>
-                </span>
-                Affiliate Tools
+    <header class="sticky top-0 z-50 border-b border-[#233027] bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center mono text-[#7fff9e]">K</span>
+                <span class="mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span>
             </a>
-            <div class="hidden md:flex items-center gap-6 text-sm text-slate-300">
-                <a href="/" class="hover:text-white transition-colors">Home</a>
-                <a href="/tech" class="hover:text-white transition-colors">Tech</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-                <a href="/agent" class="hover:text-white transition-colors">Agent</a>
-            </div>
-        </div>
-    </nav>
-
-    <header class="px-6 pt-14 pb-10">
-        <div class="max-w-6xl mx-auto text-center">
-            <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide uppercase border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 animate-rise">
-                Monetization Layer
-            </span>
-            <h1 class="mt-6 font-display text-4xl md:text-6xl font-bold leading-tight animate-rise delay-1">
-                Referral Stack for <span class="text-cyan-300">Revenue</span>
-            </h1>
-            <p class="mt-5 max-w-3xl mx-auto text-slate-300 text-lg animate-rise delay-2">
-                This page centralizes referral links for hosting, domains, and AI tooling used by this website.
-                Use these links in content, onboarding docs, and client recommendations to generate recurring income.
-            </p>
-            <p class="mt-4 text-sm text-slate-400 animate-rise delay-3">
-                Affiliate disclosure: We may earn a commission when purchases are made through these links.
-            </p>
+            <nav class="hidden md:flex items-center gap-6 text-sm mono uppercase tracking-[0.12em] text-[#9ca9a2]">
+                <a href="/" class="hover:text-[#7fff9e]">Home</a>
+                <a href="/features" class="hover:text-[#7fff9e]">Features</a>
+                <a href="/tech" class="hover:text-[#7fff9e]">Tech</a>
+                <a href="/contact" class="hover:text-[#7fff9e]">Contact</a>
+            </nav>
+            <a href="/contact" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold" data-cta="book_intro_call" data-cta-location="affiliate_header">Book Intro Call</a>
         </div>
     </header>
 
-    <main class="px-6 pb-20">
-        <section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
-                <div class="w-12 h-12 rounded-xl bg-cyan-400/15 text-cyan-300 flex items-center justify-center mb-4">
-                    <i class="fas fa-train-subway text-lg"></i>
-                </div>
-                <h2 class="font-display text-2xl font-bold">Deploy Your Apps Easily with Railway</h2>
-                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
-                    Railway is the fastest way to deploy full-stack apps without DevOps headaches. I use Railway for all Konticode Labs projects because it is simple, fast, and perfect for indie developers.
-                </p>
-                <ul class="mt-4 text-sm text-slate-400 space-y-2">
-                    <li class="text-cyan-300 font-semibold">Limited-time discounts available via referral</li>
-                    <li>Commission Focus: Hosting referrals</li>
-                    <li>Use Case: App deployment and scaling</li>
-                </ul>
-                <a href="https://railway.com?referralCode=0k8MGP" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-cyan-400 text-slate-950 font-bold py-3 hover:bg-cyan-300 transition-colors">
-                    Claim Railway Discount
-                </a>
-            </article>
-
-            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
-                <div class="w-12 h-12 rounded-xl bg-amber-400/15 text-amber-300 flex items-center justify-center mb-4">
-                    <i class="fas fa-globe text-lg"></i>
-                </div>
-                <h2 class="font-display text-2xl font-bold">Namecheap</h2>
-                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
-                    I use Namecheap for all Konticode Labs projects because it is fast, reliable, and developer-friendly. Whether you are launching your first app or scaling a SaaS business, Namecheap makes domain management effortless with clean DNS tools, free WHOIS privacy, and unbeatable pricing.
-                </p>
-                <ul class="mt-4 text-sm text-slate-400 space-y-2">
-                    <li>Commission Focus: Domain and hosting products</li>
-                    <li>Use Case: New brand + domain launches</li>
-                </ul>
-                <a href="https://www.namecheap.com/?aff=YOUR_AFFILIATE_ID" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-amber-400 text-slate-950 font-bold py-3 hover:bg-amber-300 transition-colors">
-                    Open Namecheap Referral
-                </a>
-            </article>
-
-            <article class="glass rounded-2xl p-6 transition-all duration-300 card-hover">
-                <div class="w-12 h-12 rounded-xl bg-rose-400/15 text-rose-300 flex items-center justify-center mb-4">
-                    <i class="fas fa-brain text-lg"></i>
-                </div>
-                <h2 class="font-display text-2xl font-bold">AI Tools</h2>
-                <p class="mt-3 text-slate-300 text-sm leading-relaxed">
-                    This AI agent is built using a stack of modern AI tools that I actually use in real projects. From model APIs to vector search and orchestration, every piece is chosen for reliability, speed, and developer experience, so the agent feels fast, smart, and practical for real-world use.
-                </p>
-                <ul class="mt-4 text-sm text-slate-400 space-y-2">
-                    <li>OpenAI: https://openai.com/</li>
-                    <li>GitHub Copilot: https://github.com/features/copilot</li>
-                    <li>Google Analytics: https://analytics.google.com/</li>
-                </ul>
-                <a href="https://openai.com/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center w-full rounded-xl bg-rose-400 text-slate-950 font-bold py-3 hover:bg-rose-300 transition-colors">
-                    Open AI Tools
-                </a>
-            </article>
+    <main>
+        <section class="border-b border-[#233027] py-20 md:py-24" data-testid="affiliate-hero-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 fade d1">
+                <p class="mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Affiliate Hub</p>
+                <h1 class="mono font-bold text-4xl md:text-6xl leading-[1.03] max-w-4xl">Tools we use and recommend for serious production work.</h1>
+                <p class="text-[#9ca9a2] text-lg mt-6 max-w-3xl">These are platforms used inside Konticode workflows for deployment, infrastructure, and AI delivery. Some links are affiliate links that support ongoing engineering and content.</p>
+                <p class="mono text-xs uppercase tracking-[0.16em] text-[#6f7b74] mt-5">Disclosure: commissions may be earned at no extra cost to you.</p>
+            </div>
         </section>
 
-        <section class="max-w-6xl mx-auto mt-10 rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 via-slate-900/90 to-amber-500/10 p-6 md:p-10 shadow-[0_20px_60px_rgba(34,211,238,0.15)]">
-            <div class="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-cyan-200">
-                <i class="fas fa-shield-heart"></i>
-                Transparency First
+        <section class="py-20 border-b border-[#233027]" data-testid="affiliate-cards-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <article class="tile p-6 fade d1" data-testid="affiliate-card-railway">
+                    <div class="w-11 h-11 rounded-lg bg-[#132228] border border-[#23434b] flex items-center justify-center text-[#6ee7f9]"><i class="fas fa-train-subway"></i></div>
+                    <h2 class="mt-4 text-2xl font-semibold">Railway</h2>
+                    <p class="text-[#9ca9a2] mt-3 text-sm leading-relaxed">Fast deployment for full-stack apps with minimal DevOps overhead. Great for shipping quickly and scaling cleanly.</p>
+                    <ul class="mt-4 text-sm space-y-2 text-[#b8c3bd]">
+                        <li>- Commission focus: hosting referrals</li>
+                        <li>- Primary use: deployment and runtime scaling</li>
+                        <li class="text-[#6ee7f9]">- Referral discounts may apply</li>
+                    </ul>
+                    <a href="https://railway.com?referralCode=0k8MGP" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full justify-center bg-[#6ee7f9] hover:bg-[#93f0fc] text-[#0b0d0c] py-3 text-sm mono uppercase tracking-[0.14em] font-semibold" data-cta="affiliate_railway" data-cta-location="affiliate_cards">Open Railway Offer</a>
+                </article>
+
+                <article class="tile p-6 fade d2" data-testid="affiliate-card-namecheap">
+                    <div class="w-11 h-11 rounded-lg bg-[#2b2113] border border-[#4b3b23] flex items-center justify-center text-[#ffcf73]"><i class="fas fa-globe"></i></div>
+                    <h2 class="mt-4 text-2xl font-semibold">Namecheap</h2>
+                    <p class="text-[#9ca9a2] mt-3 text-sm leading-relaxed">Domain and DNS management with strong pricing and developer-friendly controls for launching brands fast.</p>
+                    <ul class="mt-4 text-sm space-y-2 text-[#b8c3bd]">
+                        <li>- Commission focus: domains and hosting products</li>
+                        <li>- Primary use: domain setup and DNS operations</li>
+                        <li>- Good for first launches and growth-stage teams</li>
+                    </ul>
+                    <a href="https://www.namecheap.com/?aff=YOUR_AFFILIATE_ID" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full justify-center bg-[#ffcf73] hover:bg-[#ffd992] text-[#0b0d0c] py-3 text-sm mono uppercase tracking-[0.14em] font-semibold" data-cta="affiliate_namecheap" data-cta-location="affiliate_cards">Open Namecheap Link</a>
+                </article>
+
+                <article class="tile p-6 fade d3" data-testid="affiliate-card-ai-tools">
+                    <div class="w-11 h-11 rounded-lg bg-[#2b161a] border border-[#4b232b] flex items-center justify-center text-[#ff9ca8]"><i class="fas fa-brain"></i></div>
+                    <h2 class="mt-4 text-2xl font-semibold">AI Toolchain</h2>
+                    <p class="text-[#9ca9a2] mt-3 text-sm leading-relaxed">Core AI services used to build fast, practical assistants for coding workflows, analytics, and guided support.</p>
+                    <ul class="mt-4 text-sm space-y-2 text-[#b8c3bd]">
+                        <li>- OpenAI: https://openai.com/</li>
+                        <li>- GitHub Copilot: https://github.com/features/copilot</li>
+                        <li>- Google Analytics: https://analytics.google.com/</li>
+                    </ul>
+                    <a href="https://openai.com/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full justify-center bg-[#ff9ca8] hover:bg-[#ffb2bc] text-[#0b0d0c] py-3 text-sm mono uppercase tracking-[0.14em] font-semibold" data-cta="affiliate_ai_stack" data-cta-location="affiliate_cards">Open AI Stack</a>
+                </article>
             </div>
-            <h3 class="mt-4 font-display text-3xl md:text-4xl font-bold leading-tight text-white">How I Recommend Tools</h3>
-            <p class="mt-4 max-w-4xl text-slate-200 leading-relaxed text-base md:text-lg">
-                Every tool listed on Konticode Labs is something I use in my own stack, whether it is for domains, hosting, analytics, or AI agents. Some links are affiliate links, which help fund new tutorials, dashboards, and open-source tools. No sponsored posts. No paid placements. Just tools that actually work.
-            </p>
+        </section>
+
+        <section class="py-20" data-testid="affiliate-transparency-section">
+            <div class="max-w-6xl mx-auto px-6 lg:px-12 border border-[#233027] bg-[#121614] p-7 md:p-10">
+                <p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e] mb-4">Transparency First</p>
+                <h2 class="text-3xl md:text-5xl font-bold leading-tight">No paid placements. Only tools that survive real project pressure.</h2>
+                <p class="text-[#9ca9a2] text-lg mt-6 max-w-4xl">Recommendations are based on daily engineering usage, not sponsorships. Affiliate revenue helps fund new tutorials, site improvements, and production experiments for the Konticode ecosystem.</p>
+                <div class="mt-7 flex flex-col sm:flex-row gap-3">
+                    <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-6 py-3 text-xs mono uppercase tracking-[0.14em] font-semibold" data-cta="book_intro_call" data-cta-location="affiliate_footer">Need stack advice? Book a call <i class="fas fa-arrow-right text-xs"></i></a>
+                    <a href="/tech" class="inline-flex items-center justify-center gap-2 border border-[#233027] px-6 py-3 text-xs mono uppercase tracking-[0.14em] font-semibold hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="see_platform_stack" data-cta-location="affiliate_footer">See platform stack</a>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer class="border-t border-[#233027] py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 justify-between items-center text-sm text-[#6f7b74]">
+            <div class="mono uppercase tracking-[0.14em] text-xs">Konticode Labs / Affiliate Hub</div>
+            <div>&copy; 2026 Konticode Labs</div>
+            <div class="flex gap-5"><a href="/about" class="hover:text-[#7fff9e]">About</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a><a href="/features" class="hover:text-[#7fff9e]">Features</a></div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("click", (event) => {
+            const cta = event.target.closest("[data-cta]");
+            if (!cta || typeof gtag !== "function") return;
+            gtag("event", "cta_click", {
+                cta_name: cta.dataset.cta || "unknown",
+                cta_location: cta.dataset.ctaLocation || "affiliate",
+                destination: cta.getAttribute("href") || ""
+            });
+        });
+    </script>
 </body>
 </html>

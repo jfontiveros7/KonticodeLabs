@@ -59,9 +59,9 @@
         </div>
     </nav>
 
-    <main class="pt-28 pb-12 px-6">
+    <main class="pt-28 pb-12 px-6" data-testid="admin-main">
         <div class="max-w-7xl mx-auto space-y-8">
-            <section class="animate-fade-up">
+            <section class="animate-fade-up" data-testid="admin-header-section">
                 <h1 class="text-4xl md:text-5xl font-black">Analytics Console</h1>
                 <p class="text-gray-400 mt-3 max-w-2xl">
                     Track platform activity, message volume, performance trends, and conversion signals in one place.
@@ -69,31 +69,31 @@
                 <p id="updatedAt" class="text-xs text-gray-500 mt-3"></p>
             </section>
 
-            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="admin-kpi-grid">
+                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-visitors">
                     <p class="text-xs text-gray-500 uppercase tracking-wide">Visitors Today</p>
                     <p id="kpiVisitors" class="text-3xl font-black mt-2">-</p>
                     <p class="text-gray-400 text-sm mt-1">Total users (today)</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
+                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-events">
                     <p class="text-xs text-gray-500 uppercase tracking-wide">Events Today</p>
                     <p id="kpiLeads" class="text-3xl font-black mt-2">-</p>
                     <p class="text-gray-400 text-sm mt-1">GA4 event count</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
+                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-sessions">
                     <p class="text-xs text-gray-500 uppercase tracking-wide">Sessions Today</p>
                     <p id="kpiSessions" class="text-3xl font-black mt-2">-</p>
                     <p class="text-gray-400 text-sm mt-1">All-site sessions</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow">
+                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-engagement">
                     <p class="text-xs text-gray-500 uppercase tracking-wide">Engagement Rate</p>
                     <p id="kpiEngagement" class="text-3xl font-black mt-2">-</p>
                     <p class="text-gray-400 text-sm mt-1">Today</p>
                 </article>
             </section>
 
-            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-testid="admin-analytics-section">
+                <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6" data-testid="admin-trend-panel">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xl font-bold">Traffic Trend (7 Days)</h2>
                         <span id="trendSource" class="text-xs text-gray-500">Loading...</span>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6" data-testid="admin-sources-panel">
                     <h2 class="text-xl font-bold mb-4">Top Sources</h2>
                     <ul id="sourceList" class="space-y-3 text-sm">
                         <li class="flex justify-between"><span class="text-gray-400">Loading...</span><span>-</span></li>
@@ -118,10 +118,10 @@
                 </div>
             </section>
 
-            <section class="bg-gray-900 border border-gray-800 rounded-2xl p-6 overflow-x-auto">
+            <section class="bg-gray-900 border border-gray-800 rounded-2xl p-6 overflow-x-auto" data-testid="admin-events-section">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold">Recent Events</h2>
-                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-4 py-2 rounded-lg transition-colors">Export CSV</button>
+                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-4 py-2 rounded-lg transition-colors" data-testid="admin-export-csv-btn">Export CSV</button>
                 </div>
                 <table class="min-w-full text-sm">
                     <thead>
@@ -157,7 +157,26 @@
         const eventsBody = document.getElementById('eventsBody');
 
         function formatNumber(n) {
-            return Number(n || 0).toLocaleString();
+            const value = Number(n);
+            return Number.isFinite(value) ? value.toLocaleString() : '0';
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function slugifyToken(value, index, fallbackPrefix) {
+            const base = String(value ?? '')
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            return base || `${fallbackPrefix}-${index + 1}`;
         }
 
         function renderTrend(trend) {
@@ -167,12 +186,14 @@
             }
 
             const maxValue = Math.max(...trend.map(item => item.value || 0), 1);
-            trendBars.innerHTML = trend.map(item => {
+            trendBars.innerHTML = trend.map((item, index) => {
                 const height = Math.max(8, Math.round(((item.value || 0) / maxValue) * 100));
+                const label = escapeHtml(item.label || `Day ${index + 1}`);
+                const slug = slugifyToken(item.label, index, 'trend');
                 return `
-                    <div class="w-full flex flex-col items-center justify-end gap-2">
+                    <div class="w-full flex flex-col items-center justify-end gap-2" data-testid="trend-bar-${slug}">
                         <div class="bg-indigo-500/80 w-full rounded-t" style="height:${height}%"></div>
-                        <span class="text-[10px] text-gray-500">${item.label}</span>
+                        <span class="text-[10px] text-gray-500">${label}</span>
                     </div>
                 `;
             }).join('');
@@ -183,9 +204,13 @@
                 sourceList.innerHTML = '<li class="flex justify-between"><span class="text-gray-400">No source data</span><span>0</span></li>';
                 return;
             }
-            sourceList.innerHTML = sources.map(src => `
-                <li class="flex justify-between"><span class="text-gray-400">${src.name}</span><span>${formatNumber(src.value)}</span></li>
-            `).join('');
+            sourceList.innerHTML = sources.map((src, index) => {
+                const sourceName = escapeHtml(src.name || 'Unknown');
+                const slug = slugifyToken(src.name, index, 'source');
+                return `
+                <li class="flex justify-between" data-testid="source-item-${slug}"><span class="text-gray-400">${sourceName}</span><span>${formatNumber(src.value)}</span></li>
+            `;
+            }).join('');
         }
 
         function renderEvents(events) {
@@ -201,14 +226,19 @@
                 return;
             }
 
-            eventsBody.innerHTML = events.slice(0, 10).map(ev => `
-                <tr class="border-b border-gray-800/60">
-                    <td class="py-3 pr-4">${ev.time || '-'}</td>
-                    <td class="py-3 pr-4">${ev.text || 'Event'}</td>
+            eventsBody.innerHTML = events.slice(0, 10).map((ev, index) => {
+                const eventTime = escapeHtml(ev.time || '-');
+                const eventText = escapeHtml(ev.text || 'Event');
+                const slug = slugifyToken(ev.text || ev.time, index, 'event');
+                return `
+                <tr class="border-b border-gray-800/60" data-testid="event-row-${slug}">
+                    <td class="py-3 pr-4">${eventTime}</td>
+                    <td class="py-3 pr-4">${eventText}</td>
                     <td class="py-3 pr-4">System</td>
                     <td class="py-3 pr-4 text-emerald-400">Success</td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
         }
 
         async function loadAnalytics() {

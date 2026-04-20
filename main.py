@@ -28,6 +28,8 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"), overrid
 
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "change-this-secret-in-env")
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.jinja_env.auto_reload = True
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
@@ -368,6 +370,16 @@ def chat_test():
 @app.route("/api/stats")
 def get_stats():
     return jsonify({**stats, "activity": activity_log[:10]})
+
+
+@app.after_request
+def add_no_cache_headers(response):
+    content_type = (response.headers.get("Content-Type") or "").lower()
+    if "text/html" in content_type:
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
 
 
 def _build_ga4_client_and_property():

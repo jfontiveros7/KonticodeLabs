@@ -1,136 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Features - Konticode Labs</title>
+    <title>Features | Konticode Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: {
-                animation: {
-                    'fade-up': 'fadeUp 0.7s ease-out forwards',
-                    'float': 'float 5s ease-in-out infinite',
-                },
-                keyframes: {
-                    fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-                    float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-16px)' } },
-                }
-            }}
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        .gradient-text { background: linear-gradient(135deg,#818cf8,#a78bfa,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        .card-glow:hover { box-shadow: 0 0 30px rgba(99,102,241,0.25); }
-        .d1{animation-delay:.1s;opacity:0} .d2{animation-delay:.25s;opacity:0} .d3{animation-delay:.4s;opacity:0}
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 90% -20%, #1f3028 0%, #090c0b 46%), #090c0b;
+            color: #f2f5f3;
+        }
+        .mono { font-family: "IBM Plex Mono", monospace; }
+        .tile { border: 1px solid #233027; background: #171c19; transition: border-color .25s ease, transform .25s ease; }
+        .tile:hover { border-color: #7fff9e; transform: translateY(-4px); }
+        .fade { opacity: 0; transform: translateY(18px); animation: fade .8s ease forwards; }
+        .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .24s; }
+        @keyframes fade { from { opacity:0; transform: translateY(18px);} to {opacity:1; transform: translateY(0);} }
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-HXPJGHXTBV");
+    </script>
 </head>
-<body class="bg-gray-950 text-white overflow-x-hidden">
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800/50 px-6 py-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 font-bold text-lg">
-                <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-                    <i class="fas fa-robot text-xs"></i>
-                </div>
-                Konticode Labs
-            </a>
-            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
-                <a href="/features" class="hover:text-white transition-colors">Features</a>
-                <a href="/demo" class="hover:text-white transition-colors">Demo</a>
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-            </div>
-            <a href="/agent" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                Launch Agent
-            </a>
+<body class="overflow-x-hidden">
+    <header class="sticky top-0 z-50 border-b border-[#233027] bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3"><span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center mono text-[#7fff9e]">K</span><span class="mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span></a>
+            <nav class="hidden md:flex items-center gap-6 text-sm mono uppercase tracking-[0.12em] text-[#9ca9a2]"><a href="/about" class="hover:text-[#7fff9e]">About</a><a href="/demo" class="hover:text-[#7fff9e]">Demo</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a></nav>
+            <a href="/contact" class="bg-[#7fff9e] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold hover:bg-[#5ce683]" data-cta="book_intro_call" data-cta-location="features_header">Book Intro Call</a>
         </div>
-    </nav>
+    </header>
 
-    <section class="relative min-h-[45vh] flex items-center justify-center overflow-hidden pt-24 pb-14"
-             style="background:radial-gradient(ellipse at 50% 0%, #1e1b4b 0%, #030712 60%);">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-700/20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-0 right-10 w-80 h-80 bg-fuchsia-700/15 rounded-full blur-3xl animate-float" style="animation-delay:2s"></div>
-        <div class="absolute inset-0 opacity-[0.03]"
-             style="background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:50px 50px;"></div>
-
-        <div class="relative z-10 text-center px-6">
-            <div class="inline-flex items-center gap-2 bg-indigo-600/15 border border-indigo-500/30 rounded-full px-4 py-2 mb-6 animate-fade-up d1">
-                <i class="fas fa-layer-group text-indigo-300 text-xs"></i>
-                <span class="text-sm text-indigo-300 font-medium">Feature Overview</span>
+    <main>
+        <section class="border-b border-[#233027] py-20 md:py-24">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 fade d1">
+                <p class="mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Feature Overview</p>
+                <h1 class="mono font-bold text-4xl md:text-6xl leading-[1.03] max-w-4xl">Everything you need to design, build, and ship faster.</h1>
+                <p class="text-[#9ca9a2] text-lg mt-6 max-w-2xl">Konticode combines practical AI workflows with clear engineering systems so teams can move without chaos.</p>
             </div>
-            <h1 class="text-5xl md:text-6xl font-black leading-tight mb-4 animate-fade-up d2">
-                Everything You Need to Build and Ship Faster
-            </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto animate-fade-up d3">
-                One platform. One workflow. Unlimited possibilities.
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-24 px-6 bg-gray-900/50 border-y border-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-600/40 transition-colors">
-                        <i class="fas fa-code text-indigo-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Code Generation</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Describe what you need and get clean, production-ready code instantly.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-600/40 transition-colors">
-                        <i class="fas fa-brain text-purple-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Smart Explanations</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Paste any code and Nova will explain it clearly in plain English.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-fuchsia-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-fuchsia-600/40 transition-colors">
-                        <i class="fas fa-magic text-fuchsia-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Refactoring</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Improve code quality, performance, and readability automatically.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600/40 transition-colors">
-                        <i class="fas fa-comments text-emerald-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Live Chat Memory</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Nova remembers your conversation context for multi-turn interactions.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-sky-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-600/40 transition-colors">
-                        <i class="fas fa-tachometer-alt text-sky-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Live Dashboard</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Track tasks, messages, and activity in real-time from your dashboard.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-orange-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-orange-600/40 transition-colors">
-                        <i class="fas fa-bolt text-orange-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Instant Responses</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Sub-second responses powered by OpenAI GPT-4o-mini.</p>
+        <section class="py-20 border-b border-[#233027]">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <article class="tile p-6 fade d1"><i class="fas fa-code text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Code Generation</h2><p class="text-[#9ca9a2] mt-3 text-sm">Generate production-ready code quickly with practical defaults and clean structure.</p></article>
+                <article class="tile p-6 fade d2"><i class="fas fa-brain text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Deep Explanations</h2><p class="text-[#9ca9a2] mt-3 text-sm">Understand legacy or complex code paths with concise engineering explanations.</p></article>
+                <article class="tile p-6 fade d3"><i class="fas fa-wand-magic-sparkles text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Refactoring Help</h2><p class="text-[#9ca9a2] mt-3 text-sm">Improve readability and maintainability with structured, low-risk refactors.</p></article>
+                <article class="tile p-6 fade d1"><i class="fas fa-comments text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Conversation Memory</h2><p class="text-[#9ca9a2] mt-3 text-sm">Carry context across requests so workflows feel continuous and reliable.</p></article>
+                <article class="tile p-6 fade d2"><i class="fas fa-chart-bar text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Live Analytics</h2><p class="text-[#9ca9a2] mt-3 text-sm">Monitor tasks, traffic, and event activity in one control surface.</p></article>
+                <article class="tile p-6 fade d3"><i class="fas fa-bolt text-[#7fff9e]"></i><h2 class="mt-4 text-2xl font-semibold">Fast Response Loop</h2><p class="text-[#9ca9a2] mt-3 text-sm">Tight cycle from prompt to output so teams keep momentum under deadline pressure.</p></article>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center fade d2">
+                <p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e] mb-3">Try It</p>
+                <h2 class="text-3xl md:text-5xl font-bold">See how fast your workflow can get.</h2>
+                <p class="text-[#9ca9a2] text-lg mt-5 mb-8">Start with one task in the agent and watch your delivery speed change.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-3">
+                    <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-7 py-4 text-sm mono uppercase tracking-[0.14em] font-semibold" data-cta="book_intro_call" data-cta-location="features_footer">Book Intro Call <i class="fas fa-arrow-right text-xs"></i></a>
+                    <a href="/agent" class="inline-flex items-center justify-center gap-2 border border-[#233027] px-7 py-4 text-sm mono uppercase tracking-[0.14em] font-semibold hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="try_live_agent" data-cta-location="features_footer">Try Live Agent</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="border-t border-gray-800 py-10 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2 font-bold">
-                <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center"><i class="fas fa-robot text-xs"></i></div>
-                Konticode Labs
-            </div>
-            <p class="text-gray-500 text-sm">&copy; 2026 Konticode Labs - All rights reserved</p>
-            <div class="flex gap-5 text-gray-500 text-sm">
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-                <a href="/affiliate-tools" class="hover:text-white transition-colors">Tools I use</a>
-            </div>
+    <footer class="border-t border-[#233027] py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 justify-between items-center text-sm text-[#6f7b74]">
+            <div class="mono uppercase tracking-[0.14em] text-xs">Konticode Labs / Feature Set</div>
+            <div>&copy; 2026 Konticode Labs</div>
+            <div class="flex gap-5"><a href="/about" class="hover:text-[#7fff9e]">About</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a><a href="/affiliate-tools" class="hover:text-[#7fff9e]">Tools</a></div>
         </div>
     </footer>
+    <script>
+        document.addEventListener("click", (event) => {
+            const cta = event.target.closest("[data-cta]");
+            if (!cta || typeof gtag !== "function") return;
+            gtag("event", "cta_click", {
+                cta_name: cta.dataset.cta || "unknown",
+                cta_location: cta.dataset.ctaLocation || "features",
+                destination: cta.getAttribute("href") || ""
+            });
+        });
+    </script>
 </body>
 </html>

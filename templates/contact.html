@@ -1,291 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact – Konticode Labs</title>
+    <title>Contact | Konticode Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: {
-                animation: {
-                    'fade-up':    'fadeUp 0.7s ease-out forwards',
-                    'float':      'float 5s ease-in-out infinite',
-                    'pulse-slow': 'pulse 4s ease-in-out infinite',
-                },
-                keyframes: {
-                    fadeUp: { '0%':{ opacity:'0', transform:'translateY(30px)' }, '100%':{ opacity:'1', transform:'translateY(0)' } },
-                    float:  { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-16px)' } },
-                }
-            }}
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        .gradient-text { background: linear-gradient(135deg,#818cf8,#a78bfa,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        .card-glow:hover { box-shadow: 0 0 30px rgba(99,102,241,0.25); }
-        .d1{animation-delay:.1s;opacity:0} .d2{animation-delay:.25s;opacity:0} .d3{animation-delay:.4s;opacity:0} .d4{animation-delay:.55s;opacity:0}
-        input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 2px rgba(99,102,241,0.5); }
-        a[href="/tech"] { display: none; }
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #9ca9a2;
+            --kc-accent: #7fff9e;
+        }
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 10% -8%, #1f3028 0%, #090c0b 43%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+        .mono { font-family: "IBM Plex Mono", monospace; }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(127,255,158,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127,255,158,0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 88%);
+        }
+        .field {
+            background: #101412;
+            border: 1px solid #233027;
+            color: #f2f5f3;
+            border-radius: 0.85rem;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .field:focus {
+            outline: none;
+            border-color: #7fff9e;
+            box-shadow: 0 0 0 2px rgba(127,255,158,0.18);
+        }
+        .fade { opacity: 0; transform: translateY(18px); animation: fade .8s ease forwards; }
+        .d1 { animation-delay: .08s; }
+        .d2 { animation-delay: .16s; }
+        .d3 { animation-delay: .24s; }
+        @keyframes fade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     </style>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);} 
         gtag('js', new Date());
-
         gtag('config', 'G-HXPJGHXTBV');
     </script>
 </head>
+<body class="overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 grid-bg opacity-45"></div></div>
 
-<body class="bg-gray-950 text-white overflow-x-hidden">
-
-    <!-- ── Nav ── -->
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800/50 px-6 py-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 font-bold text-lg">
-                <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-                    <i class="fas fa-robot text-xs"></i>
-                </div>
-                Konticode Labs
-            </a>
-            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
-                <a href="/#features" class="hover:text-white transition-colors">Features</a>
-                <a href="/#demo" class="hover:text-white transition-colors">Demo</a>
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="text-white font-medium transition-colors">Contact</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button id="toggleDark" class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg border border-gray-700 hover:border-gray-500 text-sm">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="/agent" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                    Launch Agent
-                </a>
-            </div>
+    <header class="sticky top-0 z-50 border-b border-[#233027] bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3"><span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center mono text-[#7fff9e]">K</span><span class="mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span></a>
+            <nav class="hidden md:flex items-center gap-6 text-sm mono uppercase tracking-[0.12em] text-[#9ca9a2]"><a href="/" class="hover:text-[#7fff9e]">Home</a><a href="/features" class="hover:text-[#7fff9e]">Features</a><a href="/about" class="hover:text-[#7fff9e]">About</a></nav>
+            <a href="/agent" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold" data-cta="try_live_agent" data-cta-location="contact_header">Launch Agent</a>
         </div>
-    </nav>
+    </header>
 
-    <!-- ── Hero ── -->
-    <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden pt-24 pb-12"
-             style="background:radial-gradient(ellipse at 50% 0%, #1e1b4b 0%, #030712 60%);">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-700/20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-0 right-10 w-80 h-80 bg-purple-700/15 rounded-full blur-3xl animate-float" style="animation-delay:2s"></div>
-        <div class="absolute inset-0 opacity-[0.03]"
-             style="background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:50px 50px;"></div>
-
-        <div class="relative z-10 text-center px-6">
-            <div class="inline-flex items-center gap-2 bg-indigo-600/15 border border-indigo-500/30 rounded-full px-4 py-2 mb-6 animate-fade-up d1">
-                <i class="fas fa-envelope text-indigo-300 text-xs"></i>
-                <span class="text-sm text-indigo-300 font-medium">Get in touch</span>
+    <main>
+        <section class="border-b border-[#233027] py-20 md:py-24">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 fade d1">
+                <p class="mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Contact</p>
+                <h1 class="mono font-bold text-4xl md:text-6xl leading-[1.03] max-w-4xl">Tell us what you are building, we will map the fastest path to launch.</h1>
+                <p class="text-[#9ca9a2] text-lg mt-6 max-w-2xl">Questions, build requests, and technical consulting are all welcome. You will get a real response quickly.</p>
+                <p class="mono text-[11px] uppercase tracking-[0.16em] text-[#6f7b74] mt-4">Most replies include scope, timeline, and next actions.</p>
             </div>
-            <h1 class="text-5xl md:text-6xl font-black leading-tight mb-4 animate-fade-up d2">
-                Contact <span class="gradient-text">Konticode</span>
-            </h1>
-            <p class="text-xl text-gray-400 max-w-xl mx-auto animate-fade-up d3">
-                A question, a partnership idea, or just want to say hi — we'd love to hear from you.
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <!-- ── Contact Section ── -->
-    <section class="py-20 px-6">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-            <!-- Left: Info Cards -->
-            <div class="space-y-6 animate-fade-up d2">
-                <div>
-                    <h2 class="text-3xl font-black text-white mb-2">Let's talk</h2>
-                    <p class="text-gray-400 leading-relaxed">
-                        Whether you're curious about features, pricing, or anything else — our team is ready to answer all your questions.
-                    </p>
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-7">
+                <div class="lg:col-span-5 space-y-4 fade d2">
+                    <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Email</p><p class="text-lg mt-2">contact@konticodelabs.com</p><p class="text-sm text-[#9ca9a2] mt-2">Typical response under 24 hours.</p></article>
+                    <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Support Window</p><p class="text-lg mt-2">Mon - Fri, 9:00am to 6:00pm CST</p><p class="text-sm text-[#9ca9a2] mt-2">Agent support is available 24/7.</p></article>
+                    <article class="border border-[#233027] bg-[#171c19] p-5"><p class="mono text-xs uppercase tracking-[0.2em] text-[#7fff9e]">Quick Start</p><p class="text-sm text-[#9ca9a2] mt-2 mb-4">Need immediate help? Start with the AI agent and continue in email for project scoping.</p><a href="/agent" class="inline-flex items-center gap-2 border border-[#233027] px-4 py-2 text-xs mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="try_live_agent" data-cta-location="contact_sidebar">Open Agent <i class="fas fa-arrow-right text-xs"></i></a></article>
                 </div>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4">
-                    <div class="w-11 h-11 bg-indigo-600/20 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-envelope text-indigo-400"></i>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-white">Email us</p>
-                        <p class="text-gray-400 text-sm mt-0.5">contact@konticodelabs.com</p>
-                        <p class="text-gray-500 text-xs mt-1">We reply within 24 hours</p>
-                    </div>
-                </div>
+                <div class="lg:col-span-7 border border-[#233027] bg-[#121614] p-6 md:p-8 fade d3" data-testid="contact-form-panel">
+                    <h2 class="text-2xl font-semibold mb-2">Send a message</h2>
+                    <p class="text-sm text-[#9ca9a2] mb-6">Share your goals and constraints, and we will respond with a practical build path.</p>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4">
-                    <div class="w-11 h-11 bg-purple-600/20 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-robot text-purple-400"></i>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-white">Chat with Konti</p>
-                        <p class="text-gray-400 text-sm mt-0.5">Get instant answers from our AI agent</p>
-                        <a href="/agent" class="text-indigo-400 hover:text-indigo-300 text-xs mt-1 block transition-colors">
-                            Open Agent →
-                        </a>
-                    </div>
-                </div>
+                    <div id="successBanner" class="hidden mb-5 bg-[#153323] border border-[#1f5a3a] rounded-xl px-4 py-3 text-sm text-[#9fffc0]" data-testid="contact-success">Message sent. We will get back to you shortly.</div>
+                    <div id="errorBanner" class="hidden mb-5 bg-[#351919] border border-[#6a2b2b] rounded-xl px-4 py-3 text-sm text-[#ffb7b7]" data-testid="contact-error"><span id="errorMsg">Something went wrong. Please try again.</span></div>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4">
-                    <div class="w-11 h-11 bg-emerald-600/20 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-clock text-emerald-400"></i>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-white">Support Availability</p>
-                        <p class="text-gray-400 text-sm mt-0.5">9:00am – 6:00pm CST</p>
-                        <p class="text-gray-500 text-xs mt-1">Nova is available 24/7</p>
-                    </div>
-                </div>
+                    <form id="contactForm" class="space-y-4" data-testid="contact-form">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-[#9ca9a2] mb-2">First name <span class="text-[#ff8e86]">*</span></label>
+                                <input type="text" id="firstName" name="first_name" required placeholder="John" class="field" />
+                            </div>
+                            <div>
+                                <label class="block text-sm text-[#9ca9a2] mb-2">Last name</label>
+                                <input type="text" id="lastName" name="last_name" placeholder="Smith" class="field" />
+                            </div>
+                        </div>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow transition-all duration-300 flex items-start gap-4">
-                    <div class="w-11 h-11 bg-fuchsia-600/20 rounded-xl flex items-center justify-center shrink-0">
-                        <i class="fas fa-microchip text-fuchsia-400"></i>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-white">AI‑Powered Platform</p>
-                        <p class="text-gray-400 text-sm mt-0.5">Built for speed, accuracy, and reliability</p>
-                        <a href="/tech"
-                           class="text-indigo-400 hover:text-indigo-300 text-xs mt-1 block transition-colors">
-                            Explore the tech →
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Contact Form -->
-            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 animate-fade-up d3">
-                <h3 class="text-xl font-bold text-white mb-6">Send a message</h3>
-
-                <!-- Success Banner (hidden by default) -->
-                <div id="successBanner" class="hidden mb-5 bg-emerald-600/15 border border-emerald-500/30 rounded-xl px-4 py-3 flex items-center gap-3">
-                    <i class="fas fa-check-circle text-emerald-400"></i>
-                    <span class="text-emerald-300 text-sm font-medium">Message sent! We'll get back to you soon.</span>
-                </div>
-
-                <!-- Error Banner (hidden by default) -->
-                <div id="errorBanner" class="hidden mb-5 bg-red-600/15 border border-red-500/30 rounded-xl px-4 py-3 flex items-center gap-3">
-                    <i class="fas fa-exclamation-circle text-red-400"></i>
-                    <span id="errorMsg" class="text-red-300 text-sm font-medium">Something went wrong. Please try again.</span>
-                </div>
-
-                <form id="contactForm" class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm text-gray-400 mb-1.5 font-medium">First name <span class="text-red-400">*</span></label>
-                            <input type="text" id="firstName" name="first_name" required placeholder="John"
-                                   class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm transition-colors focus:border-indigo-500" />
+                            <label class="block text-sm text-[#9ca9a2] mb-2">Email address <span class="text-[#ff8e86]">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="you@example.com" class="field" />
                         </div>
+
                         <div>
-                            <label class="block text-sm text-gray-400 mb-1.5 font-medium">Last name</label>
-                            <input type="text" id="lastName" name="last_name" placeholder="Smith"
-                                   class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm transition-colors focus:border-indigo-500" />
+                            <label class="block text-sm text-[#9ca9a2] mb-2">Subject</label>
+                            <select id="subject" name="subject" class="field">
+                                <option value="general">General inquiry</option>
+                                <option value="demo">Request a demo</option>
+                                <option value="pricing">Pricing and plans</option>
+                                <option value="bug">Bug report</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
-                    </div>
 
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1.5 font-medium">Email address <span class="text-red-400">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="you@example.com"
-                               class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm transition-colors focus:border-indigo-500" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1.5 font-medium">Subject</label>
-                        <select id="subject" name="subject"
-                                class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm transition-colors focus:border-indigo-500 appearance-none">
-                            <option value="general">General inquiry</option>
-                            <option value="demo">Request a demo</option>
-                            <option value="pricing">Pricing &amp; plans</option>
-                            <option value="bug">Bug report</option>
-                            <option value="partnership">Partnership</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1.5 font-medium">Message <span class="text-red-400">*</span></label>
-                        <textarea id="message" name="message" required rows="5" placeholder="Tell us how we can help…"
-                                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm transition-colors focus:border-indigo-500 resize-none"></textarea>
-                        <div class="flex justify-end mt-1">
-                            <span id="charCount" class="text-xs text-gray-600">0 / 1000</span>
+                        <div>
+                            <label class="block text-sm text-[#9ca9a2] mb-2">Message <span class="text-[#ff8e86]">*</span></label>
+                            <textarea id="message" name="message" required rows="5" placeholder="Tell us what you need..." class="field resize-none"></textarea>
+                            <div class="flex justify-end mt-2"><span id="charCount" class="text-xs text-[#6f7b74]">0 / 1000</span></div>
                         </div>
-                    </div>
 
-                    <button type="submit" id="submitBtn"
-                            class="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm">
-                        <i class="fas fa-paper-plane"></i>
-                        <span id="btnText">Send Message</span>
-                    </button>
-                </form>
+                        <button type="submit" id="submitBtn" class="w-full bg-[#7fff9e] hover:bg-[#5ce683] disabled:opacity-60 disabled:cursor-not-allowed text-[#0b0d0c] font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm mono uppercase tracking-[0.14em]" data-testid="contact-submit-btn" data-cta="contact_submit" data-cta-location="contact_form">
+                            <i class="fas fa-paper-plane"></i>
+                            <span id="btnText">Send Message</span>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- ── Footer ── -->
-    <footer class="border-t border-gray-800 py-10 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2 font-bold">
-                <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center"><i class="fas fa-robot text-xs"></i></div>
-                Konticode Labs
-            </div>
-            <p class="text-gray-500 text-sm">&copy; 2026 Konticode Labs · All rights reserved</p>
-            <div class="flex gap-5 text-gray-500 text-sm">
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-                <a href="/affiliate-tools" class="hover:text-white transition-colors">Tools I use</a>
-            </div>
+    <footer class="border-t border-[#233027] py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 justify-between items-center text-sm text-[#6f7b74]">
+            <div class="mono uppercase tracking-[0.14em] text-xs">Konticode Labs / Contact</div>
+            <div>&copy; 2026 Konticode Labs</div>
+            <div class="flex gap-5"><a href="/about" class="hover:text-[#7fff9e]">About</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a><a href="/affiliate-tools" class="hover:text-[#7fff9e]">Tools</a></div>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle
-        document.getElementById("toggleDark").addEventListener("click", () =>
-            document.documentElement.classList.toggle("dark")
-        );
-
-        // Character counter
         const msgEl = document.getElementById("message");
         const charCount = document.getElementById("charCount");
+
         msgEl.addEventListener("input", () => {
             const len = msgEl.value.length;
             charCount.textContent = `${len} / 1000`;
-            charCount.className = len > 900
-                ? "text-xs text-red-400"
-                : len > 700
-                ? "text-xs text-yellow-400"
-                : "text-xs text-gray-600";
+            charCount.className = len > 900 ? "text-xs text-[#ff8e86]" : len > 700 ? "text-xs text-[#ffb454]" : "text-xs text-[#6f7b74]";
             if (len > 1000) msgEl.value = msgEl.value.substring(0, 1000);
         });
 
-        // Form submit
         document.getElementById("contactForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const btn     = document.getElementById("submitBtn");
+            const btn = document.getElementById("submitBtn");
             const btnText = document.getElementById("btnText");
             const success = document.getElementById("successBanner");
             const errorBanner = document.getElementById("errorBanner");
-            const errorMsg    = document.getElementById("errorMsg");
+            const errorMsg = document.getElementById("errorMsg");
 
-            // Hide banners
             success.classList.add("hidden");
             errorBanner.classList.add("hidden");
 
-            // Loading state
             btn.disabled = true;
-            btnText.textContent = "Sending…";
+            btnText.textContent = "Sending...";
             btn.querySelector("i").className = "fas fa-spinner fa-spin";
 
             const payload = {
                 first_name: document.getElementById("firstName").value.trim(),
-                last_name:  document.getElementById("lastName").value.trim(),
-                email:      document.getElementById("email").value.trim(),
-                subject:    document.getElementById("subject").value,
-                message:    document.getElementById("message").value.trim(),
+                last_name: document.getElementById("lastName").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                subject: document.getElementById("subject").value,
+                message: document.getElementById("message").value.trim(),
             };
 
             try {
-                const res  = await fetch("/api/contact", {
+                const res = await fetch("/api/contact", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload),
@@ -296,20 +197,36 @@
                     success.classList.remove("hidden");
                     document.getElementById("contactForm").reset();
                     charCount.textContent = "0 / 1000";
-                    // Scroll to top of form
+                    charCount.className = "text-xs text-[#6f7b74]";
+                    if (typeof gtag === "function") {
+                        gtag("event", "contact_form_submit", {
+                            form_name: "main_contact_form",
+                            subject: payload.subject || "general"
+                        });
+                    }
                     success.scrollIntoView({ behavior: "smooth", block: "nearest" });
                 } else {
                     errorMsg.textContent = data.error || "Something went wrong. Please try again.";
                     errorBanner.classList.remove("hidden");
                 }
             } catch {
-                errorMsg.textContent = "Network error — please check your connection.";
+                errorMsg.textContent = "Network error. Please check your connection.";
                 errorBanner.classList.remove("hidden");
             } finally {
                 btn.disabled = false;
                 btnText.textContent = "Send Message";
                 btn.querySelector("i").className = "fas fa-paper-plane";
             }
+        });
+
+        document.addEventListener("click", (event) => {
+            const cta = event.target.closest("[data-cta]");
+            if (!cta || typeof gtag !== "function") return;
+            gtag("event", "cta_click", {
+                cta_name: cta.dataset.cta || "unknown",
+                cta_location: cta.dataset.ctaLocation || "contact",
+                destination: cta.getAttribute("href") || ""
+            });
         });
     </script>
 </body>

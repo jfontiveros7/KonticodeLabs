@@ -1,297 +1,504 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name='impact-site-verification' value='b281efaa-3a98-4d3e-b041-ba567875b8cc'>
-    <title>Konticode Labs – AI Agent Platform</title>
+    <meta name="impact-site-verification" value="b281efaa-3a98-4d3e-b041-ba567875b8cc" />
+    <title>Konticode Labs | Engineering Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: { extend: {
-                animation: {
-                    'fade-up':    'fadeUp 0.7s ease-out forwards',
-                    'float':      'float 5s ease-in-out infinite',
-                    'pulse-slow': 'pulse 4s ease-in-out infinite',
-                },
-                keyframes: {
-                    fadeUp: { '0%':{ opacity:'0', transform:'translateY(30px)' }, '100%':{ opacity:'1', transform:'translateY(0)' } },
-                    float:  { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-16px)' } },
-                }
-            }}
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        .gradient-text { background: linear-gradient(135deg,#818cf8,#a78bfa,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-        .card-glow:hover { box-shadow: 0 0 30px rgba(99,102,241,0.25); }
-        .d1{animation-delay:.1s;opacity:0} .d2{animation-delay:.25s;opacity:0} .d3{animation-delay:.4s;opacity:0} .d4{animation-delay:.55s;opacity:0}
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #9ca9a2;
+            --kc-accent: #7fff9e;
+            --kc-accent-2: #ffb454;
+            --kc-danger: #ff5f56;
+        }
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 85% 8%, #1e2b23 0%, #090c0b 38%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+
+        .kc-mono {
+            font-family: "IBM Plex Mono", monospace;
+        }
+
+        .kc-grid-bg {
+            background-image:
+                linear-gradient(rgba(127, 255, 158, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127, 255, 158, 0.06) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 30%, transparent 85%);
+        }
+
+        .kc-border-glow {
+            box-shadow: 0 0 0 1px rgba(127, 255, 158, 0.22), 0 18px 42px rgba(0, 0, 0, 0.38);
+        }
+
+        .kc-caret {
+            display: inline-block;
+            width: 0.65ch;
+            height: 1em;
+            background: var(--kc-accent);
+            margin-left: 0.25ch;
+            transform: translateY(0.1em);
+            animation: kcBlink 0.95s steps(1) infinite;
+        }
+
+        .kc-scanlines {
+            background-image: repeating-linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.035),
+                rgba(255, 255, 255, 0.035) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+        }
+
+        .kc-fadeup {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: kcFadeUp 0.85s ease forwards;
+        }
+
+        .kc-delay-1 { animation-delay: 0.08s; }
+        .kc-delay-2 { animation-delay: 0.18s; }
+        .kc-delay-3 { animation-delay: 0.28s; }
+
+        @keyframes kcFadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes kcBlink {
+            0%, 48% { opacity: 1; }
+            49%, 100% { opacity: 0; }
+        }
+
+        @keyframes kcMarquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .kc-marquee-track {
+            animation: kcMarquee 22s linear infinite;
+        }
+
+        .kc-marquee-wrap:hover .kc-marquee-track {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 640px) {
+            .kc-marquee-track {
+                animation-duration: 28s;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .kc-marquee-track {
+                animation: none;
+            }
+        }
     </style>
-    <!-- Google tag (gtag.js) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kc: {
+                            bg: "#090c0b",
+                            panel: "#121614",
+                            border: "#233027",
+                            text: "#f2f5f3",
+                            muted: "#9ca9a2",
+                            accent: "#7fff9e"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-HXPJGHXTBV');
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-HXPJGHXTBV");
     </script>
 </head>
+<body class="overflow-x-hidden bg-kc-bg text-kc-text">
+    <div class="fixed inset-0 -z-10 pointer-events-none">
+        <div class="absolute inset-0 kc-grid-bg opacity-50"></div>
+    </div>
 
-<body class="bg-gray-950 text-white overflow-x-hidden">
-
-    <!-- ── Nav ── -->
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800/50 px-6 py-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 font-bold text-lg">
-                <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-                    <i class="fas fa-robot text-xs"></i>
-                </div>
-                Konticode Labs
-            </div>
-            <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
-                <a href="/features" class="hover:text-white transition-colors">Features</a>
-                <a href="/demo" class="hover:text-white transition-colors">Demo</a>
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-            </div>
+    <header class="sticky top-0 z-50 border-b border-kc-border/70 bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <span class="w-9 h-9 bg-kc-panel border border-kc-border flex items-center justify-center kc-mono text-kc-accent">K</span>
+                <span class="kc-mono tracking-[0.18em] uppercase text-sm text-kc-muted">Konticode Labs</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-7 text-sm uppercase tracking-[0.12em] kc-mono text-kc-muted">
+                <a href="#work" class="hover:text-kc-accent transition-colors">Work</a>
+                <a href="#process" class="hover:text-kc-accent transition-colors">Process</a>
+                <a href="#stack" class="hover:text-kc-accent transition-colors">Stack</a>
+                <a href="#contact" class="hover:text-kc-accent transition-colors">Contact</a>
+            </nav>
             <div class="flex items-center gap-3">
-                <button id="toggleDark" class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg border border-gray-700 hover:border-gray-500 text-sm">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="/agent" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                    Launch Agent
-                </a>
+                <a href="/dashboard" class="hidden sm:inline-flex items-center border border-kc-border px-4 py-2 text-xs uppercase tracking-[0.15em] kc-mono text-kc-muted hover:text-kc-accent hover:border-kc-accent transition-colors" data-cta="open_dashboard" data-cta-location="landing_header">Dashboard</a>
+                <a href="/contact" class="inline-flex items-center gap-2 bg-kc-accent text-[#0b0d0c] px-4 py-2 text-xs uppercase tracking-[0.15em] kc-mono font-semibold hover:bg-[#5ce683] transition-colors" data-cta="book_intro_call" data-cta-location="landing_header">Book intro call <i class="fas fa-arrow-right text-[10px]"></i></a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- ── Hero ── -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-             style="background:radial-gradient(ellipse at 50% 0%, #1e1b4b 0%, #030712 60%);">
-
-        <!-- Blobs -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-700/20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-700/15 rounded-full blur-3xl animate-float" style="animation-delay:2s"></div>
-
-        <!-- Grid -->
-        <div class="absolute inset-0 opacity-[0.03]"
-             style="background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:50px 50px;"></div>
-
-        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-            <div class="inline-flex items-center gap-2 bg-indigo-600/15 border border-indigo-500/30 rounded-full px-4 py-2 mb-8 animate-fade-up d1">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-sm text-indigo-300 font-medium">Live · Powered by GPT-4o-mini</span>
-            </div>
-
-            <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6 animate-fade-up d2">
-                Professional Web Development &amp; Technical Consulting
-            </h1>
-
-            <p class="hidden text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up d3">
-                Build, automate, and scale with a real AI assistant that codes, explains, refactors, and answers — instantly.
-            </p>
-
-            <p class="text-lg font-bold text-gray-400 max-w-3xl mx-auto mb-6 leading-relaxed animate-fade-up d3">
-                Konticode Labs helps businesses and founders turn ideas into real, production-ready products.
-            </p>
-            <p class="text-lg text-gray-300 max-w-4xl mx-auto mb-10 leading-relaxed animate-fade-up d3">
-                Custom websites, web applications, and backend solutions built with clean, scalable code.
-            </p>
-
-            <div class="max-w-6xl mx-auto mb-16 animate-fade-up d4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 text-left">
-                        <div class="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-laptop-code text-indigo-400 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-lg mb-2">Custom Web Development</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Tailored websites and web apps designed around real business goals, usability, and long-term flexibility.</p>
+    <main>
+        <section id="top" class="relative border-b border-kc-border overflow-hidden" data-testid="hero-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-20 pb-24 lg:pt-28 lg:pb-32 grid grid-cols-12 gap-8">
+                <div class="col-span-12 lg:col-span-7 kc-fadeup kc-delay-1">
+                    <div class="flex items-center gap-3 mb-8 kc-mono text-xs uppercase tracking-[0.25em] text-kc-muted">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full bg-kc-accent opacity-60"></span>
+                            <span class="relative inline-flex h-2 w-2 bg-kc-accent"></span>
+                        </span>
+                        <span>Booking Q2 2026</span>
+                        <span class="text-[#4b5b51]">/</span>
+                        <span class="text-[#4b5b51]">2 slots open</span>
                     </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 text-left">
-                        <div class="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-server text-purple-400 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-lg mb-2">Backend &amp; API Engineering</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Reliable backend systems and integrations that keep your product fast, organized, and ready to scale.</p>
-                    </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 text-left">
-                        <div class="w-12 h-12 bg-sky-600/20 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-lightbulb text-sky-400 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-lg mb-2">Technical Consulting</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Clear guidance on architecture, implementation, and next steps so projects move forward with confidence.</p>
-                    </div>
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 text-left">
-                        <div class="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-cloud-upload-alt text-emerald-400 text-lg"></i>
-                        </div>
-                        <h3 class="font-bold text-white text-lg mb-2">Deployment &amp; Infrastructure Setup</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Production deployments, environment setup, and hosting configuration so launches happen smoothly and safely.</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="max-w-4xl mx-auto mb-16 animate-fade-up d4">
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 card-glow transition-all duration-300 text-center">
-                    <div class="w-14 h-14 bg-fuchsia-600/20 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                        <i class="fas fa-microchip text-fuchsia-400 text-xl"></i>
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-black text-white mb-4">Explore the Technology Behind Konticode Labs</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed">
-                        Take a deeper look at the stack, systems, and engineering decisions that power the platform.
+                    <p class="kc-mono text-kc-accent text-sm mb-3">&gt; konticode.labs --init</p>
+
+                    <h1 class="kc-mono font-bold tracking-tight text-5xl md:text-6xl lg:text-7xl leading-[1.03] text-kc-text">
+                        Ship production
+                        <br />
+                        web apps without
+                        <br />
+                        <span class="text-kc-accent">hiring a team</span>
+                        <span class="kc-caret"></span>
+                    </h1>
+
+                    <p class="mt-8 max-w-xl text-lg text-kc-muted leading-relaxed">
+                        Konticode Labs is a boutique engineering studio for founders and operators.
+                        Custom websites, APIs, and backend systems built with clean code, shipped on a timeline you can plan around.
                     </p>
-                    <a href="/tech"
-                       class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-1">
-                        <i class="fas fa-arrow-right"></i> Services
-                    </a>
-                </div>
-            </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-up d4">
-                <a href="/agent"
-                   class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-2xl text-lg
-                          inline-flex items-center gap-3 shadow-xl shadow-indigo-900/50 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fas fa-comment-dots"></i> Chat with Konti
-                </a>
-            </div>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-3">
+                        <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-kc-accent text-[#0b0d0c] kc-mono uppercase tracking-[0.15em] text-sm px-6 py-4 hover:bg-[#5ce683] transition-colors" data-testid="hero-cta-primary" data-cta="book_intro_call" data-cta-location="landing_hero">
+                            Book intro call
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="/agent" class="inline-flex items-center justify-center gap-2 border border-kc-border text-kc-text kc-mono uppercase tracking-[0.15em] text-sm px-6 py-4 hover:border-kc-accent hover:text-kc-accent transition-colors" data-testid="hero-cta-secondary" data-cta="try_live_agent" data-cta-location="landing_hero">
+                            Try live agent
+                        </a>
+                    </div>
+                    <p class="mt-4 kc-mono text-[11px] uppercase tracking-[0.16em] text-[#5a6660]">No pressure sales flow. Get scope and timeline first.</p>
 
-        </div>
+                    <div class="mt-12 pt-6 border-t border-kc-border kc-mono text-xs text-[#4b5b51] flex flex-wrap gap-x-6 gap-y-2">
+                        <span><span class="text-kc-accent">$</span> typical_project: <span class="text-kc-muted">3-10 wks</span></span>
+                        <span><span class="text-kc-accent">$</span> engagement: <span class="text-kc-muted">fixed_scope | retainer</span></span>
+                        <span><span class="text-kc-accent">$</span> response: <span class="text-kc-muted">&lt;24h</span></span>
+                    </div>
+                </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-gray-600">
-            <a href="/features"><i class="fas fa-chevron-down text-xl"></i></a>
-        </div>
-    </section>
+                <div class="col-span-12 lg:col-span-5 lg:pl-4 kc-fadeup kc-delay-2">
+                    <div class="bg-kc-panel border border-kc-border kc-border-glow">
+                        <div class="flex items-center gap-2 px-4 py-3 border-b border-kc-border">
+                            <div class="w-2.5 h-2.5 bg-[#ff5f56]"></div>
+                            <div class="w-2.5 h-2.5 bg-[#ffbd2e]"></div>
+                            <div class="w-2.5 h-2.5 bg-[#27c93f]"></div>
+                            <span class="ml-3 kc-mono text-xs text-[#4b5b51]">~/konticode - status.sh</span>
+                        </div>
+                        <div class="p-5 kc-mono text-xs leading-relaxed kc-scanlines">
+                            <p class="text-[#4b5b51]">$ ./who_we_are.sh</p>
+                            <p class="text-kc-text mt-1">ENGINEERS_ONLY <span class="text-kc-accent">= true</span></p>
+                            <p class="text-kc-text">OFFSHORE_MIDDLEMEN <span class="text-[#ff5f56]">= false</span></p>
+                            <p class="text-kc-text">REAL_HUMAN_REPLIES <span class="text-kc-accent">= true</span></p>
+                            <p class="text-[#4b5b51] mt-4">$ ./stack.sh</p>
+                            <p class="text-kc-text mt-1 flex flex-wrap gap-x-2">
+                                <span>&gt;</span>
+                                <span class="text-kc-accent">react</span>
+                                <span>&middot;</span>
+                                <span class="text-kc-accent">next.js</span>
+                                <span>&middot;</span>
+                                <span class="text-kc-accent">python</span>
+                            </p>
+                            <p class="text-kc-text flex flex-wrap gap-x-2">
+                                <span>&gt;</span>
+                                <span class="text-kc-accent">fastapi</span>
+                                <span>&middot;</span>
+                                <span class="text-kc-accent">postgres</span>
+                                <span>&middot;</span>
+                                <span class="text-kc-accent">aws</span>
+                            </p>
+                            <p class="text-[#4b5b51] mt-4">$ ./availability.sh</p>
+                            <p class="text-kc-text mt-1">next_start: <span class="text-kc-accent-2">2026-06-03</span></p>
+                            <p class="mt-4 text-kc-muted"><span class="text-kc-accent">&gt;</span> ready_<span class="kc-caret"></span></p>
+                        </div>
+                    </div>
 
-    <!-- ── Features ── -->
-    <section id="features" class="hidden py-24 px-6 bg-gray-900/50 border-y border-gray-800">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-14">
-                <h2 class="text-4xl font-black text-white mb-3">Everything you need</h2>
-                <p class="text-gray-400">One agent, unlimited possibilities</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-600/40 transition-colors">
-                        <i class="fas fa-code text-indigo-400 text-lg"></i>
+                    <div class="mt-6 grid grid-cols-3 border border-kc-border bg-kc-panel">
+                        <div class="p-4 border-r border-kc-border" data-testid="hero-stat-ships">
+                            <div class="kc-mono font-bold text-2xl text-kc-text">24+</div>
+                            <div class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#4b5b51] mt-1">ships</div>
+                        </div>
+                        <div class="p-4 border-r border-kc-border" data-testid="hero-stat-reply">
+                            <div class="kc-mono font-bold text-2xl text-kc-text">&lt;24h</div>
+                            <div class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#4b5b51] mt-1">reply</div>
+                        </div>
+                        <div class="p-4" data-testid="hero-stat-owned">
+                            <div class="kc-mono font-bold text-2xl text-kc-text">100%</div>
+                            <div class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#4b5b51] mt-1">owned</div>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Code Generation</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Describe what you need and get clean, production-ready code instantly.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-600/40 transition-colors">
-                        <i class="fas fa-brain text-purple-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Smart Explanations</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Paste any code and Nova will explain it clearly in plain English.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-fuchsia-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-fuchsia-600/40 transition-colors">
-                        <i class="fas fa-magic text-fuchsia-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Refactoring</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Improve code quality, performance, and readability automatically.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600/40 transition-colors">
-                        <i class="fas fa-comments text-emerald-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Live Chat Memory</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Nova remembers your conversation context for multi-turn interactions.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-sky-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-600/40 transition-colors">
-                        <i class="fas fa-tachometer-alt text-sky-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Live Dashboard</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Track tasks, messages, and activity in real-time from your dashboard.</p>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 card-glow transition-all duration-300 group">
-                    <div class="w-12 h-12 bg-orange-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-orange-600/40 transition-colors">
-                        <i class="fas fa-bolt text-orange-400 text-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-2">Instant Responses</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Sub-second responses powered by OpenAI GPT-4o-mini.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ── Live demo chat teaser ── -->
-    <section id="demo" class="hidden py-24 px-6">
-        <div class="max-w-3xl mx-auto text-center mb-12">
-            <h2 class="text-4xl font-black text-white mb-3">See it in action</h2>
-            <p class="text-gray-400">A glimpse of what Nova can do</p>
-        </div>
-        <div class="max-w-2xl mx-auto bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-            <!-- fake terminal header -->
-            <div class="flex items-center gap-2 px-4 py-3 bg-gray-800 border-b border-gray-700">
-                <span class="w-3 h-3 rounded-full bg-red-400"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
-                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-                <span class="text-xs text-gray-500 ml-2">Konti Agent · Live</span>
-            </div>
-            <div class="p-5 space-y-4 text-sm">
-                <div class="flex gap-3">
-                    <div class="w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-xs shrink-0 font-bold">U</div>
-                    <div class="bg-indigo-600/20 border border-indigo-600/30 rounded-xl px-3 py-2 text-gray-200">Write a Python function to reverse a linked list</div>
+        <section class="py-10 border-b border-kc-border overflow-hidden" data-testid="trusted-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="kc-mono text-[10px] uppercase tracking-[0.3em] text-[#4b5b51] text-center mb-5">
+                    Trusted by
                 </div>
-                <div class="flex gap-3">
-                    <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs shrink-0"><i class="fas fa-robot"></i></div>
-                    <div class="bg-gray-800 rounded-xl px-3 py-2 text-gray-300 leading-relaxed">
-                        Sure! Here's an iterative solution:<br><br>
-                        <code class="block bg-gray-950 rounded-lg p-3 text-emerald-300 text-xs font-mono mt-1">def reverse_linked_list(head):
-    prev, curr = None, head
-    while curr:
-        curr.next, prev, curr = prev, curr, curr.next
-    return prev</code>
-                        <span class="text-gray-400 text-xs mt-2 block">O(n) time · O(1) space ✓</span>
+            </div>
+            <div class="relative kc-marquee-wrap" data-testid="trusted-marquee-wrap">
+                <div class="kc-marquee-track flex gap-16 whitespace-nowrap w-max px-6 kc-mono text-lg text-kc-muted" data-testid="trusted-marquee-track">
+                    <span class="flex items-center gap-16"><span>LaunchStack</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Northline Ops</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Orbit Commerce</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>SignalWare</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Vertex Health</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>LaunchStack</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Northline Ops</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Orbit Commerce</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>SignalWare</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                    <span class="flex items-center gap-16"><span>Vertex Health</span><i class="fas fa-plus text-kc-accent text-xs"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="py-20 border-b border-kc-border" data-testid="work-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+                    <div>
+                        <p class="kc-mono uppercase tracking-[0.2em] text-xs text-kc-accent mb-3">Selected Work</p>
+                        <h2 class="text-3xl md:text-5xl font-bold leading-tight max-w-2xl">Builds that shipped and moved real business metrics.</h2>
+                    </div>
+                    <p class="text-kc-muted max-w-lg">Each engagement is custom-scoped. No generic templates, no recycled code, no handoffs to anonymous freelancers.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <article class="border border-kc-border bg-kc-panel-soft p-6 hover:border-kc-accent transition-colors" data-testid="work-card-saas-product">
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-kc-accent mb-4">SaaS Product</p>
+                        <h3 class="text-xl font-semibold mb-3">Platform rebuild in 6 weeks</h3>
+                        <p class="text-kc-muted mb-5">Replaced a fragile monolith with a modern React + FastAPI architecture and cut average response time by 48%.</p>
+                        <p class="kc-mono text-xs text-[#7f8a84]">Outcome: faster feature delivery + lower infra spend</p>
+                    </article>
+                    <article class="border border-kc-border bg-kc-panel-soft p-6 hover:border-kc-accent transition-colors" data-testid="work-card-operations">
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-kc-accent mb-4">Operations</p>
+                        <h3 class="text-xl font-semibold mb-3">Internal workflow automation</h3>
+                        <p class="text-kc-muted mb-5">Automated document processing and approval routing with secure APIs and event-based notifications.</p>
+                        <p class="kc-mono text-xs text-[#7f8a84]">Outcome: 26 hours saved weekly across two teams</p>
+                    </article>
+                    <article class="border border-kc-border bg-kc-panel-soft p-6 hover:border-kc-accent transition-colors" data-testid="work-card-ecommerce">
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-kc-accent mb-4">E-commerce</p>
+                        <h3 class="text-xl font-semibold mb-3">Revenue-focused checkout optimization</h3>
+                        <p class="text-kc-muted mb-5">Refactored checkout and analytics stack to remove drop-offs and improve mobile conversion flows.</p>
+                        <p class="kc-mono text-xs text-[#7f8a84]">Outcome: +17% conversion in first 30 days</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="border-b border-kc-border bg-[#0b0d0c]" data-testid="services-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+                <p class="kc-mono uppercase tracking-[0.2em] text-xs text-kc-accent mb-3">Services</p>
+                <h2 class="text-3xl md:text-4xl font-bold leading-tight max-w-3xl">Engineering services designed for focused delivery and measurable outcomes.</h2>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 pb-16">
+                <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-l border-t border-[#1E2420]" data-testid="services-grid"></div>
+            </div>
+        </section>
+
+        <section id="process" class="py-20 border-b border-kc-border" data-testid="process-section">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
+                    <div class="lg:col-span-1 border border-kc-border bg-kc-panel p-6" data-testid="process-overview">
+                        <p class="kc-mono text-xs uppercase tracking-[0.2em] text-kc-accent mb-3">How It Works</p>
+                        <h2 class="text-2xl font-bold leading-tight">A process built for founders who need speed and certainty.</h2>
+                    </div>
+                    <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="border border-kc-border bg-kc-panel-soft p-6" data-testid="process-step-scope">
+                            <p class="kc-mono text-xs text-kc-accent mb-4">01 / Scope</p>
+                            <h3 class="text-lg font-semibold mb-3">Architecture + timeline plan</h3>
+                            <p class="text-kc-muted text-sm">We lock down business goals, technical scope, milestones, and delivery dates before writing production code.</p>
+                        </div>
+                        <div class="border border-kc-border bg-kc-panel-soft p-6" data-testid="process-step-build">
+                            <p class="kc-mono text-xs text-kc-accent mb-4">02 / Build</p>
+                            <h3 class="text-lg font-semibold mb-3">Rapid weekly shipping</h3>
+                            <p class="text-kc-muted text-sm">You get visible progress and demos every week, with architecture decisions documented as we move.</p>
+                        </div>
+                        <div class="border border-kc-border bg-kc-panel-soft p-6" data-testid="process-step-launch">
+                            <p class="kc-mono text-xs text-kc-accent mb-4">03 / Launch</p>
+                            <h3 class="text-lg font-semibold mb-3">Deploy + support handoff</h3>
+                            <p class="text-kc-muted text-sm">Production release, observability, and a practical support window so your team can operate confidently.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="px-5 pb-5">
-                <a href="/agent"
-                   class="block w-full text-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-colors">
-                    <i class="fas fa-rocket mr-2"></i> Try it yourself →
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ── Footer ── -->
-    <footer class="border-t border-gray-800 py-10 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2 font-bold">
-                <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center"><i class="fas fa-robot text-xs"></i></div>
-                Konticode Labs
+        <section id="stack" class="py-16 border-b border-kc-border" data-testid="stack-section">
+            <div class="max-w-7xl mx-auto px-0 sm:px-6 lg:px-12">
+                <div class="px-6 sm:px-0 mb-6">
+                    <p class="kc-mono uppercase tracking-[0.2em] text-xs text-kc-accent">Tooling</p>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2">Modern stack. Battle-tested choices.</h2>
+                </div>
+                <div class="kc-marquee-wrap overflow-hidden border-y border-kc-border bg-kc-panel-soft py-4" data-testid="stack-marquee-wrap">
+                    <div id="stackMarquee" class="kc-marquee-track flex gap-12 whitespace-nowrap w-max px-6 py-2" data-testid="stack-marquee-track"></div>
+                </div>
             </div>
-            <p class="text-gray-500 text-sm">&copy; 2026 Konticode Labs · All rights reserved</p>
-            <div class="flex gap-5 text-gray-500 text-sm">
-                <a href="/about" class="hover:text-white transition-colors">About</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
-                <a href="/affiliate-tools" class="hover:text-white transition-colors">Tools I use</a>
+        </section>
+
+        <section id="contact" class="py-20" data-testid="contact-section">
+            <div class="max-w-5xl mx-auto px-6 lg:px-12">
+                <div class="border border-kc-border bg-kc-panel p-8 md:p-10 kc-border-glow">
+                    <p class="kc-mono uppercase tracking-[0.2em] text-xs text-kc-accent mb-4">Start Here</p>
+                    <h2 class="text-3xl md:text-5xl font-bold leading-tight mb-5">Need a site, API, or platform built right the first time?</h2>
+                    <p class="text-kc-muted text-lg mb-8 max-w-2xl">Tell us what you are launching, what timeline you are targeting, and what systems are already in place. We will map the build and next steps.</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-kc-accent text-[#0b0d0c] kc-mono uppercase tracking-[0.15em] text-sm px-6 py-4 hover:bg-[#5ce683] transition-colors" data-testid="contact-cta-primary" data-cta="book_intro_call" data-cta-location="landing_footer">Book intro call <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="/agent" class="inline-flex items-center justify-center gap-2 border border-kc-border text-kc-text kc-mono uppercase tracking-[0.15em] text-sm px-6 py-4 hover:border-kc-accent hover:text-kc-accent transition-colors" data-testid="contact-cta-secondary" data-cta="try_live_agent" data-cta-location="landing_footer">Try live agent</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-kc-border py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+            <div class="kc-mono text-xs tracking-[0.14em] uppercase text-[#6f7b74]">Konticode Labs / Engineering Studio</div>
+            <div class="text-sm text-[#6f7b74]">&copy; 2026 Konticode Labs. Built with intention.</div>
+            <div class="flex items-center gap-5 text-sm text-[#6f7b74]">
+                <a href="/about" class="hover:text-kc-accent transition-colors">About</a>
+                <a href="/features" class="hover:text-kc-accent transition-colors">Features</a>
+                <a href="/affiliate-tools" class="hover:text-kc-accent transition-colors">Tools</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle
-        document.getElementById("toggleDark").addEventListener("click", () =>
-            document.documentElement.classList.toggle("dark")
-        );
+        const services = [
+            {
+                n: "Web Apps",
+                title: "Custom frontend and platform builds",
+                body: "Responsive, conversion-focused interfaces built for production performance and maintainable growth.",
+                icon: "fa-window-maximize"
+            },
+            {
+                n: "API Systems",
+                title: "Backend architecture and integrations",
+                body: "Secure APIs, workflow automation, and data pipelines that keep products reliable at scale.",
+                icon: "fa-diagram-project"
+            },
+            {
+                n: "Audit + Refactor",
+                title: "Stability and speed improvements",
+                body: "Codebase assessments, performance tuning, and strategic refactors that reduce risk and unlock delivery speed.",
+                icon: "fa-wrench"
+            },
+            {
+                n: "Launch Support",
+                title: "Deployment and post-launch hardening",
+                body: "Production rollout, observability setup, and rapid response support during critical launch windows.",
+                icon: "fa-rocket"
+            }
+        ];
 
-        // Animated number counters
-        document.querySelectorAll(".counter").forEach(el => {
-            const target = +el.dataset.target;
-            const suffix = el.dataset.target === "99" ? "%" : "+";
-            let current  = 0;
-            const step   = Math.ceil(target / 60);
-            const timer  = setInterval(() => {
-                current = Math.min(current + step, target);
-                el.textContent = current.toLocaleString() + suffix;
-                if (current >= target) clearInterval(timer);
-            }, 30);
+        const stackItems = [
+            { label: "React", icon: "fa-react" },
+            { label: "Next.js", icon: "fa-n" },
+            { label: "TypeScript", icon: "fa-code" },
+            { label: "FastAPI", icon: "fa-bolt" },
+            { label: "Flask", icon: "fa-flask" },
+            { label: "PostgreSQL", icon: "fa-database" },
+            { label: "AWS", icon: "fa-cloud" },
+            { label: "Docker", icon: "fa-box" },
+            { label: "CI/CD", icon: "fa-gears" },
+            { label: "Observability", icon: "fa-chart-line" }
+        ];
+
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        function slugifyToken(value, index, fallbackPrefix = "item") {
+            const base = String(value || "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+            return base || `${fallbackPrefix}-${index + 1}`;
+        }
+
+        const servicesGrid = document.getElementById("servicesGrid");
+        if (servicesGrid) {
+            servicesGrid.innerHTML = services.map((s, index) => {
+                const slug = slugifyToken(s.n, index, "service");
+                const iconClass = s.icon || "fa-gear";
+                return `
+                    <article
+                        class="group border-r border-b border-[#1E2420] p-8 lg:p-10 bg-[#0b0d0c] hover:bg-[#121614] transition-colors relative"
+                        data-testid="service-card-${slug}"
+                    >
+                        <div class="flex items-start justify-between mb-8">
+                            <div class="w-12 h-12 border border-[#1E2420] group-hover:border-[#7FFF9E] flex items-center justify-center transition-colors">
+                                <i aria-hidden="true" class="fa-solid ${iconClass} text-[18px] text-[#F9FAFB] group-hover:text-[#7FFF9E] transition-colors"></i>
+                            </div>
+                            <span class="kc-mono text-xs text-[#6B7280] tracking-[0.2em] uppercase">
+                                ${s.n || "Service"}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-[#F9FAFB]">${s.title || "Service offering"}</h3>
+                        <p class="text-kc-muted text-sm leading-relaxed">${s.body || "Details coming soon."}</p>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        const stackMarquee = document.getElementById("stackMarquee");
+        if (stackMarquee) {
+            const full = [...stackItems, ...stackItems];
+            stackMarquee.innerHTML = full.map((item, index) => {
+                const label = escapeHtml(item.label || "Tool");
+                const iconClass = item.icon || "fa-circle";
+                const slug = slugifyToken(item.label, index, "stack");
+                return `
+                    <div class="flex items-center gap-3 kc-mono text-lg text-[#F9FAFB]" data-testid="stack-item-${slug}">
+                        <i aria-hidden="true" class="fa-solid ${iconClass} text-[#7FFF9E] text-[16px]"></i>
+                        <span>${label}</span>
+                        <span aria-hidden="true" class="text-[#4B5563]">//</span>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        document.addEventListener("click", (event) => {
+            const cta = event.target.closest("[data-cta]");
+            if (!cta || typeof gtag !== "function") return;
+            gtag("event", "cta_click", {
+                cta_name: cta.dataset.cta || "unknown",
+                cta_location: cta.dataset.ctaLocation || "landing",
+                destination: cta.getAttribute("href") || ""
+            });
         });
     </script>
 </body>
