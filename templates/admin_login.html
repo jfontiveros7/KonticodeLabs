@@ -1,55 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Login - Konticode Labs</title>
+    <title>Admin Login | Konticode Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google tag (gtag.js) -->
+    <style>
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #95a39b;
+            --kc-accent: #7fff9e;
+            --kc-danger: #ff8e86;
+        }
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 78% -24%, #1f2d24 0%, #090c0b 46%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+
+        .kc-mono {
+            font-family: "IBM Plex Mono", monospace;
+        }
+
+        .kc-grid-bg {
+            background-image:
+                linear-gradient(rgba(127, 255, 158, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127, 255, 158, 0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 88%);
+        }
+
+        .kc-panel-main {
+            border: 1px solid var(--kc-border);
+            background: rgba(18, 22, 20, 0.76);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.42);
+        }
+
+        .kc-field {
+            width: 100%;
+            background: #101412;
+            border: 1px solid #233027;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: #f2f5f3;
+            font-size: 0.92rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .kc-field:focus {
+            outline: none;
+            border-color: #7fff9e;
+            box-shadow: 0 0 0 1px #7fff9e;
+        }
+
+        .kc-btn-primary {
+            width: 100%;
+            border-radius: 0.75rem;
+            background: #7fff9e;
+            color: #0b0d0c;
+            border: 1px solid #6be48a;
+            font-weight: 700;
+            padding: 0.78rem 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .kc-btn-primary:hover {
+            background: #5ce683;
+        }
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-HXPJGHXTBV');
     </script>
 </head>
-<body class="bg-gray-950 text-white min-h-screen flex items-center justify-center px-4 sm:px-6">
-    <div class="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl p-6 sm:p-8">
+<body class="min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 kc-grid-bg opacity-45"></div></div>
+
+    <div class="w-full max-w-md kc-panel-main rounded-2xl p-6 sm:p-8" data-testid="admin-login-panel">
         <div class="text-center mb-6">
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-600/20 flex items-center justify-center mb-4">
-                <i class="fas fa-lock text-indigo-300"></i>
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-[#152119] border border-[#2d4735] flex items-center justify-center mb-4">
+                <i class="fas fa-lock text-[#7fff9e]"></i>
             </div>
+            <p class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#7fff9e] mb-2">Restricted Area</p>
             <h1 class="text-xl sm:text-2xl font-black">Admin Access</h1>
-            <p class="text-gray-400 text-sm mt-2">Sign in with admin credentials to continue.</p>
+            <p class="text-[#95a39b] text-sm mt-2">Sign in with admin credentials to continue.</p>
         </div>
 
         {% if error %}
-        <div class="mb-4 bg-red-500/15 border border-red-500/30 text-red-300 text-sm rounded-lg px-4 py-3">
+        <div class="mb-4 bg-[#351919] border border-[#6a2b2b] text-[#ffb7b7] text-sm rounded-lg px-4 py-3" data-testid="admin-login-error">
             {{ error }}
         </div>
         {% endif %}
 
-        <form method="post" action="/admin/login" class="space-y-4">
+        <form method="post" action="/admin/login" class="space-y-4" data-testid="admin-login-form">
             <div>
-                <label for="username" class="block text-sm text-gray-400 mb-1.5">Username</label>
-                <input id="username" name="username" type="text" required
-                       class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-indigo-500" />
+                <label for="username" class="block text-sm text-[#95a39b] mb-1.5">Username</label>
+                <input id="username" name="username" type="text" required class="kc-field" />
             </div>
             <div>
-                <label for="password" class="block text-sm text-gray-400 mb-1.5">Password</label>
-                <input id="password" name="password" type="password" required
-                       class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-indigo-500" />
+                <label for="password" class="block text-sm text-[#95a39b] mb-1.5">Password</label>
+                <input id="password" name="password" type="password" required class="kc-field" />
             </div>
-            <button type="submit"
-                    class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-colors">
+            <button type="submit" class="kc-btn-primary kc-mono uppercase tracking-[0.14em]" data-testid="admin-login-submit-btn">
                 Sign In
             </button>
         </form>
 
-        <p class="text-xs text-gray-500 mt-5 text-center">Protected area for authorized admin only.</p>
+        <p class="text-xs text-[#5e6c65] mt-5 text-center kc-mono uppercase tracking-[0.12em]">Protected area for authorized admins only.</p>
     </div>
 </body>
 </html>
