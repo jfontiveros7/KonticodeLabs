@@ -4,7 +4,7 @@ import base64
 import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask import Flask, render_template, jsonify, request, redirect, url_for, session
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from openai import APIConnectionError, AuthenticationError, RateLimitError
@@ -98,6 +98,45 @@ def affiliate_hub_legacy():
 @app.route("/affiliatehub.html")
 def affiliate_hub_html_legacy():
     return redirect(url_for("affiliate_tools"))
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Sitemap: " + request.url_root.rstrip("/") + "/sitemap.xml",
+    ]
+    return Response("\n".join(lines) + "\n", mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    pages = [
+        "landing",
+        "about",
+        "features",
+        "demo",
+        "tech",
+        "contact",
+        "agent",
+        "dashboard",
+        "affiliate_tools",
+    ]
+    urls = [request.url_root.rstrip("/") + url_for(endpoint) for endpoint in pages]
+    lastmod = datetime.date.today().isoformat()
+
+    body = [
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+        "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+    ]
+    for loc in urls:
+        body.append("  <url>")
+        body.append(f"    <loc>{loc}</loc>")
+        body.append(f"    <lastmod>{lastmod}</lastmod>")
+        body.append("  </url>")
+    body.append("</urlset>")
+    return Response("\n".join(body) + "\n", mimetype="application/xml")
 
 
 def _is_admin_authenticated():
@@ -375,6 +414,9 @@ def get_stats():
 @app.after_request
 def add_no_cache_headers(response):
     content_type = (response.headers.get("Content-Type") or "").lower()
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     if "text/html" in content_type:
         response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
         response.headers["Pragma"] = "no-cache"
