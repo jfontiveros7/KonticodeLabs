@@ -108,12 +108,12 @@
     <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 kc-grid-bg opacity-45"></div></div>
 
     <nav class="fixed top-0 w-full z-50 bg-[#090c0b]/90 backdrop-blur border-b border-[#233027] px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <a href="/" class="flex items-center gap-3 font-bold text-lg">
                 <span class="w-8 h-8 border border-[#233027] bg-[#121614] flex items-center justify-center kc-mono text-[#7fff9e]">K</span>
                 <span class="kc-mono text-xs uppercase tracking-[0.18em] text-[#95a39b]">Konticode Admin</span>
             </a>
-            <div class="flex items-center gap-4 text-sm kc-mono uppercase tracking-[0.12em] text-[#95a39b]">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-sm kc-mono uppercase tracking-[0.12em] text-[#95a39b]">
                 <a href="/dashboard" class="hover:text-[#7fff9e] transition-colors">Dashboard</a>
                 <a href="/agent" class="hover:text-[#7fff9e] transition-colors">Agent</a>
                 <a href="/contact" class="hover:text-[#7fff9e] transition-colors">Contact</a>
@@ -126,7 +126,7 @@
         </div>
     </nav>
 
-    <main class="pt-28 pb-12 px-6" data-testid="admin-main">
+    <main class="pt-40 sm:pt-28 pb-12 px-6" data-testid="admin-main">
         <div class="max-w-7xl mx-auto space-y-8">
             <section class="kc-panel-main kc-fade-up" data-testid="admin-header-section">
                 <p class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#7fff9e] mb-2">Live Operations</p>
