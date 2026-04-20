@@ -1,31 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Analytics - Konticode Labs</title>
+    <title>Admin Analytics | Konticode Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    animation: {
-                        'fade-up': 'fadeUp 0.6s ease-out forwards'
-                    },
-                    keyframes: {
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(18px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        };
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <style>
-        .card-glow:hover { box-shadow: 0 0 28px rgba(99, 102, 241, 0.22); }
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #95a39b;
+            --kc-accent: #7fff9e;
+            --kc-warning: #ffb454;
+            --kc-danger: #ff8e86;
+        }
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 78% -24%, #1f2d24 0%, #090c0b 46%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+
+        .kc-mono {
+            font-family: "IBM Plex Mono", monospace;
+        }
+
+        .kc-grid-bg {
+            background-image:
+                linear-gradient(rgba(127, 255, 158, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127, 255, 158, 0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 88%);
+        }
+
+        .kc-fade-up {
+            animation: fadeUp 0.55s ease-out forwards;
+        }
+
+        .kc-panel-main {
+            border: 1px solid var(--kc-border);
+            background: rgba(18, 22, 20, 0.74);
+            padding: 1.5rem;
+        }
+
+        .kc-card {
+            background: linear-gradient(160deg, rgba(18, 22, 20, 0.96), rgba(14, 18, 16, 0.95));
+            border: 1px solid var(--kc-border);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .kc-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(127, 255, 158, 0.45);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.42);
+        }
+
+        .kc-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            border-radius: 0.5rem;
+            background: #181f1c;
+            color: #dbe3df;
+            border: 1px solid var(--kc-border);
+            padding: 0.55rem 0.95rem;
+            font-size: 0.82rem;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .kc-btn-secondary:hover {
+            background: #1e2723;
+            border-color: #2d4735;
+        }
+
+        .kc-status-ok {
+            color: #7fff9e;
+        }
+
+        .kc-status-warn {
+            color: var(--kc-warning);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
@@ -37,21 +104,21 @@
         gtag('config', 'G-HXPJGHXTBV');
     </script>
 </head>
-<body class="bg-gray-950 text-white min-h-screen">
-    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur border-b border-gray-800/50 px-6 py-4">
+<body class="min-h-screen overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 kc-grid-bg opacity-45"></div></div>
+
+    <nav class="fixed top-0 w-full z-50 bg-[#090c0b]/90 backdrop-blur border-b border-[#233027] px-6 py-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 font-bold text-lg">
-                <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-                    <i class="fas fa-chart-line text-xs"></i>
-                </div>
-                Konticode Admin
+            <a href="/" class="flex items-center gap-3 font-bold text-lg">
+                <span class="w-8 h-8 border border-[#233027] bg-[#121614] flex items-center justify-center kc-mono text-[#7fff9e]">K</span>
+                <span class="kc-mono text-xs uppercase tracking-[0.18em] text-[#95a39b]">Konticode Admin</span>
             </a>
-            <div class="flex items-center gap-4 text-sm text-gray-300">
-                <a href="/dashboard" class="hover:text-white transition-colors">Dashboard</a>
-                <a href="/agent" class="hover:text-white transition-colors">Agent</a>
-                <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+            <div class="flex items-center gap-4 text-sm kc-mono uppercase tracking-[0.12em] text-[#95a39b]">
+                <a href="/dashboard" class="hover:text-[#7fff9e] transition-colors">Dashboard</a>
+                <a href="/agent" class="hover:text-[#7fff9e] transition-colors">Agent</a>
+                <a href="/contact" class="hover:text-[#7fff9e] transition-colors">Contact</a>
                 <form method="post" action="/admin/logout">
-                    <button type="submit" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-3 py-1.5 rounded-lg transition-colors">
+                    <button type="submit" class="kc-btn-secondary">
                         Logout
                     </button>
                 </form>
@@ -61,83 +128,84 @@
 
     <main class="pt-28 pb-12 px-6" data-testid="admin-main">
         <div class="max-w-7xl mx-auto space-y-8">
-            <section class="animate-fade-up" data-testid="admin-header-section">
+            <section class="kc-panel-main kc-fade-up" data-testid="admin-header-section">
+                <p class="kc-mono text-[10px] uppercase tracking-[0.2em] text-[#7fff9e] mb-2">Live Operations</p>
                 <h1 class="text-4xl md:text-5xl font-black">Analytics Console</h1>
-                <p class="text-gray-400 mt-3 max-w-2xl">
+                <p class="text-[#95a39b] mt-3 max-w-2xl">
                     Track platform activity, message volume, performance trends, and conversion signals in one place.
                 </p>
-                <p id="updatedAt" class="text-xs text-gray-500 mt-3"></p>
+                <p id="updatedAt" class="text-xs kc-mono text-[#5e6c65] mt-3"></p>
             </section>
 
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="admin-kpi-grid">
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-visitors">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Visitors Today</p>
+                <article class="kc-card rounded-2xl p-5" data-testid="admin-kpi-visitors">
+                    <p class="text-xs text-[#5e6c65] kc-mono uppercase tracking-[0.15em]">Visitors Today</p>
                     <p id="kpiVisitors" class="text-3xl font-black mt-2">-</p>
-                    <p class="text-gray-400 text-sm mt-1">Total users (today)</p>
+                    <p class="text-[#95a39b] text-sm mt-1">Total users (today)</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-events">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Events Today</p>
+                <article class="kc-card rounded-2xl p-5" data-testid="admin-kpi-events">
+                    <p class="text-xs text-[#5e6c65] kc-mono uppercase tracking-[0.15em]">Events Today</p>
                     <p id="kpiLeads" class="text-3xl font-black mt-2">-</p>
-                    <p class="text-gray-400 text-sm mt-1">GA4 event count</p>
+                    <p class="text-[#95a39b] text-sm mt-1">GA4 event count</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-sessions">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Sessions Today</p>
+                <article class="kc-card rounded-2xl p-5" data-testid="admin-kpi-sessions">
+                    <p class="text-xs text-[#5e6c65] kc-mono uppercase tracking-[0.15em]">Sessions Today</p>
                     <p id="kpiSessions" class="text-3xl font-black mt-2">-</p>
-                    <p class="text-gray-400 text-sm mt-1">All-site sessions</p>
+                    <p class="text-[#95a39b] text-sm mt-1">All-site sessions</p>
                 </article>
-                <article class="bg-gray-900 border border-gray-800 rounded-2xl p-5 card-glow" data-testid="admin-kpi-engagement">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Engagement Rate</p>
+                <article class="kc-card rounded-2xl p-5" data-testid="admin-kpi-engagement">
+                    <p class="text-xs text-[#5e6c65] kc-mono uppercase tracking-[0.15em]">Engagement Rate</p>
                     <p id="kpiEngagement" class="text-3xl font-black mt-2">-</p>
-                    <p class="text-gray-400 text-sm mt-1">Today</p>
+                    <p class="text-[#95a39b] text-sm mt-1">Today</p>
                 </article>
             </section>
 
             <section class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-testid="admin-analytics-section">
-                <div class="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6" data-testid="admin-trend-panel">
+                <div class="lg:col-span-2 kc-card rounded-2xl p-6" data-testid="admin-trend-panel">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-xl font-bold">Traffic Trend (7 Days)</h2>
-                        <span id="trendSource" class="text-xs text-gray-500">Loading...</span>
+                        <span id="trendSource" class="text-xs kc-mono uppercase tracking-[0.15em] text-[#5e6c65]">Loading...</span>
                     </div>
-                    <div id="trendBars" class="h-64 w-full rounded-xl bg-gray-950 border border-gray-800 p-4 flex items-end gap-2">
-                        <p class="text-sm text-gray-500">No trend data yet.</p>
+                    <div id="trendBars" class="h-64 w-full rounded-xl bg-[#0f1311] border border-[#233027] p-4 flex items-end gap-2">
+                        <p class="text-sm text-[#5e6c65]">No trend data yet.</p>
                     </div>
                 </div>
 
-                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6" data-testid="admin-sources-panel">
+                <div class="kc-card rounded-2xl p-6" data-testid="admin-sources-panel">
                     <h2 class="text-xl font-bold mb-4">Top Sources</h2>
                     <ul id="sourceList" class="space-y-3 text-sm">
-                        <li class="flex justify-between"><span class="text-gray-400">Loading...</span><span>-</span></li>
+                        <li class="flex justify-between"><span class="text-[#95a39b]">Loading...</span><span>-</span></li>
                     </ul>
-                    <hr class="my-5 border-gray-800" />
+                    <hr class="my-5 border-[#233027]" />
                     <h3 class="font-semibold mb-3">System Health</h3>
                     <div class="space-y-2 text-sm">
-                        <p class="flex items-center justify-between"><span class="text-gray-400">API</span><span class="text-emerald-400">Operational</span></p>
-                        <p class="flex items-center justify-between"><span class="text-gray-400">Email Service</span><span class="text-emerald-400">Operational</span></p>
-                        <p class="flex items-center justify-between"><span class="text-gray-400">Database</span><span class="text-yellow-400">Minor Latency</span></p>
+                        <p class="flex items-center justify-between"><span class="text-[#95a39b]">API</span><span class="kc-status-ok">Operational</span></p>
+                        <p class="flex items-center justify-between"><span class="text-[#95a39b]">Email Service</span><span class="kc-status-ok">Operational</span></p>
+                        <p class="flex items-center justify-between"><span class="text-[#95a39b]">Database</span><span class="kc-status-warn">Minor Latency</span></p>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-gray-900 border border-gray-800 rounded-2xl p-6 overflow-x-auto" data-testid="admin-events-section">
+            <section class="kc-card rounded-2xl p-6 overflow-x-auto" data-testid="admin-events-section">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-bold">Recent Events</h2>
-                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm px-4 py-2 rounded-lg transition-colors" data-testid="admin-export-csv-btn">Export CSV</button>
+                    <button class="kc-btn-secondary" data-testid="admin-export-csv-btn">Export CSV</button>
                 </div>
                 <table class="min-w-full text-sm">
                     <thead>
-                        <tr class="text-left text-gray-500 border-b border-gray-800">
+                        <tr class="text-left text-[#5e6c65] kc-mono uppercase tracking-[0.14em] border-b border-[#233027]">
                             <th class="py-3 pr-4">Time</th>
                             <th class="py-3 pr-4">Event</th>
                             <th class="py-3 pr-4">User</th>
                             <th class="py-3 pr-4">Status</th>
                         </tr>
                     </thead>
-                    <tbody id="eventsBody" class="text-gray-300">
+                    <tbody id="eventsBody" class="text-[#dbe3df]">
                         <tr>
                             <td class="py-3 pr-4">-</td>
                             <td class="py-3 pr-4">No activity yet</td>
                             <td class="py-3 pr-4">System</td>
-                            <td class="py-3 pr-4 text-gray-400">Info</td>
+                            <td class="py-3 pr-4 text-[#95a39b]">Info</td>
                         </tr>
                     </tbody>
                 </table>
@@ -181,7 +249,7 @@
 
         function renderTrend(trend) {
             if (!Array.isArray(trend) || trend.length === 0) {
-                trendBars.innerHTML = '<p class="text-sm text-gray-500">No trend data yet.</p>';
+                trendBars.innerHTML = '<p class="text-sm text-[#5e6c65]">No trend data yet.</p>';
                 return;
             }
 
@@ -192,8 +260,8 @@
                 const slug = slugifyToken(item.label, index, 'trend');
                 return `
                     <div class="w-full flex flex-col items-center justify-end gap-2" data-testid="trend-bar-${slug}">
-                        <div class="bg-indigo-500/80 w-full rounded-t" style="height:${height}%"></div>
-                        <span class="text-[10px] text-gray-500">${label}</span>
+                        <div class="bg-[#7fff9e]/80 w-full rounded-t" style="height:${height}%"></div>
+                        <span class="text-[10px] text-[#5e6c65] kc-mono uppercase tracking-[0.1em]">${label}</span>
                     </div>
                 `;
             }).join('');
@@ -201,14 +269,14 @@
 
         function renderSources(sources) {
             if (!Array.isArray(sources) || sources.length === 0) {
-                sourceList.innerHTML = '<li class="flex justify-between"><span class="text-gray-400">No source data</span><span>0</span></li>';
+                sourceList.innerHTML = '<li class="flex justify-between"><span class="text-[#95a39b]">No source data</span><span>0</span></li>';
                 return;
             }
             sourceList.innerHTML = sources.map((src, index) => {
                 const sourceName = escapeHtml(src.name || 'Unknown');
                 const slug = slugifyToken(src.name, index, 'source');
                 return `
-                <li class="flex justify-between" data-testid="source-item-${slug}"><span class="text-gray-400">${sourceName}</span><span>${formatNumber(src.value)}</span></li>
+                <li class="flex justify-between" data-testid="source-item-${slug}"><span class="text-[#95a39b]">${sourceName}</span><span>${formatNumber(src.value)}</span></li>
             `;
             }).join('');
         }
@@ -220,7 +288,7 @@
                         <td class="py-3 pr-4">-</td>
                         <td class="py-3 pr-4">No recent events</td>
                         <td class="py-3 pr-4">System</td>
-                        <td class="py-3 pr-4 text-gray-400">Info</td>
+                        <td class="py-3 pr-4 text-[#95a39b]">Info</td>
                     </tr>
                 `;
                 return;
@@ -231,11 +299,11 @@
                 const eventText = escapeHtml(ev.text || 'Event');
                 const slug = slugifyToken(ev.text || ev.time, index, 'event');
                 return `
-                <tr class="border-b border-gray-800/60" data-testid="event-row-${slug}">
+                <tr class="border-b border-[#233027]/60" data-testid="event-row-${slug}">
                     <td class="py-3 pr-4">${eventTime}</td>
                     <td class="py-3 pr-4">${eventText}</td>
                     <td class="py-3 pr-4">System</td>
-                    <td class="py-3 pr-4 text-emerald-400">Success</td>
+                    <td class="py-3 pr-4 text-[#7fff9e]">Success</td>
                 </tr>
             `;
             }).join('');
