@@ -70,74 +70,49 @@
 
     <main>
         <section class="border-b border-[#233027]">
-            <div class="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <div class="lg:col-span-7 kc-fadeup d1">
-                    <p class="kc-mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Outcome First</p>
-                    <h1 class="kc-mono font-bold text-4xl md:text-6xl leading-[1.03]">Your money, finally under control — with an AI coach that learns your habits.</h1>
-                    <p class="text-[#9ca9a2] text-lg mt-7 max-w-2xl leading-relaxed">Stop guessing where money goes each month. Get one clear weekly action, reduce money stress, and build a reliable monthly surplus with coaching that adapts to your patterns.</p>
-                    <div class="mt-9 flex flex-wrap gap-3">
-                        <a href="/contact" class="inline-flex items-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-5 py-3 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="start_starter_plan" data-cta-location="budget_tracker_hero">Start for $5/mo <i class="fas fa-arrow-right text-xs"></i></a>
-                        <a href="#plans" class="inline-flex items-center gap-2 border border-[#233027] px-5 py-3 text-sm kc-mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="view_plans" data-cta-location="budget_tracker_hero">See plans</a>
+            <div class="max-w-6xl mx-auto px-6 lg:px-12 py-20 md:py-24">
+                <div class="text-center kc-fadeup d1">
+                    <p class="kc-mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Live Product</p>
+                    <h1 class="kc-mono font-bold text-4xl md:text-6xl leading-[1.03]">Open Budget Tracker in the live app.</h1>
+                    <p class="text-[#9ca9a2] text-lg mt-7 max-w-3xl mx-auto leading-relaxed">This page is a lightweight fallback inside Konticode. The full product experience, onboarding, pricing, and account flow live in the dedicated Budget Tracker application.</p>
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center gap-3">
+                        {% if budget_tracker_url %}
+                        <a href="{{ budget_tracker_url }}" class="inline-flex items-center justify-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-6 py-4 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="open_live_budget_tracker" data-cta-location="budget_tracker_fallback_hero">Open live Budget Tracker <i class="fas fa-arrow-right text-xs"></i></a>
+                        {% else %}
+                        <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-6 py-4 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="request_budget_tracker_access" data-cta-location="budget_tracker_fallback_hero">Request Budget Tracker access <i class="fas fa-arrow-right text-xs"></i></a>
+                        {% endif %}
+                        <a href="/features" class="inline-flex items-center justify-center gap-2 border border-[#233027] px-6 py-4 text-sm kc-mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="view_platform_features" data-cta-location="budget_tracker_fallback_hero">View platform features</a>
                     </div>
-                    <p class="kc-mono text-[11px] uppercase tracking-[0.16em] text-[#6f7b74] mt-4">Cancel anytime. Start in under 3 minutes.</p>
-                </div>
-                <div class="lg:col-span-5 kc-fadeup d2 border border-[#233027] bg-[#121614] p-6">
-                    <p class="kc-mono text-xs uppercase tracking-[0.2em] text-[#4b5b51] mb-4">What Changes In 30 Days</p>
-                    <ul class="space-y-4 text-sm text-[#d9e1dd]">
-                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You spot recurring money leaks before they become monthly surprises.</span></li>
-                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You get a weekly priority action instead of staring at raw numbers.</span></li>
-                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You build consistency with an AI coach that learns your habits.</span></li>
-                    </ul>
-                    <div class="mt-6 pt-6 border-t border-[#233027] kc-mono text-xs text-[#6f7b74]">avg_time_to_first_clarity_report: <span class="text-[#9ca9a2]">under 10 minutes</span></div>
                 </div>
             </div>
         </section>
 
-        <section id="plans" class="py-20 border-b border-[#233027]">
-            <div class="max-w-7xl mx-auto px-6 lg:px-12">
-                <p class="kc-mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Micro-SaaS Plans</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <article class="kc-fadeup d1 border border-[#233027] bg-[#171c19] p-6">
-                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Starter</p>
-                        <h2 class="mt-3 font-semibold text-2xl">$5/mo</h2>
-                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: know exactly where your money leaks are.</p>
-                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
-                            <li>- Weekly Money Clarity Report</li>
-                            <li>- Top 3 waste alerts</li>
-                            <li>- One weekly save challenge</li>
-                        </ul>
-                    </article>
-                    <article class="kc-fadeup d2 border border-[#7fff9e] bg-[#171c19] p-6 relative overflow-hidden">
-                        <span class="absolute top-3 right-3 kc-mono text-[10px] uppercase tracking-[0.16em] bg-[#7fff9e] text-[#0b0d0c] px-2 py-1">Most Popular</span>
-                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Control</p>
-                        <h2 class="mt-3 font-semibold text-2xl">$15/mo</h2>
-                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: build a reliable monthly surplus.</p>
-                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
-                            <li>- Everything in Starter</li>
-                            <li>- Personalized weekly category limits</li>
-                            <li>- Month-end forecast + recovery plan</li>
-                        </ul>
-                    </article>
-                    <article class="kc-fadeup d3 border border-[#233027] bg-[#171c19] p-6">
-                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Momentum</p>
-                        <h2 class="mt-3 font-semibold text-2xl">$29/mo</h2>
-                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: hit your money goals faster with accountability.</p>
-                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
-                            <li>- Everything in Control</li>
-                            <li>- Goal mode: debt, savings, or travel</li>
-                            <li>- Priority support + extra AI nudges</li>
-                        </ul>
-                    </article>
-                </div>
+        <section class="py-16 border-b border-[#233027]">
+            <div class="max-w-6xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+                <article class="kc-fadeup d1 border border-[#233027] bg-[#171c19] p-6">
+                    <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Outcome</p>
+                    <h2 class="mt-3 text-xl font-semibold">Money clarity every week</h2>
+                    <p class="text-[#9ca9a2] text-sm mt-3">Get practical, habit-based guidance that helps you take the next best step with confidence.</p>
+                </article>
+                <article class="kc-fadeup d2 border border-[#233027] bg-[#171c19] p-6">
+                    <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Pricing</p>
+                    <h2 class="mt-3 text-xl font-semibold">Simple monthly plans</h2>
+                    <p class="text-[#9ca9a2] text-sm mt-3">Starter at $5, with higher tiers available in the live app as your needs grow.</p>
+                </article>
+                <article class="kc-fadeup d3 border border-[#233027] bg-[#171c19] p-6">
+                    <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Access</p>
+                    <h2 class="mt-3 text-xl font-semibold">Dedicated app experience</h2>
+                    <p class="text-[#9ca9a2] text-sm mt-3">Use the standalone Budget Tracker app for onboarding, account setup, and product dashboards.</p>
+                </article>
             </div>
         </section>
 
         <section class="py-20">
-            <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center kc-fadeup d3">
-                <p class="kc-mono text-xs uppercase tracking-[0.2em] text-[#7fff9e] mb-3">Start Small, Win Weekly</p>
-                <h2 class="text-3xl md:text-5xl font-bold">Pay for confidence, not complexity.</h2>
-                <p class="text-[#9ca9a2] text-lg mt-5 mb-8">Start at $5/month and get your first Weekly Money Clarity Report. Upgrade only when you want deeper coaching and faster progress.</p>
-                <a href="/contact" class="inline-flex items-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-7 py-4 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="start_starter_plan" data-cta-location="budget_tracker_footer">Start for $5/mo <i class="fas fa-arrow-right text-xs"></i></a>
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 text-center kc-fadeup d3">
+                <p class="kc-mono text-xs uppercase tracking-[0.2em] text-[#7fff9e] mb-3">Need Help Connecting?</p>
+                <h2 class="text-3xl md:text-5xl font-bold">We can route your team in under a day.</h2>
+                <p class="text-[#9ca9a2] text-lg mt-5 mb-8">If you are integrating this with your existing stack, we can help wire auth, links, and deployment flow cleanly.</p>
+                <a href="/contact" class="inline-flex items-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-7 py-4 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="book_budget_tracker_setup_call" data-cta-location="budget_tracker_fallback_footer">Book setup call <i class="fas fa-arrow-right text-xs"></i></a>
             </div>
         </section>
     </main>

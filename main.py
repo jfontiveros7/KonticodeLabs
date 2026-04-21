@@ -106,7 +106,7 @@ def budget_tracker():
     external_url = _get_budget_tracker_url()
     if external_url:
         return redirect(external_url)
-    return render_template("budget_tracker.html")
+    return render_template("budget_tracker.html", budget_tracker_url=external_url)
 
 
 @app.route("/budget-tracker/<path:subpath>")
