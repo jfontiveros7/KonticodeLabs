@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money Calm Coach | Konticode Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #9ca9a2;
+            --kc-accent: #7fff9e;
+        }
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 12% -10%, #203229 0%, #090c0b 42%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+        .kc-mono { font-family: "IBM Plex Mono", monospace; }
+        .kc-grid-bg {
+            background-image:
+                linear-gradient(rgba(127, 255, 158, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127, 255, 158, 0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 30%, transparent 88%);
+        }
+        .kc-fadeup { opacity: 0; transform: translateY(20px); animation: kcFadeUp 0.8s ease forwards; }
+        .d1 { animation-delay: 0.08s; }
+        .d2 { animation-delay: 0.18s; }
+        .d3 { animation-delay: 0.28s; }
+        @keyframes kcFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);} 
+        gtag('js', new Date());
+        gtag('config', 'G-HXPJGHXTBV');
+    </script>
+</head>
+<body class="overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 kc-grid-bg opacity-45"></div></div>
+
+    <header class="sticky top-0 z-50 border-b border-[#233027] bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105 hover:border-[#7fff9e] hover:shadow-[0_0_18px_rgba(127,255,158,0.45)]"><img src="/static/Konticode-Labs-logo-konticodecom-style.png" alt="Konticode Labs logo" class="w-full h-full object-cover" /></span>
+                <span class="kc-mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6 text-sm kc-mono uppercase tracking-[0.12em] text-[#9ca9a2]">
+                <a href="/" class="hover:text-[#7fff9e] transition-colors">Home</a>
+                <a href="/features" class="hover:text-[#7fff9e] transition-colors">Features</a>
+                <a href="/demo" class="hover:text-[#7fff9e] transition-colors">Demo</a>
+                <a href="/contact" class="hover:text-[#7fff9e] transition-colors">Contact</a>
+            </nav>
+            <a href="/contact" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs uppercase tracking-[0.15em] kc-mono font-semibold" data-cta="start_starter_plan" data-cta-location="budget_tracker_header">Start for $5/mo</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="border-b border-[#233027]">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-7 kc-fadeup d1">
+                    <p class="kc-mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Outcome First</p>
+                    <h1 class="kc-mono font-bold text-4xl md:text-6xl leading-[1.03]">Your money, finally under control — with an AI coach that learns your habits.</h1>
+                    <p class="text-[#9ca9a2] text-lg mt-7 max-w-2xl leading-relaxed">Stop guessing where money goes each month. Get one clear weekly action, reduce money stress, and build a reliable monthly surplus with coaching that adapts to your patterns.</p>
+                    <div class="mt-9 flex flex-wrap gap-3">
+                        <a href="/contact" class="inline-flex items-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-5 py-3 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="start_starter_plan" data-cta-location="budget_tracker_hero">Start for $5/mo <i class="fas fa-arrow-right text-xs"></i></a>
+                        <a href="#plans" class="inline-flex items-center gap-2 border border-[#233027] px-5 py-3 text-sm kc-mono uppercase tracking-[0.14em] hover:border-[#7fff9e] hover:text-[#7fff9e] transition-colors" data-cta="view_plans" data-cta-location="budget_tracker_hero">See plans</a>
+                    </div>
+                    <p class="kc-mono text-[11px] uppercase tracking-[0.16em] text-[#6f7b74] mt-4">Cancel anytime. Start in under 3 minutes.</p>
+                </div>
+                <div class="lg:col-span-5 kc-fadeup d2 border border-[#233027] bg-[#121614] p-6">
+                    <p class="kc-mono text-xs uppercase tracking-[0.2em] text-[#4b5b51] mb-4">What Changes In 30 Days</p>
+                    <ul class="space-y-4 text-sm text-[#d9e1dd]">
+                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You spot recurring money leaks before they become monthly surprises.</span></li>
+                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You get a weekly priority action instead of staring at raw numbers.</span></li>
+                        <li class="flex gap-3"><i class="fas fa-check text-[#7fff9e] mt-1"></i><span>You build consistency with an AI coach that learns your habits.</span></li>
+                    </ul>
+                    <div class="mt-6 pt-6 border-t border-[#233027] kc-mono text-xs text-[#6f7b74]">avg_time_to_first_clarity_report: <span class="text-[#9ca9a2]">under 10 minutes</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plans" class="py-20 border-b border-[#233027]">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <p class="kc-mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Micro-SaaS Plans</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <article class="kc-fadeup d1 border border-[#233027] bg-[#171c19] p-6">
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Starter</p>
+                        <h2 class="mt-3 font-semibold text-2xl">$5/mo</h2>
+                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: know exactly where your money leaks are.</p>
+                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
+                            <li>- Weekly Money Clarity Report</li>
+                            <li>- Top 3 waste alerts</li>
+                            <li>- One weekly save challenge</li>
+                        </ul>
+                    </article>
+                    <article class="kc-fadeup d2 border border-[#7fff9e] bg-[#171c19] p-6 relative overflow-hidden">
+                        <span class="absolute top-3 right-3 kc-mono text-[10px] uppercase tracking-[0.16em] bg-[#7fff9e] text-[#0b0d0c] px-2 py-1">Most Popular</span>
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Control</p>
+                        <h2 class="mt-3 font-semibold text-2xl">$15/mo</h2>
+                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: build a reliable monthly surplus.</p>
+                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
+                            <li>- Everything in Starter</li>
+                            <li>- Personalized weekly category limits</li>
+                            <li>- Month-end forecast + recovery plan</li>
+                        </ul>
+                    </article>
+                    <article class="kc-fadeup d3 border border-[#233027] bg-[#171c19] p-6">
+                        <p class="kc-mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Momentum</p>
+                        <h2 class="mt-3 font-semibold text-2xl">$29/mo</h2>
+                        <p class="text-[#9ca9a2] text-sm mt-3">Outcome: hit your money goals faster with accountability.</p>
+                        <ul class="mt-4 space-y-2 text-sm text-[#d9e1dd]">
+                            <li>- Everything in Control</li>
+                            <li>- Goal mode: debt, savings, or travel</li>
+                            <li>- Priority support + extra AI nudges</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center kc-fadeup d3">
+                <p class="kc-mono text-xs uppercase tracking-[0.2em] text-[#7fff9e] mb-3">Start Small, Win Weekly</p>
+                <h2 class="text-3xl md:text-5xl font-bold">Pay for confidence, not complexity.</h2>
+                <p class="text-[#9ca9a2] text-lg mt-5 mb-8">Start at $5/month and get your first Weekly Money Clarity Report. Upgrade only when you want deeper coaching and faster progress.</p>
+                <a href="/contact" class="inline-flex items-center gap-2 bg-[#7fff9e] text-[#0b0d0c] px-7 py-4 text-sm kc-mono uppercase tracking-[0.14em] font-semibold" data-cta="start_starter_plan" data-cta-location="budget_tracker_footer">Start for $5/mo <i class="fas fa-arrow-right text-xs"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-[#233027] py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 justify-between items-center text-sm text-[#6f7b74]">
+            <div class="kc-mono uppercase tracking-[0.14em] text-xs">Konticode Labs / Engineering Studio</div>
+            <div>&copy; 2026 Konticode Labs</div>
+            <div class="flex gap-5"><a href="/about" class="hover:text-[#7fff9e]">About</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a><a href="/affiliate-tools" class="hover:text-[#7fff9e]">Tools</a></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("click", (event) => {
+            const cta = event.target.closest("[data-cta]");
+            if (!cta || typeof gtag !== "function") return;
+            gtag("event", "cta_click", {
+                cta_name: cta.dataset.cta || "unknown",
+                cta_location: cta.dataset.ctaLocation || "budget_tracker",
+                destination: cta.getAttribute("href") || ""
+            });
+        });
+    </script>
+</body>
+</html>

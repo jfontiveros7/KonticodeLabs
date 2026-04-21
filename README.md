@@ -1,5 +1,19 @@
 # CustomPythonApp
 
+## External Budget Tracker Link
+
+You can redirect Budget Tracker traffic to an external app (for example Railway) without changing templates.
+
+Set this environment variable in local `.env` and Railway variables:
+
+- `BUDGET_TRACKER_URL=https://your-budget-tracker.up.railway.app`
+
+Behavior:
+
+1. `/budget-tracker` redirects to `BUDGET_TRACKER_URL` when set.
+2. `/budget-tracker/<path>` forwards to `BUDGET_TRACKER_URL/<path>` when set.
+3. If `BUDGET_TRACKER_URL` is missing or invalid, the local `templates/budget_tracker.html` page is served.
+
 ## Marketing Analytics Playbook
 
 This project uses Google Analytics (gtag) to track conversion behavior across marketing pages.

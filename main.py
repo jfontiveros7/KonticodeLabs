@@ -2,6 +2,7 @@ import os
 import json
 import base64
 import datetime
+from urllib.parse import urlparse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
@@ -87,6 +88,34 @@ def features():
 def demo():
     return render_template("demo.html")
 
+
+def _get_budget_tracker_url():
+    """Return a validated external Budget Tracker base URL or None."""
+    url = (os.getenv("BUDGET_TRACKER_URL") or "").strip().rstrip("/")
+    if not url:
+        return None
+
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return None
+
+    return url
+
+@app.route("/budget-tracker")
+def budget_tracker():
+    external_url = _get_budget_tracker_url()
+    if external_url:
+        return redirect(external_url)
+    return render_template("budget_tracker.html")
+
+
+@app.route("/budget-tracker/<path:subpath>")
+def budget_tracker_subpath(subpath):
+    external_url = _get_budget_tracker_url()
+    if external_url:
+        return redirect(f"{external_url}/{subpath}")
+    return redirect(url_for("budget_tracker"))
+
 @app.route("/affiliate-tools")
 def affiliate_tools():
     return render_template("affiliatehub.html")
@@ -117,6 +146,7 @@ def sitemap_xml():
         "about",
         "features",
         "demo",
+        "budget_tracker",
         "tech",
         "contact",
         "agent",
