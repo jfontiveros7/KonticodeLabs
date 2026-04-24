@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konticode Support and Feedback</title>
+    <meta name="description" content="Ready-to-use donations and feedback package for Konticode." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/css/konticode-theme.css" />
+  </head>
+  <body>
+    <main class="shell kc-grid-bg">
+      <section class="grid grid-two-cards">
+        <article class="panel kc-fadeup kc-delay-2">
+          <div class="panel-head">
+            <p class="eyebrow kc-accent">Support Konticode</p>
+            <h2>Support Konticode and help shape what comes next.</h2>
+          </div>
+          <p class="panel-copy">
+            Every contribution helps fund development, new features, and a better experience for everyone who uses the platform.
+          </p>
+          <p class="panel-copy">
+            Use the feedback form for bug reports, feature requests, donation questions, or general notes so the flow stays simple and predictable.
+          </p>
+
+          <ul class="feature-list">
+            <li>Report bugs or rough edges</li>
+            <li>Ask support or donation questions</li>
+            <li>Share ideas for the next release</li>
+          </ul>
+
+          <button class="button button-primary feedback-primary" type="button" data-open-feedback>
+            Send feedback
+          </button>
+        </article>
+
+        <article class="panel panel-highlight kc-panel-soft kc-border-glow kc-fadeup kc-delay-1" id="support">
+          <div class="panel-head">
+            <p class="eyebrow">Support</p>
+            <h2 id="support-headline" style="color:var(--kc-text)">One-time donations or recurring support.</h2>
+          </div>
+          <p class="panel-copy support-copy">
+            Pick the contribution that fits. The one-time button uses the selected amount card, and the monthly button starts a recurring Stripe checkout.
+          </p>
+
+          <div class="donation-cards" id="donation-cards"></div>
+
+          <div class="support-actions">
+            <button class="kc-button-primary button" id="donate-link" type="button">
+              Donate now
+            </button>
+            <button class="kc-button-secondary button" id="monthly-link" type="button">
+              Become a supporter
+            </button>
+          </div>
+          <div class="status" id="checkout-status" aria-live="polite"></div>
+          <p class="microcopy" id="support-note">
+            Contributions support ongoing product work, site upkeep, and new features.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="feedback-backdrop" hidden></div>
+    <section
+      class="modal"
+      id="feedback-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="feedback-title"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="modal-card">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">Feedback</p>
+            <h2 id="feedback-title">Tell us what would make this better.</h2>
+          </div>
+          <button class="icon-button" type="button" aria-label="Close feedback form" data-close-feedback>
+            <span aria-hidden="true">X</span>
+          </button>
+        </div>
+
+        <form id="feedback-form" novalidate>
+          <label>
+            <span>Topic</span>
+            <select name="topic" required>
+              <option value="">Select one</option>
+              <option value="bug">Bug report</option>
+              <option value="feature">Feature request</option>
+              <option value="donation">Support or donation question</option>
+              <option value="general">General feedback</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Your email</span>
+            <input name="email" type="email" placeholder="you@example.com" required />
+          </label>
+
+          <label>
+            <span>Message</span>
+            <textarea
+              name="message"
+              rows="6"
+              placeholder="Tell us what you noticed, what you were trying to do, and how we can make it better."
+              required
+            ></textarea>
+          </label>
+
+          <label class="checkbox-row">
+            <input name="followUp" type="checkbox" />
+            <span>I am open to a follow-up reply.</span>
+          </label>
+
+          <input name="page" id="feedback-page" type="hidden" />
+
+          <div class="status" id="feedback-status" aria-live="polite"></div>
+
+          <div class="modal-actions">
+            <button class="button button-secondary" type="button" data-close-feedback>
+              Cancel
+            </button>
+            <button class="button button-primary" id="feedback-submit" type="submit">
+              Send feedback
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="/static/config.js"></script>
+    <script src="/static/widget.js"></script>
+  </body>
+</html>

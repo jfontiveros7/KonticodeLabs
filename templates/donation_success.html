@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | Konticode Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#0f1412] text-[#eef6f1]">
+    <main class="mx-auto flex min-h-screen max-w-3xl items-center px-6 py-12">
+        <section class="w-full rounded-3xl border border-[#233027] bg-[#121614] p-8 shadow-2xl shadow-black/30">
+            <p class="text-xs uppercase tracking-[0.24em] text-[#7fff9e]">Konticode Support</p>
+            <h1 class="mt-4 text-4xl font-semibold">Thank you for supporting Konticode.</h1>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-[#9ca9a2]">
+                Your contribution helps fund product improvements, support time, and new releases.
+                If this was a recurring contribution, you can manage billing details anytime from Stripe's customer portal.
+            </p>
+
+            <div class="mt-6 rounded-2xl border border-[#233027] bg-[#171c19] p-5 text-sm leading-6 text-[#9ca9a2]">
+                <p class="font-semibold text-[#eef6f1]">What happens next</p>
+                <p class="mt-2">
+                    Stripe should email a receipt for this payment. For recurring support, Stripe also manages future invoices and billing updates.
+                </p>
+            </div>
+
+            {% if session_id %}
+            <form action="{{ url_for('create_portal_session') }}" method="post" class="mt-8">
+                <input type="hidden" name="session_id" value="{{ session_id }}" />
+                <button
+                    type="submit"
+                    class="inline-flex items-center justify-center rounded-full bg-[#7fff9e] px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#0b0d0c] transition hover:bg-[#5ce683]"
+                >
+                    Manage billing
+                </button>
+            </form>
+            {% endif %}
+
+            <div class="mt-4 flex flex-wrap gap-3">
+                <a
+                    href="{{ url_for('support') }}"
+                    class="inline-flex items-center justify-center rounded-full border border-[#233027] px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#eef6f1] transition hover:border-[#7fff9e] hover:text-[#7fff9e]"
+                >
+                    Back to support page
+                </a>
+                <a
+                    href="{{ url_for('contact') }}"
+                    class="inline-flex items-center justify-center rounded-full border border-[#233027] px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-[#eef6f1] transition hover:border-[#7fff9e] hover:text-[#7fff9e]"
+                >
+                    Contact us
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

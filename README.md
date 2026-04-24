@@ -1,5 +1,86 @@
 # CustomPythonApp
 
+## Support Page
+
+This project includes a dedicated support and feedback page at `/support`.
+
+What it does:
+
+- shows the Konticode support/donation experience
+- starts Stripe Checkout for one-time and monthly support
+- opens a feedback form that posts to `/api/feedback`
+
+Main files:
+
+- `static/index.html`
+- `static/styles.css`
+- `static/css/konticode-theme.css`
+- `static/config.js`
+- `static/widget.js`
+- `templates/donation_success.html`
+- `main.py`
+
+### Stripe Configuration
+
+The live support flow uses backend-created Stripe Checkout Sessions, not static payment links.
+
+Required environment variables:
+
+- `STRIPE_SECRET_KEY`
+- `STRIPE_PRICE_DONATION_5`
+- `STRIPE_PRICE_MONTHLY_SUPPORT`
+
+Optional:
+
+- `STRIPE_WEBHOOK_SECRET`
+- `PUBLIC_BASE_URL`
+
+Recommended Stripe setup:
+
+1. Create a one-time Stripe Price for the `$5` donation.
+2. Create a recurring monthly Stripe Price for ongoing support.
+3. Copy those `price_...` IDs into `.env`.
+4. Add your `STRIPE_SECRET_KEY`.
+5. Restart the app and test `/support`.
+
+Example `.env` values:
+
+```env
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PRICE_DONATION_5=price_...
+STRIPE_PRICE_MONTHLY_SUPPORT=price_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+PUBLIC_BASE_URL=https://konticode.com
+```
+
+How the donation flow works:
+
+1. The support page shows the donation/support UI.
+2. Clicking `Donate now` or `Become a supporter` calls `POST /api/create-checkout-session`.
+3. The Flask backend reads the configured Stripe Price ID from `.env`.
+4. Stripe returns a hosted Checkout URL.
+5. The browser redirects to Stripe Checkout.
+6. After payment, Stripe returns the donor to `/support/success`.
+
+Current plans wired in code:
+
+- one-time donation: `STRIPE_PRICE_DONATION_5`
+- monthly support: `STRIPE_PRICE_MONTHLY_SUPPORT`
+
+Related endpoints:
+
+- `POST /api/create-checkout-session`
+- `POST /api/create-portal-session`
+- `POST /api/stripe-webhook`
+
+### Feedback Configuration
+
+The support page feedback form submits JSON to:
+
+- `POST /api/feedback`
+
+The backend then sends the message through the configured Gmail OAuth mail flow.
+
 ## External Budget Tracker Link
 
 You can redirect Budget Tracker traffic to an external app (for example Railway) without changing templates.
@@ -153,30 +234,30 @@ Signals:
 1. Open a page with tracked CTA.
 2. Click CTA in browser.
 3. Confirm GA DebugView receives event:
-	- `cta_click` with correct params.
+   - `cta_click` with correct params.
 4. Submit contact form successfully.
 5. Confirm GA DebugView receives:
-	- `contact_form_submit` with `form_name` and `subject`.
+   - `contact_form_submit` with `form_name` and `subject`.
 
 ## Reporting Recommendations (GA4)
 
 Create the following views:
 
 1. **Primary CTA Performance**
-	- Filter `cta_click` where `cta_name = book_intro_call`
-	- Breakdown by `cta_location`
+   - Filter `cta_click` where `cta_name = book_intro_call`
+   - Breakdown by `cta_location`
 
 2. **Secondary CTA Performance**
-	- Filter `cta_click` where `cta_name = try_live_agent`
-	- Breakdown by `cta_location`
+   - Filter `cta_click` where `cta_name = try_live_agent`
+   - Breakdown by `cta_location`
 
 3. **Contact Conversion Rate Proxy**
-	- `contact_form_submit` count
-	- Divided by `book_intro_call` click count
+   - `contact_form_submit` count
+   - Divided by `book_intro_call` click count
 
 4. **Affiliate Exit Performance**
-	- Filter `cta_click` where `cta_name` starts with `affiliate_`
-	- Breakdown by `cta_name`
+   - Filter `cta_click` where `cta_name` starts with `affiliate_`
+   - Breakdown by `cta_name`
 
 ## GA4 Custom Dimensions Setup
 
@@ -194,155 +275,5 @@ Navigation:
 Create the following dimensions exactly:
 
 1. Dimension name: `CTA Name`
-	- Scope: Event
-	- Event parameter: `cta_name`
-	- Description: Primary action key for CTA click events.
-
-2. Dimension name: `CTA Location`
-	- Scope: Event
-	- Event parameter: `cta_location`
-	- Description: Page/section identifier for CTA placement.
-
-3. Dimension name: `CTA Destination`
-	- Scope: Event
-	- Event parameter: `destination`
-	- Description: CTA href target URL or path.
-
-4. Dimension name: `Contact Subject`
-	- Scope: Event
-	- Event parameter: `subject`
-	- Description: Subject selected on successful contact submissions.
-
-5. Dimension name: `Form Name`
-	- Scope: Event
-	- Event parameter: `form_name`
-	- Description: Identifier for submitted forms.
-
-### Custom Metrics Note
-
-No custom metrics are required for this setup.
-
-Use GA4's built-in **Event count** metric with filters on:
-
-1. `event_name = cta_click`
-2. `event_name = contact_form_submit`
-
-Only create custom metrics if you later send numeric event parameters (for example, `lead_value`).
-
-### Verification Checklist After Setup
-
-1. Wait for new event traffic (or use DebugView immediately).
-2. Open Explore in GA4 and add dimensions:
-	- `CTA Name`
-	- `CTA Location`
-	- `CTA Destination`
-3. Add metrics:
-	- Event count
-	- Key events (if configured)
-4. Confirm `cta_click` rows show all three CTA dimensions.
-5. Confirm `contact_form_submit` rows show `Contact Subject` and `Form Name`.
-
-### Common Pitfalls
-
-1. Parameter name mismatch (must exactly match code keys).
-2. Creating user-scoped instead of event-scoped dimensions.
-3. Expecting historical backfill before definition creation.
-4. Forgetting to publish/submit the new definitions in GA4.
-
-## 30-Minute GA4 Launch Checklist
-
-Use this quick runbook after deployment to confirm conversion tracking is usable on day one.
-
-### 0-5 Minutes: Property and Stream Sanity
-
-1. Confirm the GA4 Measurement ID in templates matches the intended property (`G-HXPJGHXTBV`).
-2. Open the live site and verify page views appear in Realtime.
-3. Open DebugView in GA4 for immediate event validation.
-
-### 5-12 Minutes: Trigger Core Events
-
-1. Click a primary CTA (`book_intro_call`) from:
-	- landing header
-	- landing hero
-	- landing footer
-2. Click a secondary CTA (`try_live_agent`) from:
-	- landing hero
-	- features footer
-3. Submit contact form successfully once.
-
-Expected in DebugView:
-
-1. `cta_click` with populated params:
-	- `cta_name`
-	- `cta_location`
-	- `destination`
-2. `contact_form_submit` with populated params:
-	- `form_name`
-	- `subject`
-
-### 12-20 Minutes: Build Explorations
-
-Create one Exploration with these tabs.
-
-Tab 1: `Primary CTA Performance`
-
-1. Rows: `CTA Location`
-2. Filter:
-	- `Event name` exactly matches `cta_click`
-	- `CTA Name` exactly matches `book_intro_call`
-3. Metric: `Event count`
-
-Tab 2: `Secondary CTA Performance`
-
-1. Rows: `CTA Location`
-2. Filter:
-	- `Event name` exactly matches `cta_click`
-	- `CTA Name` exactly matches `try_live_agent`
-3. Metric: `Event count`
-
-Tab 3: `Contact Submit Quality`
-
-1. Rows: `Contact Subject`
-2. Filter:
-	- `Event name` exactly matches `contact_form_submit`
-3. Metric: `Event count`
-
-Tab 4: `Affiliate Outbound Clicks`
-
-1. Rows: `CTA Name`
-2. Secondary rows (optional): `CTA Location`
-3. Filter:
-	- `Event name` exactly matches `cta_click`
-	- `CTA Name` contains `affiliate_`
-4. Metric: `Event count`
-
-### 20-25 Minutes: Create Key Event(s)
-
-In GA4 Admin > Data display > Events:
-
-1. Mark `contact_form_submit` as a Key event.
-2. Optionally mark `cta_click` as Key event only if you want broad micro-conversion tracking.
-
-Recommendation:
-
-1. Keep `contact_form_submit` as the primary Key event for lead conversion.
-2. Use `cta_click` mostly for behavioral analysis.
-
-### 25-30 Minutes: Baseline Snapshot
-
-Record the first baseline counts for:
-
-1. `book_intro_call` clicks
-2. `try_live_agent` clicks
-3. `contact_form_submit` submits
-4. `affiliate_` clicks
-
-Store baseline in an internal note so week-over-week changes are measurable.
-
-## Weekly Monitoring Rhythm
-
-1. Compare primary CTA clicks vs contact submits.
-2. Identify top and weakest `cta_location` values.
-3. Review subject distribution from `contact_form_submit`.
-4. Review affiliate click mix by `cta_name`.
-5. Ship one CTA copy or placement improvement per week.
+   - Scope: Event
+   - Event parameter: `cta_name`

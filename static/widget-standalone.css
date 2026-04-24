@@ -1,0 +1,360 @@
+/* Konticode Support/Feedback Widget Standalone Styles */
+:root {
+  --bg: #f3efe4;
+  --panel: rgba(255, 252, 247, 0.88);
+  --panel-strong: linear-gradient(145deg, rgba(16, 51, 45, 0.94), rgba(29, 79, 69, 0.92));
+  --ink: #16211d;
+  --muted: #4f5c57;
+  --line: rgba(22, 33, 29, 0.12);
+  --accent: #d86b31;
+  --accent-strong: #be5520;
+  --accent-soft: rgba(216, 107, 49, 0.14);
+  --success: #1b6b4b;
+  --shadow: 0 18px 60px rgba(17, 29, 26, 0.16);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.widget-standalone {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(216, 107, 49, 0.22), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(38, 93, 81, 0.18), transparent 26%),
+    var(--bg);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+body.widget-standalone::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(22, 33, 29, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 33, 29, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 85%);
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+.hero,
+.panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.hero {
+  padding: 44px;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.92), rgba(255, 248, 237, 0.84));
+}
+
+.hero h1,
+.panel h2 {
+  margin: 0;
+  font-family: "Source Serif 4", serif;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(2.7rem, 5vw, 5.3rem);
+}
+
+.hero-copy,
+.panel-copy,
+.microcopy,
+.feature-list {
+  color: var(--muted);
+}
+
+.hero-copy {
+  max-width: 62ch;
+  margin: 18px 0 0;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero-actions,
+.support-actions,
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-actions {
+  margin-top: 28px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  color: #fffaf6;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+}
+
+.button-secondary {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.64);
+  border-color: var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.panel {
+  padding: 30px;
+  background: var(--panel);
+}
+
+.panel-highlight {
+  color: #eef6f1;
+  background: var(--panel-strong);
+}
+
+.panel-highlight .eyebrow,
+.panel-highlight .panel-copy,
+.panel-highlight .microcopy {
+  color: rgba(238, 246, 241, 0.84);
+}
+
+.panel-head {
+  margin-bottom: 12px;
+}
+
+.panel h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.panel-copy {
+  margin: 0 0 22px;
+  line-height: 1.7;
+}
+
+.donation-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 26px 0;
+}
+
+.donation-card {
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-lg);
+  background: rgba(247, 253, 249, 0.08);
+}
+
+.donation-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.45rem;
+}
+
+.donation-card span {
+  color: rgba(238, 246, 241, 0.8);
+  font-size: 0.95rem;
+}
+
+.feature-list {
+  margin: 0 0 24px;
+  padding-left: 18px;
+  line-height: 1.8;
+}
+
+.microcopy {
+  margin: 18px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 18, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 10;
+}
+
+.modal-card {
+  width: min(640px, 100%);
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 250, 244, 0.98);
+  box-shadow: var(--shadow);
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.45rem;
+  cursor: pointer;
+}
+
+form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(22, 33, 29, 0.16);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(216, 107, 49, 0.18);
+  border-color: var(--accent);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-row input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.status {
+  min-height: 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.status.error {
+  color: #a83a2d;
+}
+
+.status.success {
+  color: var(--success);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero,
+  .panel,
+  .modal-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero h1 {
+    max-width: none;
+  }
+
+  .hero-actions,
+  .support-actions,
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

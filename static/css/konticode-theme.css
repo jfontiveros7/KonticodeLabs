@@ -1,0 +1,254 @@
+/* Konticode bright editorial theme overrides for the standalone support widget. */
+:root {
+    --bg: #f7f4ec;
+    --panel: rgba(255, 250, 243, 0.82);
+    --panel-strong: linear-gradient(145deg, rgba(34, 85, 73, 0.94), rgba(62, 131, 113, 0.9));
+    --ink: #1c2520;
+    --muted: #56645d;
+    --line: rgba(28, 37, 32, 0.12);
+    --accent: #ea7441;
+    --accent-strong: #cf5622;
+    --accent-soft: rgba(234, 116, 65, 0.14);
+    --success: #1f7a56;
+    --shadow: 0 24px 70px rgba(68, 54, 28, 0.14);
+    --kc-text: #1c2520;
+    --kc-muted: #56645d;
+    --kc-accent: #ea7441;
+    --kc-accent-2: #ffd66e;
+    --kc-border: rgba(28, 37, 32, 0.12);
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    color: var(--ink);
+    background:
+        radial-gradient(circle at top left, rgba(255, 214, 110, 0.38), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(114, 214, 186, 0.24), transparent 26%),
+        linear-gradient(180deg, #fbf8f2 0%, #f4efe4 100%);
+}
+
+body::before {
+    background-image:
+        linear-gradient(rgba(28, 37, 32, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 37, 32, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.18), transparent 88%);
+}
+
+.kc-grid-bg {
+    position: relative;
+}
+
+.kc-grid-bg::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 15% 12%, rgba(234, 116, 65, 0.08), transparent 16%),
+        radial-gradient(circle at 82% 78%, rgba(54, 172, 137, 0.08), transparent 18%);
+}
+
+.kc-border-glow {
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.68),
+        0 24px 60px rgba(80, 58, 24, 0.14);
+}
+
+.kc-fadeup {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: kcFadeUp 0.85s ease forwards;
+}
+
+.kc-delay-1 {
+    animation-delay: 0.08s;
+}
+
+.kc-delay-2 {
+    animation-delay: 0.18s;
+}
+
+.kc-delay-3 {
+    animation-delay: 0.28s;
+}
+
+.hero,
+.panel,
+.modal-card {
+    color: var(--ink);
+    border-color: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+}
+
+.hero {
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 246, 233, 0.84)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.55));
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 214, 110, 0.34), rgba(255, 214, 110, 0));
+    pointer-events: none;
+}
+
+.hero-meta span {
+    border-color: rgba(28, 37, 32, 0.1);
+    background: rgba(255, 255, 255, 0.76);
+    color: #35554c;
+}
+
+.hero h1,
+.panel h2,
+.modal-card h2 {
+    color: #18211d;
+}
+
+.panel {
+    background: linear-gradient(180deg, rgba(255, 250, 243, 0.88), rgba(255, 247, 239, 0.82));
+}
+
+.panel-highlight {
+    color: #f8fdf9;
+    background: linear-gradient(150deg, #245449 0%, #356e60 56%, #5b9d84 100%);
+}
+
+.panel-highlight .eyebrow,
+.panel-highlight .panel-copy,
+.panel-highlight .microcopy,
+.panel-highlight .donation-card span {
+    color: rgba(245, 251, 247, 0.82);
+}
+
+.panel-highlight .donation-card {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-copy,
+.panel-copy,
+.microcopy,
+.feature-list,
+.kc-muted {
+    color: var(--muted);
+}
+
+.eyebrow,
+.kc-accent {
+    color: var(--accent-strong);
+}
+
+.button {
+    border-radius: 999px;
+}
+
+.kc-button-primary.button,
+.kc-button-primary,
+.button-primary {
+    color: #fffaf6;
+    background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+    border-color: transparent;
+    box-shadow: 0 14px 30px rgba(207, 86, 34, 0.2);
+}
+
+.kc-button-primary.button:hover,
+.kc-button-primary:hover,
+.kc-button-primary.button:focus-visible,
+.button-primary:hover,
+.button-primary:focus-visible {
+    background: linear-gradient(180deg, #f28b56, #d95f2b);
+    box-shadow: 0 18px 36px rgba(217, 95, 43, 0.24);
+}
+
+.kc-button-secondary.button,
+.kc-button-secondary,
+.button-secondary {
+    color: #24483f;
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(36, 72, 63, 0.14);
+}
+
+.kc-button-secondary.button:hover,
+.kc-button-secondary:hover,
+.kc-button-secondary.button:focus-visible,
+.button-secondary:hover,
+.button-secondary:focus-visible {
+    color: #18352e;
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(24, 53, 46, 0.18);
+}
+
+.donation-card {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.modal-backdrop {
+    background:
+        radial-gradient(circle at top, rgba(255, 214, 110, 0.12), transparent 22%),
+        rgba(28, 37, 32, 0.4);
+}
+
+.modal-card {
+    background: linear-gradient(180deg, rgba(255, 252, 247, 0.96), rgba(255, 247, 239, 0.94));
+}
+
+.icon-button,
+input,
+select,
+textarea {
+    color: var(--ink);
+    border-color: rgba(28, 37, 32, 0.12);
+    background: rgba(255, 255, 255, 0.86);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid rgba(234, 116, 65, 0.18);
+    border-color: var(--accent);
+}
+
+.status.error {
+    color: #b6462b;
+}
+
+.status.loading {
+    color: #cf5622;
+    font-weight: 700;
+}
+
+.status.success {
+    color: var(--success);
+}
+
+@keyframes kcFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kc-fadeup {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
