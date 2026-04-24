@@ -7,12 +7,38 @@
     <meta name="description" content="Ready-to-use donations and feedback package for Konticode." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/styles.css" />
     <link rel="stylesheet" href="/static/css/konticode-theme.css" />
   </head>
   <body>
-    <main class="shell kc-grid-bg">
+    <header class="site-header">
+      <div class="site-shell site-header-inner">
+        <a href="/" class="site-brand">
+          <span class="site-brand-mark">
+            <img src="/static/Konticode-Labs-logo-konticodecom-style.png" alt="Konticode Labs logo" />
+          </span>
+          <span class="site-mono site-brand-text">Konticode Labs</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/features">Features</a>
+          <a href="/about">About</a>
+          <a href="/support" aria-current="page">Support</a>
+        </nav>
+        <a href="/contact#contact-form" class="site-cta">Book intro call</a>
+      </div>
+    </header>
+
+    <main class="shell kc-grid-bg site-main">
+      <section class="site-intro kc-fadeup kc-delay-1">
+        <p class="eyebrow">Support</p>
+        <h1>Support Konticode without leaving the main site experience.</h1>
+        <p class="site-intro-copy">
+          Send feedback, report issues, or support future development with the same look and feel as the rest of Konticode.
+        </p>
+      </section>
+
       <section class="grid grid-two-cards">
         <article class="panel kc-fadeup kc-delay-2">
           <div class="panel-head">
@@ -132,6 +158,19 @@
         </form>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="site-shell site-footer-inner">
+        <div class="site-mono site-footer-mark">Konticode Labs / Support</div>
+        <div class="site-footer-copy">&copy; 2026 Konticode Labs</div>
+        <nav class="site-footer-nav" aria-label="Footer">
+          <a href="/about">About</a>
+          <a href="/support">Support</a>
+          <a href="/contact#contact-form">Contact</a>
+          <a href="/affiliate-tools">Tools</a>
+        </nav>
+      </div>
+    </footer>
 
     <script src="/static/config.js"></script>
     <script src="/static/widget.js"></script>
