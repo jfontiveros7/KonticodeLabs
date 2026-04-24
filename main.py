@@ -3,8 +3,12 @@ import json
 import base64
 import datetime
 import importlib
+import re
+from html import unescape
 from contextlib import contextmanager
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, Response
@@ -120,6 +124,132 @@ def _parse_request_data():
     return {}
 
 
+def _normalize_external_url(raw_url):
+    candidate = (raw_url or "").strip()
+    if not candidate:
+        raise ValueError("Website URL is required.")
+
+    if not re.match(r"^https?://", candidate, flags=re.IGNORECASE):
+        candidate = "https://" + candidate
+
+    parsed = urlparse(candidate)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ValueError("Enter a valid website URL, for example https://example.com")
+
+    return candidate
+
+
+def _html_to_text(raw_html):
+    without_scripts = re.sub(r"(?is)<script.*?>.*?</script>", " ", raw_html)
+    without_styles = re.sub(r"(?is)<style.*?>.*?</style>", " ", without_scripts)
+    stripped = re.sub(r"(?s)<[^>]+>", " ", without_styles)
+    decoded = unescape(stripped)
+    return re.sub(r"\s+", " ", decoded).strip()
+
+
+def _extract_html_match(pattern, raw_html):
+    match = re.search(pattern, raw_html, flags=re.IGNORECASE | re.DOTALL)
+    if not match:
+        return ""
+    return re.sub(r"\s+", " ", unescape(match.group(1))).strip()
+
+
+def _fetch_website_snapshot(target_url):
+    request_headers = {
+        "User-Agent": "KonticodeAuditBot/1.0 (+https://konticode.com)"
+    }
+    request_obj = Request(target_url, headers=request_headers)
+
+    try:
+        with urlopen(request_obj, timeout=12) as response:
+            html_bytes = response.read(250000)
+            raw_html = html_bytes.decode("utf-8", errors="ignore")
+            final_url = response.geturl()
+    except HTTPError as exc:
+        raise RuntimeError(f"Could not fetch the website. It returned HTTP {exc.code}.") from exc
+    except URLError as exc:
+        raise RuntimeError("Could not reach that website. Check the URL and try again.") from exc
+
+    title = _extract_html_match(r"<title[^>]*>(.*?)</title>", raw_html)
+    meta_description = _extract_html_match(
+        r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']',
+        raw_html,
+    ) or _extract_html_match(
+        r'<meta[^>]+content=["\'](.*?)["\'][^>]+name=["\']description["\']',
+        raw_html,
+    )
+    headings = re.findall(r"<h[1-3][^>]*>(.*?)</h[1-3]>", raw_html, flags=re.IGNORECASE | re.DOTALL)
+    cleaned_headings = [
+        re.sub(r"\s+", " ", unescape(re.sub(r"(?s)<[^>]+>", " ", heading))).strip()
+        for heading in headings
+    ]
+    body_text = _html_to_text(raw_html)
+
+    return {
+        "url": final_url,
+        "title": title,
+        "meta_description": meta_description,
+        "headings": [heading for heading in cleaned_headings if heading][:8],
+        "body_excerpt": body_text[:5000],
+    }
+
+
+def _generate_website_audit(snapshot, intake):
+    llm = _get_llm()
+    prompt = f"""
+You are a senior website strategist creating a free but genuinely useful website audit.
+
+Write a concise, practical audit in markdown for a small business or founder.
+Use clear language, avoid hype, and do not invent facts not supported by the page snapshot.
+If something is uncertain, say "Based on the visible page..." or "I could not confirm..."
+
+Audit request:
+- Website: {snapshot["url"]}
+- Business type: {intake.get("business_type") or "Not provided"}
+- Primary goal: {intake.get("primary_goal") or "Not provided"}
+- Audience: {intake.get("audience") or "Not provided"}
+- Extra notes: {intake.get("notes") or "None"}
+
+Visible page signals:
+- Title: {snapshot["title"] or "Not found"}
+- Meta description: {snapshot["meta_description"] or "Not found"}
+- Headings: {json.dumps(snapshot["headings"], ensure_ascii=True)}
+- Page text excerpt: {snapshot["body_excerpt"]}
+
+Return markdown with exactly these sections:
+## Quick Score
+Give 5 scores from 1-10 for Clarity, Trust, Conversion, SEO, Mobile Experience.
+
+## What Is Working
+3 concise bullets.
+
+## Biggest Gaps
+3 concise bullets.
+
+## Priority Fixes
+Give 5 numbered recommendations, each with why it matters.
+
+## Fast Win
+One short paragraph with the single highest-leverage next action.
+"""
+
+    response = llm.invoke(prompt)
+    return response.content.strip()
+
+
+def _parse_audit_request():
+    data = _parse_request_data()
+    return {
+        "website_url": _normalize_external_url(data.get("website_url", "")),
+        "name": (data.get("name") or "").strip(),
+        "email": (data.get("email") or "").strip(),
+        "business_type": (data.get("business_type") or "").strip(),
+        "primary_goal": (data.get("primary_goal") or "").strip(),
+        "audience": (data.get("audience") or "").strip(),
+        "notes": (data.get("notes") or "").strip(),
+    }
+
+
 def _load_stripe():
     try:
         return importlib.import_module("stripe")
@@ -212,6 +342,10 @@ def dashboard():
 def contact():
     return render_template("contact.html")
 
+@app.route("/audit")
+def audit():
+    return render_template("audit.html")
+
 @app.route("/tech")
 def tech():
     return render_template("tech.html")
@@ -297,6 +431,7 @@ def sitemap_xml():
         "about",
         "features",
         "demo",
+        "audit",
         "budget_tracker",
         "tech",
         "contact",
@@ -511,6 +646,73 @@ def send_feedback():
         return jsonify({"error": f"Gmail API error: {e.reason}"}), 500
     except Exception as e:
         return jsonify({"error": f"Could not send feedback: {str(e)}"}), 500
+
+
+@app.route("/api/website-audit", methods=["POST"])
+def website_audit():
+    try:
+        audit_request = _parse_audit_request()
+        website_url = audit_request["website_url"]
+        name = audit_request["name"]
+        sender_email = audit_request["email"]
+        business_type = audit_request["business_type"]
+        primary_goal = audit_request["primary_goal"]
+        audience = audit_request["audience"]
+        notes = audit_request["notes"]
+
+        if not sender_email:
+            return jsonify({"error": "Email is required."}), 400
+
+        snapshot = _fetch_website_snapshot(website_url)
+        intake = {
+            "business_type": business_type,
+            "primary_goal": primary_goal,
+            "audience": audience,
+            "notes": notes,
+        }
+        audit_markdown = _generate_website_audit(snapshot, intake)
+
+        mail_config = _get_mail_config("AUDIT_RECEIVER")
+        if not mail_config["missing"]:
+            requester_name = name or "Website audit request"
+            email_body = (
+                f"Audit request from: {requester_name}\n"
+                f"Email: {sender_email}\n"
+                f"Website: {snapshot['url']}\n"
+                f"Business type: {business_type or 'Not provided'}\n"
+                f"Primary goal: {primary_goal or 'Not provided'}\n"
+                f"Audience: {audience or 'Not provided'}\n"
+                f"Notes: {notes or 'Not provided'}\n"
+                f"{'-' * 40}\n\n"
+                f"{audit_markdown}"
+            )
+            service = _build_gmail_service(mail_config)
+            _send_gmail_message(
+                service,
+                mail_config["mail_sender"],
+                mail_config["mail_receiver"],
+                f"[Konticode Audit] {snapshot['url']}",
+                email_body,
+                reply_to=sender_email,
+            )
+
+        _log_activity(f"Website audit: {snapshot['url']} <{sender_email}>")
+        return jsonify({
+            "ok": True,
+            "website_url": snapshot["url"],
+            "audit": audit_markdown,
+        }), 200
+
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    except RuntimeError as e:
+        return jsonify({"error": str(e)}), 502
+    except HttpError as e:
+        return jsonify({"error": f"Gmail API error: {e.reason}"}), 500
+    except (APIConnectionError, AuthenticationError, RateLimitError) as e:
+        return jsonify({"error": f"AI service error: {str(e)}"}), 503
+    except Exception as e:
+        return jsonify({"error": f"Could not generate audit: {str(e)}"}), 500
 
 
 @app.route("/api/create-checkout-session", methods=["POST"])

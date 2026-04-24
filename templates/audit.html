@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Get a free AI website audit from Konticode. See where your site can improve clarity, trust, SEO, and conversion." />
+    <link rel="canonical" href="https://konticode.com/audit" />
+    <title>Free AI Website Audit | Konticode Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --kc-bg: #090c0b;
+            --kc-panel: #121614;
+            --kc-panel-soft: #171c19;
+            --kc-border: #233027;
+            --kc-text: #f2f5f3;
+            --kc-muted: #9ca9a2;
+            --kc-accent: #7fff9e;
+            --kc-warm: #ffb454;
+        }
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: radial-gradient(circle at 88% 10%, #21352a 0%, #090c0b 38%), var(--kc-bg);
+            color: var(--kc-text);
+        }
+        .mono { font-family: "IBM Plex Mono", monospace; }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(127,255,158,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(127,255,158,0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 32%, transparent 88%);
+        }
+        .field {
+            background: #101412;
+            border: 1px solid #233027;
+            color: #f2f5f3;
+            border-radius: 0.85rem;
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-size: 0.95rem;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .field:focus {
+            outline: none;
+            border-color: #7fff9e;
+            box-shadow: 0 0 0 2px rgba(127,255,158,0.18);
+        }
+        .markdown-output h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #7fff9e;
+        }
+        .markdown-output p,
+        .markdown-output li {
+            color: #d7ded9;
+            line-height: 1.8;
+        }
+        .markdown-output ul,
+        .markdown-output ol {
+            padding-left: 1.2rem;
+            margin-bottom: 0.85rem;
+        }
+        .fade { opacity: 0; transform: translateY(18px); animation: fade .8s ease forwards; }
+        .d1 { animation-delay: .08s; }
+        .d2 { animation-delay: .16s; }
+        .d3 { animation-delay: .24s; }
+        @keyframes fade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPJGHXTBV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HXPJGHXTBV');
+    </script>
+</head>
+<body class="overflow-x-hidden">
+    <div class="fixed inset-0 -z-10 pointer-events-none"><div class="absolute inset-0 grid-bg opacity-45"></div></div>
+
+    <header class="sticky top-0 z-50 border-b border-[#233027] bg-[#090c0b]/90 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3"><span class="w-9 h-9 border border-[#233027] bg-[#121614] flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105 hover:border-[#7fff9e] hover:shadow-[0_0_18px_rgba(127,255,158,0.45)]"><img src="/static/Konticode-Labs-logo-konticodecom-style.png" alt="Konticode Labs logo" class="w-full h-full object-cover" /></span><span class="mono text-xs uppercase tracking-[0.18em] text-[#9ca9a2]">Konticode Labs</span></a>
+            <nav class="hidden md:flex items-center gap-6 text-sm mono uppercase tracking-[0.12em] text-[#9ca9a2]"><a href="/" class="hover:text-[#7fff9e]">Home</a><a href="/features" class="hover:text-[#7fff9e]">Features</a><a href="/support" class="hover:text-[#7fff9e]">Support</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a></nav>
+            <a href="/contact#contact-form" class="bg-[#7fff9e] hover:bg-[#5ce683] text-[#0b0d0c] px-4 py-2 text-xs mono uppercase tracking-[0.14em] font-semibold inline-flex items-center">Book intro call</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="border-b border-[#233027] py-20 md:py-24">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 fade d1">
+                    <p class="mono text-xs uppercase tracking-[0.24em] text-[#7fff9e] mb-4">Free AI Website Audit</p>
+                    <h1 class="mono font-bold text-4xl md:text-6xl leading-[1.03] max-w-4xl">See what your website is doing well, where it leaks trust, and what to fix first.</h1>
+                    <p class="text-[#9ca9a2] text-lg mt-6 max-w-2xl">Submit your homepage or landing page and get a practical audit covering clarity, conversion, trust, SEO, and mobile experience.</p>
+                    <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <article class="border border-[#233027] bg-[#171c19] p-4">
+                            <p class="mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Clarity</p>
+                            <p class="text-sm text-[#9ca9a2] mt-2">Is the offer obvious in the first few seconds?</p>
+                        </article>
+                        <article class="border border-[#233027] bg-[#171c19] p-4">
+                            <p class="mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Conversion</p>
+                            <p class="text-sm text-[#9ca9a2] mt-2">Are there friction points blocking clicks and signups?</p>
+                        </article>
+                        <article class="border border-[#233027] bg-[#171c19] p-4">
+                            <p class="mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">SEO</p>
+                            <p class="text-sm text-[#9ca9a2] mt-2">Can search engines and humans understand the page quickly?</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 fade d2">
+                    <div class="border border-[#233027] bg-[#121614] p-6 md:p-8">
+                        <h2 class="text-2xl font-semibold mb-2">Request your audit</h2>
+                        <p class="text-sm text-[#9ca9a2] mb-6">You will get an instant AI review on this page, and we will also send a copy to our team so we can follow up if you want deeper help.</p>
+
+                        <div id="auditError" class="hidden mb-5 bg-[#351919] border border-[#6a2b2b] rounded-xl px-4 py-3 text-sm text-[#ffb7b7]"></div>
+
+                        <form id="auditForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-[#9ca9a2] mb-2">Website URL <span class="text-[#ff8e86]">*</span></label>
+                                <input type="url" id="websiteUrl" class="field" placeholder="https://yourwebsite.com" required />
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-[#9ca9a2] mb-2">Your name</label>
+                                    <input type="text" id="name" class="field" placeholder="Jane" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-[#9ca9a2] mb-2">Email <span class="text-[#ff8e86]">*</span></label>
+                                    <input type="email" id="email" class="field" placeholder="you@example.com" required />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-[#9ca9a2] mb-2">Business type</label>
+                                    <input type="text" id="businessType" class="field" placeholder="SaaS, agency, ecommerce..." />
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-[#9ca9a2] mb-2">Primary goal</label>
+                                    <input type="text" id="primaryGoal" class="field" placeholder="More leads, sales, demos..." />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-[#9ca9a2] mb-2">Audience</label>
+                                <input type="text" id="audience" class="field" placeholder="Founders, local customers, hiring teams..." />
+                            </div>
+                            <div>
+                                <label class="block text-sm text-[#9ca9a2] mb-2">Anything you want us to focus on?</label>
+                                <textarea id="notes" rows="4" class="field resize-none" placeholder="Tell us what feels off, where users drop, or what you want the site to do better."></textarea>
+                            </div>
+                            <button type="submit" id="auditSubmit" class="w-full bg-[#7fff9e] hover:bg-[#5ce683] disabled:opacity-60 disabled:cursor-not-allowed text-[#0b0d0c] font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm mono uppercase tracking-[0.14em]">
+                                <i class="fas fa-sparkles"></i>
+                                <span id="auditSubmitText">Generate Free Audit</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16">
+            <div class="max-w-5xl mx-auto px-6 lg:px-12">
+                <div id="auditResultPanel" class="hidden border border-[#233027] bg-[#121614] p-6 md:p-8 fade d3">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-5">
+                        <div>
+                            <p class="mono text-xs uppercase tracking-[0.18em] text-[#7fff9e]">Audit Result</p>
+                            <h2 class="text-2xl font-semibold mt-2">Your AI website audit</h2>
+                        </div>
+                        <p id="auditedUrl" class="text-sm text-[#ffb454] break-all"></p>
+                    </div>
+                    <div id="auditResult" class="markdown-output"></div>
+                    <div class="mt-8 border-t border-[#233027] pt-6">
+                        <p class="text-sm text-[#9ca9a2]">Want help turning the audit into fixes? <a href="/contact#contact-form" class="text-[#7fff9e] hover:text-[#5ce683]">Book a build conversation</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-[#233027] py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-4 justify-between items-center text-sm text-[#6f7b74]">
+            <div class="mono uppercase tracking-[0.14em] text-xs">Konticode Labs / AI Website Audit</div>
+            <div>&copy; 2026 Konticode Labs</div>
+            <div class="flex gap-5"><a href="/" class="hover:text-[#7fff9e]">Home</a><a href="/support" class="hover:text-[#7fff9e]">Support</a><a href="/contact" class="hover:text-[#7fff9e]">Contact</a></div>
+        </div>
+    </footer>
+
+    <script>
+        function renderMarkdown(markdown) {
+            const lines = String(markdown || "").split(/\r?\n/);
+            const html = [];
+            let listType = null;
+
+            function escapeHtml(value) {
+                return String(value)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+            }
+
+            function closeList() {
+                if (listType) {
+                    html.push(`</${listType}>`);
+                    listType = null;
+                }
+            }
+
+            lines.forEach((rawLine) => {
+                const line = rawLine.trim();
+
+                if (!line) {
+                    closeList();
+                    return;
+                }
+
+                if (line.startsWith("## ")) {
+                    closeList();
+                    html.push(`<h2>${escapeHtml(line.slice(3))}</h2>`);
+                    return;
+                }
+
+                const orderedMatch = line.match(/^\d+\.\s+(.*)$/);
+                if (orderedMatch) {
+                    if (listType !== "ol") {
+                        closeList();
+                        listType = "ol";
+                        html.push("<ol>");
+                    }
+                    html.push(`<li>${escapeHtml(orderedMatch[1])}</li>`);
+                    return;
+                }
+
+                const bulletMatch = line.match(/^-\s+(.*)$/);
+                if (bulletMatch) {
+                    if (listType !== "ul") {
+                        closeList();
+                        listType = "ul";
+                        html.push("<ul>");
+                    }
+                    html.push(`<li>${escapeHtml(bulletMatch[1])}</li>`);
+                    return;
+                }
+
+                closeList();
+                html.push(`<p>${escapeHtml(line)}</p>`);
+            });
+
+            closeList();
+            return html.join("");
+        }
+
+        document.getElementById("auditForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const submitButton = document.getElementById("auditSubmit");
+            const submitText = document.getElementById("auditSubmitText");
+            const errorBox = document.getElementById("auditError");
+            const resultPanel = document.getElementById("auditResultPanel");
+            const resultBox = document.getElementById("auditResult");
+            const auditedUrl = document.getElementById("auditedUrl");
+
+            errorBox.classList.add("hidden");
+            resultPanel.classList.add("hidden");
+            submitButton.disabled = true;
+            submitText.textContent = "Reviewing site...";
+
+            const payload = {
+                website_url: document.getElementById("websiteUrl").value.trim(),
+                name: document.getElementById("name").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                business_type: document.getElementById("businessType").value.trim(),
+                primary_goal: document.getElementById("primaryGoal").value.trim(),
+                audience: document.getElementById("audience").value.trim(),
+                notes: document.getElementById("notes").value.trim()
+            };
+
+            try {
+                const response = await fetch("/api/website-audit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "The audit could not be generated right now.");
+                }
+
+                auditedUrl.textContent = data.website_url || payload.website_url;
+                resultBox.innerHTML = renderMarkdown(data.audit || "");
+                resultPanel.classList.remove("hidden");
+                resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+                if (typeof gtag === "function") {
+                    gtag("event", "generate_audit", {
+                        event_category: "engagement",
+                        event_label: payload.website_url
+                    });
+                }
+            } catch (error) {
+                errorBox.textContent = error.message || "Something went wrong. Please try again.";
+                errorBox.classList.remove("hidden");
+            } finally {
+                submitButton.disabled = false;
+                submitText.textContent = "Generate Free Audit";
+            }
+        });
+    </script>
+</body>
+</html>
